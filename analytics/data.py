@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import string
 
+from datetime import date, timedelta
 from random import seed, random, sample, randint, choice
 from enum import Enum
 from sklearn.datasets import make_regression, \
@@ -202,21 +203,26 @@ def _genEquityTicker(country='any'):
         return choice(western)
 
 
-def get_ticker(type='equity', country='any'):
+def getTicker(type='equity', country='any'):
     return _genEquityTicker()
 
 
-def get_ts_data(series=2, datetime_index=False, trend=.47, volatility=1):
+def getTsData(series=2, datetime_index=True, trend=.47, volatility=1):
     random_walk = np.zeros((1000, series))
     randbase = random()
     random_walk[0] = np.array([-1*randbase*volatility if random() < trend else randbase*volatility for _ in range(series)])
     for i in range(1, 1000):
         movement = np.array([-1*random()*volatility if random() < trend else random()*volatility for _ in range(series)])
         random_walk[i] = random_walk[i-1] + movement
-    return random_walk
+
+    ret = pd.DataFrame(random_walk, columns=['Series ' + str(x) for x in range(series)])
+
+    if datetime_index is True:
+        ret.index = np.array([date.today()-timedelta(days=1000)+timedelta(x) for x in range(1000)])
+    return ret
 
 
-def get_test_data(style='timeseries', n_samples=1, **kwargs):
+def getTestData(style='timeseries', n_samples=1, **kwargs):
     if isinstance(style, str):
         style = Style(style.lower())
     if style == Style.REGRESSION:
@@ -323,5 +329,5 @@ def get_test_data(style='timeseries', n_samples=1, **kwargs):
                               kwargs.get('random_state', Friedman3Args.random_state))
 
 
-def as_dataframe(test_data):
+def _as_dataframe(test_data):
     return None
