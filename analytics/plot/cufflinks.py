@@ -20,7 +20,6 @@ def plot(data, type='line', theme='pearl', **kwargs):
         cf.set_config_file(theme)
 
     type = str(type)
-    print(type)
     if type == 'line0':
         return iplot([{
             'x': data.index,
@@ -40,6 +39,18 @@ def plot(data, type='line', theme='pearl', **kwargs):
                           filename='cufflinks/cf-simple-line')
     elif type == 'area':
         return data.iplot(kind='scatter',
+                          subplots=kwargs.get('subplots', False),
+                          hline=kwargs.get('hline', []),
+                          vline=kwargs.get('vline', []),
+                          hspan=kwargs.get('hspan', _HSPAN_NONE),
+                          vspan=kwargs.get('vspan', _VSPAN_NONE),
+                          fill=True,
+                          color=kwargs.get('colors', []),
+                          bestfit=kwargs.get('bestfit', False),
+                          bestfit_colors=kwargs.get('bestfit_colors', []),
+                          filename='cufflinks/cf-simple-line')
+    elif type == 'spread':
+        return data.iplot(kind='spread',
                           subplots=kwargs.get('subplots', False),
                           hline=kwargs.get('hline', []),
                           vline=kwargs.get('vline', []),
@@ -97,7 +108,7 @@ def plot(data, type='line', theme='pearl', **kwargs):
                           hspan=kwargs.get('hspan', _HSPAN_NONE),
                           vspan=kwargs.get('vspan', _VSPAN_NONE),
                           filename='cufflinks/barh')
-    elif type == 'hist':
+    elif type == 'histogram':
         return data.iplot(kind='histogram',
                           bins=kwargs.get('bins', KWARGS['hist']['bins']),
                           histnorm=kwargs.get('histnorm', KWARGS['hist']['histnorm'][0]),
@@ -152,6 +163,11 @@ def plot(data, type='line', theme='pearl', **kwargs):
                           hspan=kwargs.get('hspan', _HSPAN_NONE),
                           vspan=kwargs.get('vspan', _VSPAN_NONE),
                           filename='cufflinks/box-plots')
+    elif type == 'pie':
+        return data.iplot(kind='pie',
+                          labels=kwargs.get('labels', 'labels'),
+                          values=kwargs.get('values', 'values'),
+                          subplots=kwargs.get('subplots', False))
     elif type == 'stackedarea':
         return data.iplot(kind='area',
                           fill=kwargs.get('fill', True),
@@ -200,7 +216,7 @@ def plot(data, type='line', theme='pearl', **kwargs):
                           filename='cufflinks/simple-bubble-chart')
     elif type == 'scattermatrix' or type == 'scattermat':
         return data.scatter_matrix(filename='cufflinks/scatter-matrix-subplot')
-    elif type == 'heatmat':
+    elif type == 'heatmap':
         return data.iplot(kind='heatmap',
                           colorscale=kwargs.get('colorscale', 'spectral'),
                           subplots=kwargs.get('subplots', False),

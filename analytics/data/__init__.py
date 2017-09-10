@@ -47,13 +47,30 @@ FRIEDMAN2 = 'friedman2'
 FRIEDMAN3 = 'friedman3'
 
 # cufflinks
-lines = Style('line', getCFData, {'type': 'line'}, {'type': 'line'})
-area = Style('line', getCFData, {'type': 'line'}, {'type': 'area'})
-timeseries = Style('line', getCFData, {'type': 'line'}, {'type': 'line'})
+lines = Style('line',
+              getCFData,
+              {'type': 'line'},
+              {'type': 'line'})
 
-scatter = Style('scatter', getCFData, {'type': 'scatter', 'n_categories': 5, 'n': 10}, {'type': 'scatter', 'mode': 'markers', 'size': 10, 'symbol': 'x', 'colorscale': 'paired'})
+area = Style('line',
+             getCFData,
+             {'type': 'line'},
+             {'type': 'area'})
 
-scatter3d = Style('scatter3d', getCFData, {'type': 'scatter3d'}, {'type': 'scatter3d'})
+timeseries = Style('line',
+                   getCFData,
+                   {'type': 'line'},
+                   {'type': 'line'})
+
+scatter = Style('scatter',
+                getCFData,
+                {'type': 'scatter', 'n_categories': 5, 'n': 10},
+                {'type': 'scatter', 'mode': 'markers', 'size': 10, 'symbol': 'x', 'colorscale': 'paired'})
+
+scatter3d = Style('scatter3d',
+                  getCFData,
+                  {'type': 'scatter3d'},
+                  {'type': 'scatter3d'})
 
 bubble = Style('bubble',
                getCFData,
@@ -63,18 +80,41 @@ bubble = Style('bubble',
 bubble3d = Style('bubble3d',
                  getCFData,
                  {'type': 'bubble3d', 'n_categories': 5, 'n': 10},
-                 {'type': 'bubble3d', 'x':'x', 'y':'y', 'z':'z', 'size':'size', 'categories': 'categories', 'text': 'text'})
+                 {'type': 'bubble3d', 'x': 'x', 'y': 'y', 'z': 'z', 'size': 'size', 'categories': 'categories', 'text': 'text'})
 
-pie = 'pie'
-heat = 'heatmap'
-bars = 'bars'
+pie = Style('pie',
+            getCFData,
+            {'type': 'pie'},
+            {'type': 'pie', 'labels': 'labels', 'values': 'values'})
+
+heat = Style('heatmap',
+             getCFData,
+             {'type': 'heatmap', 'n_x': 20, 'n_y': 20},
+             {'type': 'heatmap'})
+
+bars = Style('bars',
+             getCFData,
+             {'type': 'bar', 'n_categories': 5, 'n': 10},
+             {'type': 'bar'})
+
 ohlc = 'ohlc'
 ohlcv = 'ohlcv'
 box = 'box'
-histogram = 'hist'
-scattergeo = Style('scattergeo', getCFData, {'type': 'scattergeo'}, {'type': 'scattergeo'})
+histogram = Style('histogram',
+                  getCFData,
+                  {'type': 'histogram', 'n_traces': 2, 'n': 100},
+                  {'type': 'histogram'})
+
+# FIXME
+# scattergeo = Style('scattergeo',
+#                    getCFData,
+#                    {'type': 'scattergeo'},
+#                    {'type': 'scattergeo'})
+
 surface = 'surface'
+
 sinwave = Style('line', getCFData, {'type': 'line'}, {'type': 'sin'})
+
 choropleth = 'choropleth'
 stock = 'stock'
 
@@ -84,5 +124,5 @@ ticker = 'ticker'
 
 
 def getData(typ, **kwargs):
-    if type == LINES:
+    if type == lines:
         return
