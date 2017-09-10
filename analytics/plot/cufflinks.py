@@ -19,6 +19,8 @@ def plot(data, type='line', theme='pearl', **kwargs):
     else:
         cf.set_config_file(theme)
 
+    type = str(type)
+    print(type)
     if type == 'line0':
         return iplot([{
             'x': data.index,
@@ -32,6 +34,21 @@ def plot(data, type='line', theme='pearl', **kwargs):
                           vline=kwargs.get('vline', []),
                           hspan=kwargs.get('hspan', _HSPAN_NONE),
                           vspan=kwargs.get('vspan', _VSPAN_NONE),
+                          color=kwargs.get('colors', []),
+                          bestfit=kwargs.get('bestfit', False),
+                          bestfit_colors=kwargs.get('bestfit_colors', []),
+                          filename='cufflinks/cf-simple-line')
+    elif type == 'area':
+        return data.iplot(kind='scatter',
+                          subplots=kwargs.get('subplots', False),
+                          hline=kwargs.get('hline', []),
+                          vline=kwargs.get('vline', []),
+                          hspan=kwargs.get('hspan', _HSPAN_NONE),
+                          vspan=kwargs.get('vspan', _VSPAN_NONE),
+                          fill=True,
+                          color=kwargs.get('colors', []),
+                          bestfit=kwargs.get('bestfit', False),
+                          bestfit_colors=kwargs.get('bestfit_colors', []),
                           filename='cufflinks/cf-simple-line')
     elif type == 'bar':
         return data.iplot(kind='bar',
@@ -173,6 +190,8 @@ def plot(data, type='line', theme='pearl', **kwargs):
                           x=x,
                           y=y,
                           size=size,
+                          text=kwargs.get('text', None),
+                          categories=kwargs.get('categories', None),
                           subplots=kwargs.get('subplots', False),
                           hline=kwargs.get('hline', []),
                           vline=kwargs.get('vline', []),
