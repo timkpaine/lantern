@@ -9,6 +9,10 @@ def themes():
     return cf.getThemes()
 
 
+_HSPAN_NONE = {'x0': 0, 'x1': 0, 'color': 'rgba(30,30,30,0.0)', 'fill': False, 'opacity': 1.0}
+_VSPAN_NONE = {'y0': 0, 'y1': 0, 'color': 'rgba(30,30,30,0.0)', 'fill': False, 'opacity': 1.0}
+
+
 def plot(data, type='line', theme='pearl', **kwargs):
     if theme not in cf.getThemes():
         cf.set_config_file(theme='pearl')
@@ -24,64 +28,57 @@ def plot(data, type='line', theme='pearl', **kwargs):
     elif type == 'line':
         return data.iplot(kind='scatter',
                           subplots=kwargs.get('subplots', False),
-                          hline=kwargs.get('hline', None),
-                          vline=kwargs.get('vline', None),
-                          hspan=kwargs.get('hspan', {'x0': 0, 'x1': 0, 'color': 'rgba(30,30,30,0.0)', 'fill':False, 'opacity': 0.0}),
-                          vspan=kwargs.get('vspan', {'y0': 0, 'y1': 0, 'opacity': 0.0}),
+                          hline=kwargs.get('hline', []),
+                          vline=kwargs.get('vline', []),
+                          hspan=kwargs.get('hspan', _HSPAN_NONE),
+                          vspan=kwargs.get('vspan', _VSPAN_NONE),
                           filename='cufflinks/cf-simple-line')
-    elif type == 'scattermat':
-        return data.scatter_matrix(subplots=kwargs.get('subplots', False),
-                                   hline=kwargs.get('hline', None),
-                                   vline=kwargs.get('vline', None),
-                                   hspan=kwargs.get('hspan', None),
-                                   vspan=kwargs.get('vspan', None),
-                                   filename='cufflinks/scatter-matrix')
     elif type == 'bar':
         return data.iplot(kind='bar',
                           subplots=kwargs.get('subplots', False),
                           bargap=kwargs.get('bargap', KWARGS['bar']['bargap']),
-                          hline=kwargs.get('hline', None),
-                          vline=kwargs.get('vline', None),
-                          hspan=kwargs.get('hspan', None),
-                          vspan=kwargs.get('vspan', None),
+                          hline=kwargs.get('hline', []),
+                          vline=kwargs.get('vline', []),
+                          hspan=kwargs.get('hspan', _HSPAN_NONE),
+                          vspan=kwargs.get('vspan', _VSPAN_NONE),
                           filename='cufflinks/categorical-bar-chart')
     elif type == 'groupedbar':
         return data.iplot(kind='bar',
                           bargap=kwargs.get('bargap', KWARGS['groupedbar']['bargap']),
                           subplots=kwargs.get('subplots', False),
-                          hline=kwargs.get('hline', None),
-                          vline=kwargs.get('vline', None),
-                          hspan=kwargs.get('hspan', None),
-                          vspan=kwargs.get('vspan', None),
+                          hline=kwargs.get('hline', []),
+                          vline=kwargs.get('vline', []),
+                          hspan=kwargs.get('hspan', _HSPAN_NONE),
+                          vspan=kwargs.get('vspan', _VSPAN_NONE),
                           filename='cufflinks/grouped-bar-chart')
     elif type == 'stackedbar':
         return data.iplot(kind='bar',
                           barmode='stack',
                           bargap=kwargs.get('bargap', KWARGS['stackedbar']['bargap']),
                           subplots=kwargs.get('subplots', False),
-                          hline=kwargs.get('hline', None),
-                          vline=kwargs.get('vline', None),
-                          hspan=kwargs.get('hspan', None),
-                          vspan=kwargs.get('vspan', None),
+                          hline=kwargs.get('hline', []),
+                          vline=kwargs.get('vline', []),
+                          hspan=kwargs.get('hspan', _HSPAN_NONE),
+                          vspan=kwargs.get('vspan', _VSPAN_NONE),
                           filename='cufflinks/grouped-bar-chart')
     elif type == 'horizontalbar':
         return data.iplot(kind='barh',
                           bargap=kwargs.get('bargap', KWARGS['horizontalbar']['bargap']),
                           subplots=kwargs.get('subplots', False),
-                          hline=kwargs.get('hline', None),
-                          vline=kwargs.get('vline', None),
-                          hspan=kwargs.get('hspan', None),
-                          vspan=kwargs.get('vspan', None),
+                          hline=kwargs.get('hline', []),
+                          vline=kwargs.get('vline', []),
+                          hspan=kwargs.get('hspan', _HSPAN_NONE),
+                          vspan=kwargs.get('vspan', _VSPAN_NONE),
                           filename='cufflinks/barh')
     elif type == 'horizontalstackedbar':
         return data.iplot(kind='barh',
                           barmode='stack',
                           bargap=kwargs.get('bargap', KWARGS['horizontalstackedbar']['bargap']),
                           subplots=kwargs.get('subplots', False),
-                          hline=kwargs.get('hline', None),
-                          vline=kwargs.get('vline', None),
-                          hspan=kwargs.get('hspan', None),
-                          vspan=kwargs.get('vspan', None),
+                          hline=kwargs.get('hline', []),
+                          vline=kwargs.get('vline', []),
+                          hspan=kwargs.get('hspan', _HSPAN_NONE),
+                          vspan=kwargs.get('vspan', _VSPAN_NONE),
                           filename='cufflinks/barh')
     elif type == 'hist':
         return data.iplot(kind='histogram',
@@ -89,10 +86,10 @@ def plot(data, type='line', theme='pearl', **kwargs):
                           histnorm=kwargs.get('histnorm', KWARGS['hist']['histnorm'][0]),
                           histfunc=kwargs.get('histfunc', KWARGS['hist']['histfunc'][0]),
                           subplots=kwargs.get('subplots', False),
-                          hline=kwargs.get('hline', None),
-                          vline=kwargs.get('vline', None),
-                          hspan=kwargs.get('hspan', None),
-                          vspan=kwargs.get('vspan', None),
+                          hline=kwargs.get('hline', []),
+                          vline=kwargs.get('vline', []),
+                          hspan=kwargs.get('hspan', _HSPAN_NONE),
+                          vspan=kwargs.get('vspan', _VSPAN_NONE),
                           filename='cufflinks/basic-histogram')
     elif type == 'groupedhist':
         return data.iplot(kind='histogram',
@@ -101,10 +98,10 @@ def plot(data, type='line', theme='pearl', **kwargs):
                           histnorm=kwargs.get('histnorm', KWARGS['groupedhist']['histnorm'][0]),
                           histfunc=kwargs.get('histfunc', KWARGS['groupedhist']['histfunc'][0]),
                           subplots=kwargs.get('subplots', False),
-                          hline=kwargs.get('hline', None),
-                          vline=kwargs.get('vline', None),
-                          hspan=kwargs.get('hspan', None),
-                          vspan=kwargs.get('vspan', None),
+                          hline=kwargs.get('hline', []),
+                          vline=kwargs.get('vline', []),
+                          hspan=kwargs.get('hspan', _HSPAN_NONE),
+                          vspan=kwargs.get('vspan', _VSPAN_NONE),
                           filename='cufflinks/basic-histogram')
     elif type == 'stackedhist':
         return data.iplot(kind='histogram',
@@ -113,10 +110,10 @@ def plot(data, type='line', theme='pearl', **kwargs):
                           histnorm=kwargs.get('histnorm', KWARGS['stackedhist']['histnorm'][0]),
                           histfunc=kwargs.get('histfunc', KWARGS['stackedhist']['histfunc'][0]),
                           subplots=kwargs.get('subplots', False),
-                          hline=kwargs.get('hline', None),
-                          vline=kwargs.get('vline', None),
-                          hspan=kwargs.get('hspan', None),
-                          vspan=kwargs.get('vspan', None),
+                          hline=kwargs.get('hline', []),
+                          vline=kwargs.get('vline', []),
+                          hspan=kwargs.get('hspan', _HSPAN_NONE),
+                          vspan=kwargs.get('vspan', _HSPAN_NONE),
                           filename='cufflinks/basic-histogram')
     elif type == 'subplothist':
         return data.iplot(kind='histogram',
@@ -125,35 +122,35 @@ def plot(data, type='line', theme='pearl', **kwargs):
                           bins=kwargs.get('bins', KWARGS['subplothist']['bins']),
                           histnorm=kwargs.get('histnorm', KWARGS['subplothist']['histnorm'][0]),
                           histfunc=kwargs.get('histfunc', KWARGS['subplothist']['histfunc'][0]),
-                          hline=kwargs.get('hline', None),
-                          vline=kwargs.get('vline', None),
-                          hspan=kwargs.get('hspan', None),
-                          vspan=kwargs.get('vspan', None),
+                          hline=kwargs.get('hline', []),
+                          vline=kwargs.get('vline', []),
+                          hspan=kwargs.get('hspan', _HSPAN_NONE),
+                          vspan=kwargs.get('vspan', _VSPAN_NONE),
                           filename='cufflinks/histogram-subplots')
     elif type == 'box':
         return data.iplot(kind='box',
                           subplots=kwargs.get('subplots', False),
-                          hline=kwargs.get('hline', None),
-                          vline=kwargs.get('vline', None),
-                          hspan=kwargs.get('hspan', None),
-                          vspan=kwargs.get('vspan', None),
+                          hline=kwargs.get('hline', []),
+                          vline=kwargs.get('vline', []),
+                          hspan=kwargs.get('hspan', _HSPAN_NONE),
+                          vspan=kwargs.get('vspan', _VSPAN_NONE),
                           filename='cufflinks/box-plots')
     elif type == 'stackedarea':
         return data.iplot(kind='area',
                           fill=kwargs.get('fill', True),
                           subplots=kwargs.get('subplots', False),
-                          hline=kwargs.get('hline', None),
-                          vline=kwargs.get('vline', None),
-                          hspan=kwargs.get('hspan', None),
-                          vspan=kwargs.get('vspan', None),
+                          hline=kwargs.get('hline', []),
+                          vline=kwargs.get('vline', []),
+                          hspan=kwargs.get('hspan', _HSPAN_NONE),
+                          vspan=kwargs.get('vspan', _VSPAN_NONE),
                           filename='cuflinks/stacked-area')
     elif type == 'filledarea':
         return data.iplot(fill=True,
                           subplots=kwargs.get('subplots', False),
-                          hline=kwargs.get('hline', None),
-                          vline=kwargs.get('vline', None),
-                          hspan=kwargs.get('hspan', None),
-                          vspan=kwargs.get('vspan', None),
+                          hline=kwargs.get('hline', []),
+                          vline=kwargs.get('vline', []),
+                          hspan=kwargs.get('hspan', _HSPAN_NONE),
+                          vspan=kwargs.get('vspan', _VSPAN_NONE),
                           filename='cuflinks/filled-area')
     elif type == 'scatter':
         x = kwargs.get('x', data.columns[0])
@@ -163,10 +160,10 @@ def plot(data, type='line', theme='pearl', **kwargs):
                           x=x,
                           y=y,
                           subplots=kwargs.get('subplots', False),
-                          hline=kwargs.get('hline', None),
-                          vline=kwargs.get('vline', None),
-                          hspan=kwargs.get('hspan', None),
-                          vspan=kwargs.get('vspan', None),
+                          hline=kwargs.get('hline', []),
+                          vline=kwargs.get('vline', []),
+                          hspan=kwargs.get('hspan', _HSPAN_NONE),
+                          vspan=kwargs.get('vspan', _VSPAN_NONE),
                           filename='cufflinks/simple-scatter')
     elif type == 'bubble':
         x = kwargs.get('x', data.columns[0])
@@ -177,21 +174,21 @@ def plot(data, type='line', theme='pearl', **kwargs):
                           y=y,
                           size=size,
                           subplots=kwargs.get('subplots', False),
-                          hline=kwargs.get('hline', None),
-                          vline=kwargs.get('vline', None),
-                          hspan=kwargs.get('hspan', None),
-                          vspan=kwargs.get('vspan', None),
+                          hline=kwargs.get('hline', []),
+                          vline=kwargs.get('vline', []),
+                          hspan=kwargs.get('hspan', _HSPAN_NONE),
+                          vspan=kwargs.get('vspan', _VSPAN_NONE),
                           filename='cufflinks/simple-bubble-chart')
-    elif type == 'scattermatrix':
+    elif type == 'scattermatrix' or type == 'scattermat':
         return data.scatter_matrix(filename='cufflinks/scatter-matrix-subplot')
     elif type == 'heatmat':
         return data.iplot(kind='heatmap',
                           colorscale=kwargs.get('colorscale', 'spectral'),
                           subplots=kwargs.get('subplots', False),
-                          hline=kwargs.get('hline', None),
-                          vline=kwargs.get('vline', None),
-                          hspan=kwargs.get('hspan', None),
-                          vspan=kwargs.get('vspan', None),
+                          hline=kwargs.get('hline', []),
+                          vline=kwargs.get('vline', []),
+                          hspan=kwargs.get('hspan', _HSPAN_NONE),
+                          vspan=kwargs.get('vspan', _VSPAN_NONE),
                           filename='cufflinks/simple-heatmap')
     elif type == 'multiscatter':
         # TODO
