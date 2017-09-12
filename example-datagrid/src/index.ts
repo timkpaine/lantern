@@ -61,6 +61,8 @@ function main(): void {
     let modeltmp = new JSONModel(JSON.parse(json));
     gridtmp.model = modeltmp;
     var elem = document.createElement('div');
+    elem.setAttribute('height', '500px');
+    elem.setAttribute('width', '500px');
     document.body.appendChild(elem);
     Widget.attach(gridtmp, elem);
   };

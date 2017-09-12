@@ -97,9 +97,20 @@ bars = Style('bars',
              {'type': 'bar', 'n_categories': 5, 'n': 10},
              {'type': 'bar'})
 
-ohlc = 'ohlc'
-ohlcv = 'ohlcv'
-box = 'box'
+ohlc = Style('ohlc',
+             getCFData,
+             {'type': 'ohlc'},
+             {'type': 'ohlc'})
+ohlcv = Style('ohlcv',
+              getCFData,
+              {'type': 'ohlcv'},
+              {'type': 'ohlcv'})
+
+box = Style('box',
+            getCFData,
+            {'type': 'box'},
+            {'type': 'box'})
+
 histogram = Style('histogram',
                   getCFData,
                   {'type': 'histogram', 'n_traces': 2, 'n': 100},
