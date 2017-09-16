@@ -36,31 +36,50 @@ _pm = {
 }
 
 
-def plot(data, type=None, raw=False, **kwargs):
+def _random_gen_color():
+    pass
+
+
+def plot(data, type=None, raw=False, colors=None, **kwargs):
     if type is None:
         type = 'line'
     elif isinstance(type, str):
         type = lookup(type)
     elif isinstance(type, list):
         fig = []
-        for i, typ in enumerate(type):
+        for i, col in enumerate(data.columns):
+            typ = (type[i:i+1] or ['line'])[0]
             if isinstance(typ, str):
                 typ = lookup(typ)
             if typ not in _pm[BACKEND]:
                 raise Exception('Cannot plot type %s with backend %s' % (typ, BACKEND))
-            fig.append(_pm[BACKEND][typ](data[data.columns[i]], typ, raw=True, **kwargs))
-            print(i)
+
+            if isinstance(colors, list):
+                color = (colors[i:i+1] or ['red'])[0]
+            elif isinstance(colors, dict):
+                pass
+            else:
+                color = ['green']
+            fig.append(_pm[BACKEND][typ](data[col], typ, raw=True, colors=color, **kwargs))
         return _pm[BACKEND][lookup('plot')](fig)
 
     elif isinstance(type, dict):
         fig = []
-        print(type)
-        for k, v in type.items():
-            if isinstance(v, str):
-                typ = lookup(v)
+        for i, col in enumerate(data.columns):
+            typ = type.get(col, 'line')
+            if isinstance(type.get(col, 'line'), str):
+                typ = lookup(typ)
             if typ not in _pm[BACKEND]:
                 raise Exception('Cannot plot type %s with backend %s' % (typ, BACKEND))
-            fig.append(_pm[BACKEND][typ](data[k], typ, raw=True, **kwargs))
+
+            if isinstance(colors, list):
+                color = (colors[i:i+1] or ['red'])[0]
+            elif isinstance(colors, dict):
+                pass
+            else:
+                color = ['green']
+
+            fig.append(_pm[BACKEND][typ](data[col], typ, raw=True, colors=color, **kwargs))
         return _pm[BACKEND][lookup('plot')](fig)
 
     if type not in _pm[BACKEND]:
