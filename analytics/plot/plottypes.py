@@ -28,6 +28,8 @@ class PlotType(Enum):
     OHLC = 'ohlc'
     OHLVC = 'ohlcv'
     CANDLESTICK = 'candlestick'
+    DENSITY = 'density'
+    HEXBIN = 'hexbin'
 
 _lookup = {v: k for k, v in PlotType.__members__.items()}
 
