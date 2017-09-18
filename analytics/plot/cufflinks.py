@@ -11,9 +11,12 @@ _HSPAN_NONE = {'x0': 0, 'x1': 0, 'color': 'rgba(30,30,30,0.0)', 'fill': False, '
 _VSPAN_NONE = {'y0': 0, 'y1': 0, 'color': 'rgba(30,30,30,0.0)', 'fill': False, 'opacity': 1.0}
 
 
-def _wrapper(data, type=p.PLOT, raw=False, **kwargs):
+def _wrapper(data, type=p.PLOT, raw=False, colors=None, **kwargs):
     if raw:
         kwargs['asFigure'] = True
+    if colors:
+        # so it looks the same as matplotlib
+        kwargs['colors'] = colors
     return _plotmap_internal[type](data, **kwargs)
 
 
@@ -45,10 +48,8 @@ def line(data, **kwargs):
                       vline=kwargs.get('vline', []),
                       hspan=kwargs.get('hspan', _HSPAN_NONE),
                       vspan=kwargs.get('vspan', _VSPAN_NONE),
-                      colors=kwargs.get('colors', []),
                       bestfit=kwargs.get('bestfit', False),
                       bestfit_colors=kwargs.get('bestfit_colors', []),
-                      asFigure=kwargs.get('asFigure', False),
                       filename='cufflinks/cf-simple-line',
                       **kwargs)
 
@@ -61,10 +62,8 @@ def area(data, **kwargs):
                           hspan=kwargs.get('hspan', _HSPAN_NONE),
                           vspan=kwargs.get('vspan', _VSPAN_NONE),
                           fill=True,
-                          colors=kwargs.get('colors', []),
                           bestfit=kwargs.get('bestfit', False),
                           bestfit_colors=kwargs.get('bestfit_colors', []),
-                          asFigure=kwargs.get('asFigure', False),
                           filename='cufflinks/filled-area',
                           **kwargs)
 
@@ -77,10 +76,8 @@ def spread(data, **kwargs):
                       hspan=kwargs.get('hspan', _HSPAN_NONE),
                       vspan=kwargs.get('vspan', _VSPAN_NONE),
                       fill=True,
-                      colors=kwargs.get('colors', []),
                       bestfit=kwargs.get('bestfit', False),
                       bestfit_colors=kwargs.get('bestfit_colors', []),
-                      asFigure=kwargs.get('asFigure', False),
                       filename='cufflinks/cf-simple-line',
                       **kwargs)
 
@@ -93,8 +90,6 @@ def bar(data, **kwargs):
                       vline=kwargs.get('vline', []),
                       hspan=kwargs.get('hspan', _HSPAN_NONE),
                       vspan=kwargs.get('vspan', _VSPAN_NONE),
-                      colors=kwargs.get('colors', []),
-                      asFigure=kwargs.get('asFigure', False),
                       filename='cufflinks/categorical-bar-chart',
                       **kwargs)
 
@@ -107,8 +102,6 @@ def groupedbar(data, **kwargs):
                       vline=kwargs.get('vline', []),
                       hspan=kwargs.get('hspan', _HSPAN_NONE),
                       vspan=kwargs.get('vspan', _VSPAN_NONE),
-                      colors=kwargs.get('colors', []),
-                      asFigure=kwargs.get('asFigure', False),
                       filename='cufflinks/grouped-bar-chart',
                       **kwargs)
 
@@ -122,8 +115,6 @@ def stackedbar(data, **kwargs):
                       vline=kwargs.get('vline', []),
                       hspan=kwargs.get('hspan', _HSPAN_NONE),
                       vspan=kwargs.get('vspan', _VSPAN_NONE),
-                      colors=kwargs.get('colors', []),
-                      asFigure=kwargs.get('asFigure', False),
                       filename='cufflinks/grouped-bar-chart',
                       **kwargs)
 
@@ -136,8 +127,6 @@ def horizontalbar(data, **kwargs):
                       vline=kwargs.get('vline', []),
                       hspan=kwargs.get('hspan', _HSPAN_NONE),
                       vspan=kwargs.get('vspan', _VSPAN_NONE),
-                      colors=kwargs.get('colors', []),
-                      asFigure=kwargs.get('asFigure', False),
                       filename='cufflinks/barh',
                       **kwargs)
 
@@ -151,8 +140,6 @@ def horizontalstackedbar(data, **kwargs):
                       vline=kwargs.get('vline', []),
                       hspan=kwargs.get('hspan', _HSPAN_NONE),
                       vspan=kwargs.get('vspan', _VSPAN_NONE),
-                      colors=kwargs.get('colors', []),
-                      asFigure=kwargs.get('asFigure', False),
                       filename='cufflinks/barh',
                       **kwargs)
 
@@ -167,8 +154,6 @@ def histogram(data, **kwargs):
                       vline=kwargs.get('vline', []),
                       hspan=kwargs.get('hspan', _HSPAN_NONE),
                       vspan=kwargs.get('vspan', _VSPAN_NONE),
-                      colors=kwargs.get('colors', []),
-                      asFigure=kwargs.get('asFigure', False),
                       filename='cufflinks/basic-histogram',
                       **kwargs)
 
@@ -184,8 +169,6 @@ def groupedhist(data, **kwargs):
                       vline=kwargs.get('vline', []),
                       hspan=kwargs.get('hspan', _HSPAN_NONE),
                       vspan=kwargs.get('vspan', _VSPAN_NONE),
-                      colors=kwargs.get('colors', []),
-                      asFigure=kwargs.get('asFigure', False),
                       filename='cufflinks/basic-histogram',
                       **kwargs)
 
@@ -201,8 +184,6 @@ def stackedhist(data, **kwargs):
                       vline=kwargs.get('vline', []),
                       hspan=kwargs.get('hspan', _HSPAN_NONE),
                       vspan=kwargs.get('vspan', _HSPAN_NONE),
-                      colors=kwargs.get('colors', []),
-                      asFigure=kwargs.get('asFigure', False),
                       filename='cufflinks/basic-histogram',
                       **kwargs)
 
@@ -218,8 +199,6 @@ def subplothist(data, **kwargs):
                       vline=kwargs.get('vline', []),
                       hspan=kwargs.get('hspan', _HSPAN_NONE),
                       vspan=kwargs.get('vspan', _VSPAN_NONE),
-                      colors=kwargs.get('colors', []),
-                      asFigure=kwargs.get('asFigure', False),
                       filename='cufflinks/histogram-subplots',
                       **kwargs)
 
@@ -231,7 +210,6 @@ def box(data, **kwargs):
                       vline=kwargs.get('vline', []),
                       hspan=kwargs.get('hspan', _HSPAN_NONE),
                       vspan=kwargs.get('vspan', _VSPAN_NONE),
-                      asFigure=kwargs.get('asFigure', False),
                       filename='cufflinks/box-plots',
                       **kwargs)
 
@@ -240,8 +218,6 @@ def pie(data, **kwargs):
     return data.iplot(kind='pie',
                       labels=kwargs.get('labels', 'labels'),
                       values=kwargs.get('values', 'values'),
-                      colors=kwargs.get('colors', []),
-                      asFigure=kwargs.get('asFigure', False),
                       subplots=kwargs.get('subplots', False),
                       **kwargs)
 
@@ -254,8 +230,6 @@ def stackedarea(data, **kwargs):
                       vline=kwargs.get('vline', []),
                       hspan=kwargs.get('hspan', _HSPAN_NONE),
                       vspan=kwargs.get('vspan', _VSPAN_NONE),
-                      colors=kwargs.get('colors', []),
-                      asFigure=kwargs.get('asFigure', False),
                       filename='cuflinks/stacked-area',
                       **kwargs)
 
@@ -273,10 +247,8 @@ def scatter(data, **kwargs):
                       vline=kwargs.get('vline', []),
                       hspan=kwargs.get('hspan', _HSPAN_NONE),
                       vspan=kwargs.get('vspan', _VSPAN_NONE),
-                      colors=kwargs.get('colors', []),
                       bestfit=kwargs.get('bestfit', None),
                       bestfit_colors=kwargs.get('bestfit_colors', []),
-                      asFigure=kwargs.get('asFigure', False),
                       filename='cufflinks/simple-scatter',
                       **kwargs)
 
@@ -296,10 +268,8 @@ def bubble(data, **kwargs):
                       vline=kwargs.get('vline', []),
                       hspan=kwargs.get('hspan', _HSPAN_NONE),
                       vspan=kwargs.get('vspan', _VSPAN_NONE),
-                      colors=kwargs.get('colors', []),
                       bestfit=kwargs.get('bestfit', None),
                       bestfit_colors=kwargs.get('bestfit_colors', []),
-                      asFigure=kwargs.get('asFigure', False),
                       filename='cufflinks/simple-bubble-chart',
                       **kwargs)
 
@@ -317,7 +287,6 @@ def heatmap(data, **kwargs):
                       vline=kwargs.get('vline', []),
                       hspan=kwargs.get('hspan', _HSPAN_NONE),
                       vspan=kwargs.get('vspan', _VSPAN_NONE),
-                      asFigure=kwargs.get('asFigure', False),
                       filename='cufflinks/simple-heatmap',
                       **kwargs)
 
@@ -335,7 +304,7 @@ def multiscatter(data, **kwargs):
     #     }
     # }
     # return py.iplot(fig, filename='cufflinks/multiple-scatter')
-    pass
+    raise Exception('Not implemented')
 
 
 def groupedscatter(data, **kwargs):
@@ -354,12 +323,12 @@ def groupedscatter(data, **kwargs):
     #             'yaxis': {'title': "Life Expectancy"}
     #         }
     # }, filename='cufflinks/scatter-group-by')
-    pass
+    raise Exception('Not implemented')
 
 
 def ohlcv(data, **kwargs):
     return cf.QuantFig(data,
-                       legend=kwargs.get('legend', 'top')).iplot(asFigure=kwargs.get('asFigure', False))
+                       legend=kwargs.get('legend', 'top')).iplot()
 
 
 def candlestick(data, **kwargs):

@@ -45,6 +45,8 @@ def _r():
 
 
 def plot(data, type=None, raw=False, colors=None, **kwargs):
+    _pm[BACKEND][lookup('pre')]()
+
     fig = []
     if type is None:
         type = 'line'

@@ -3,6 +3,8 @@ from enum import Enum
 
 class PlotType(Enum):
     PLOT = 'plot'
+    PREPLOT = 'pre'
+    POSTPLOT = 'post'
     BASIC = 'line0'
     LINE = 'line'
     SPREAD = 'spread'
