@@ -16,7 +16,6 @@ def plot(data, **kwargs):
 
 def line(data, **kwargs):
     return data.plot(**kwargs)
-    # return data.iplot(kind='scatter',
     #                   subplots=kwargs.get('subplots', False),
     #                   hline=kwargs.get('hline', []),
     #                   vline=kwargs.get('vline', []),
@@ -26,35 +25,48 @@ def line(data, **kwargs):
     #                   bestfit=kwargs.get('bestfit', False),
     #                   bestfit_colors=kwargs.get('bestfit_colors', []),
     #                   asFigure=kwargs.get('asFigure', False),
-    #                   filename='cufflinks/cf-simple-line')
 
 
 def bar(data, **kwargs):
-    return data.plot(kind='bar')
+    return data.plot(kind='bar',
+                     **kwargs)
 
 
 def histogram(data, **kwargs):
-    return data.plot(kind='hist')
+    return data.plot(kind='hist',
+                     **kwargs)
 
 
 def box(data, **kwargs):
-    return data.plot(kind='box')
+    return data.plot(kind='box',
+                     **kwargs)
 
 
 def density(data, **kwargs):
-    return data.plot(kind='density')
+    return data.plot(kind='density',
+                     **kwargs)
 
 
 def area(data, **kwargs):
-    return data.plot(kind='area')
+    return data.plot(kind='area',
+                     stacked=kwargs.get('stacked', False),
+                     **kwargs)
+
+
+def stackedarea(data, **kwargs):
+    return data.plot(kind='area',
+                     stacked=kwargs.get('stacked', True),
+                     **kwargs)
 
 
 def scatter(data, **kwargs):
-    return data.plot(kind='scatter')
+    return data.plot(kind='scatter',
+                     **kwargs)
 
 
 def hexbin(data, **kwargs):
-    return data.plot(kind='hexbin')
+    return data.plot(kind='hexbin',
+                     **kwargs)
 
 _plotmap_internal = {
     p.PLOT: plot,
@@ -84,7 +96,7 @@ _plotmap = {
     p.BOX: _wrapper,
     # p.PIE: pie,
     p.AREA: _wrapper,
-    # p.STACKEDAREA: stackedarea,
+    p.STACKEDAREA: stackedarea,
     # p.FILLEDAREA: filledarea,
     p.SCATTER: _wrapper,
     # p.BUBBLE: bubble,

@@ -18,7 +18,6 @@ class PlotType(Enum):
     PIE = 'pie'
     AREA = 'area'
     STACKEDAREA = 'stackedarea'
-    FILLEDAREA = 'filledarea'
     SCATTER = 'scatter'
     BUBBLE = 'bubble'
     SCATTERMATRIX = 'scattermatrix'
