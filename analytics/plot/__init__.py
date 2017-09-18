@@ -1,3 +1,4 @@
+import random
 from .cufflinks import _plotmap as _cpm
 from .plotly import _plotmap as _ppm
 from .bokeh import _plotmap as _bpm
@@ -36,8 +37,8 @@ _pm = {
 }
 
 
-def _random_gen_color():
-    pass
+def _r():
+    return '#%02X%02X%02X' % (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
 
 def plot(data, type=None, raw=False, colors=None, **kwargs):
@@ -55,11 +56,11 @@ def plot(data, type=None, raw=False, colors=None, **kwargs):
                 raise Exception('Cannot plot type %s with backend %s' % (typ, BACKEND))
 
             if isinstance(colors, list):
-                color = (colors[i:i+1] or ['red'])[0]
+                color = (colors[i:i+1] or [_r()])[0]
             elif isinstance(colors, dict):
-                pass
+                color = colors.get(col, _r())
             else:
-                color = ['green']
+                color = [_r()]
             fig.append(_pm[BACKEND][typ](data[col], typ, raw=True, colors=color, **kwargs))
         return _pm[BACKEND][lookup('plot')](fig)
 
@@ -73,11 +74,11 @@ def plot(data, type=None, raw=False, colors=None, **kwargs):
                 raise Exception('Cannot plot type %s with backend %s' % (typ, BACKEND))
 
             if isinstance(colors, list):
-                color = (colors[i:i+1] or ['red'])[0]
+                color = (colors[i:i+1] or [_r()])[0]
             elif isinstance(colors, dict):
-                pass
+                color = colors.get(col, _r())
             else:
-                color = ['green']
+                color = [_r()]
 
             fig.append(_pm[BACKEND][typ](data[col], typ, raw=True, colors=color, **kwargs))
         return _pm[BACKEND][lookup('plot')](fig)
