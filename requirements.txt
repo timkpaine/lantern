@@ -1,3 +1,10 @@
 jupyterlab
 knowledge-repo
 sklearn
+cufflinks
+bokeh
+plotly
+matplotlib
+pandas
+numpy
+scipy
