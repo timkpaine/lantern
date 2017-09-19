@@ -1,7 +1,9 @@
 # analytics
 An orchestration layer for plots and tables, dummy datasets, research, reports, and anything else a data scientist might need.
 
+[![Build Status](https://travis-ci.org/timkpaine/analytics.svg?branch=master)](https://travis-ci.org/timkpaine/analytics)
 [![Waffle.io](https://badge.waffle.io/timkpaine/analytics.svg?label=ready&title=Ready)](http://waffle.io/timkpaine/analytics)
+[![codecov](https://codecov.io/gh/timkpaine/analytics/branch/master/graph/badge.svg)](https://codecov.io/gh/timkpaine/analytics)
 
 ## Plotting
 Abstracts away the nuances of individual charting libraries by providing a single `plot` command with library specific kwarg introspection.
