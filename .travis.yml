@@ -3,6 +3,12 @@ language: python
 python:
   - "3.5"
   - "3.5-dev"
+git:
+    submodules: false
+
+before_install:
+    - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+    - git submodule update --init --recursive
 
 install:
     - pip install -r requirements.txt
