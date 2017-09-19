@@ -1,6 +1,7 @@
 # analytics
 An orchestration layer for plots and tables, dummy datasets, research, reports, and anything else a data scientist might need.
 
+[![Version](https://img.shields.io/badge/version-0.0.1-lightgrey.svg)](https://img.shields.io/badge/version-0.0.1-lightgrey.svg)
 [![Build Status](https://travis-ci.org/timkpaine/analytics.svg?branch=master)](https://travis-ci.org/timkpaine/analytics)
 [![Waffle.io](https://badge.waffle.io/timkpaine/analytics.svg?label=ready&title=Ready)](http://waffle.io/timkpaine/analytics)
 [![codecov](https://codecov.io/gh/timkpaine/analytics/branch/master/graph/badge.svg)](https://codecov.io/gh/timkpaine/analytics)
