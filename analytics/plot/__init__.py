@@ -32,6 +32,9 @@ def setBackend(backend):
 def getBackend():
     return BACKEND
 
+_cpm()  # ensure all methods are implemented
+_mpm()  # ensure all methods are implemented
+
 _pm = {
     Backend.CUFFLINKS: _cpm,
     # Backend.PLOTLY: _ppm,

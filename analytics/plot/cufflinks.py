@@ -92,6 +92,14 @@ class CufflinksPlotMap(BPM):
         return cf.getThemes()
 
     @staticmethod
+    def area(data, **kwargs):
+        kwargs = CufflinksPlotMap._wrapper(**kwargs)
+        return data.iplot(kind='area',
+                          fill=True,
+                          filename='cufflinks/filled-area',
+                          **kwargs)
+
+    @staticmethod
     def basic(data, **kwargs):
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
         if type == 'line0':
@@ -102,37 +110,6 @@ class CufflinksPlotMap(BPM):
                 } for col in data.columns])
 
     @staticmethod
-    def line(data, **kwargs):
-        kwargs = CufflinksPlotMap._wrapper(**kwargs)
-        return data.iplot(kind='scatter',
-                          # subplots=kwargs.get('subplots', False),
-                          # hline=kwargs.get('hline', []),
-                          # vline=kwargs.get('vline', []),
-                          # hspan=kwargs.get('hspan', _HSPAN_NONE),
-                          # vspan=kwargs.get('vspan', _VSPAN_NONE),
-                          # bestfit=kwargs.get('bestfit', False),
-                          # bestfit_colors=kwargs.get('bestfit_colors', []),
-                          filename='cufflinks/cf-simple-line',
-                          **kwargs)
-
-    @staticmethod
-    def area(data, **kwargs):
-        kwargs = CufflinksPlotMap._wrapper(**kwargs)
-        return data.iplot(kind='area',
-                          fill=True,
-                          filename='cufflinks/filled-area',
-                          **kwargs)
-
-    @staticmethod
-    def spread(data, **kwargs):
-        kwargs = CufflinksPlotMap._wrapper(**kwargs)
-
-        return data.iplot(kind='spread',
-                          fill=True,
-                          filename='cufflinks/cf-simple-line',
-                          **kwargs)
-
-    @staticmethod
     def bar(data, **kwargs):
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
         bargap = kwargs.pop('bargap', CufflinksPlotMap.args(p.BAR)['bargap'])
@@ -140,6 +117,31 @@ class CufflinksPlotMap(BPM):
         return data.iplot(kind='bar',
                           bargap=bargap,
                           filename='cufflinks/categorical-bar-chart',
+                          **kwargs)
+
+    @staticmethod
+    def bubble(data, **kwargs):
+        kwargs = CufflinksPlotMap._wrapper(**kwargs)
+        x = kwargs.pop('x', data.columns[0])
+        y = kwargs.pop('y', data.columns[1]) if len(data.columns) > 1 else kwargs.pop('y', data.columns[0])
+        size = kwargs.pop('size', data.columns[1]) if len(data.columns) > 1 else kwargs.pop('size', data.columns[0])
+        text = kwargs.pop('text', 'text')
+        categories = kwargs.pop('categories', 'categories')
+
+        return data.iplot(kind='bubble',
+                          x=x,
+                          y=y,
+                          size=size,
+                          text=text,
+                          categories=categories,
+                          filename='cufflinks/simple-bubble-chart',
+                          **kwargs)
+
+    @staticmethod
+    def box(data, **kwargs):
+        kwargs = CufflinksPlotMap._wrapper(**kwargs)
+        return data.iplot(kind='box',
+                          filename='cufflinks/box-plots',
                           **kwargs)
 
     @staticmethod
@@ -153,14 +155,18 @@ class CufflinksPlotMap(BPM):
                           **kwargs)
 
     @staticmethod
-    def stackedbar(data, **kwargs):
+    def groupedhist(data, **kwargs):
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
-        bargap = kwargs.pop('bargap', CufflinksPlotMap.args(p.STACKEDBAR)['bargap'])
+        bins = kwargs.pop('bins', CufflinksPlotMap.args('subplothist')['bins'])
+        histnorm = kwargs.pop('histnorm', CufflinksPlotMap.args('subplothist')['histnorm'][0])
+        histfunc = kwargs.pop('histfunc', CufflinksPlotMap.args('subplothist')['histfunc'][0])
 
-        return data.iplot(kind='bar',
-                          barmode='stack',
-                          bargap=bargap,
-                          filename='cufflinks/grouped-bar-chart',
+        return data.iplot(kind='histogram',
+                          barmode='group',
+                          bins=bins,
+                          histnorm=histnorm,
+                          histfunc=histfunc,
+                          filename='cufflinks/basic-histogram',
                           **kwargs)
 
     @staticmethod
@@ -171,6 +177,15 @@ class CufflinksPlotMap(BPM):
         return data.iplot(kind='barh',
                           bargap=bargap,
                           filename='cufflinks/barh',
+                          **kwargs)
+
+    @staticmethod
+    def heatmap(data, **kwargs):
+        kwargs = CufflinksPlotMap._wrapper(**kwargs)
+        colorscale = kwargs.pop('colorscale', 'spectral')
+        return data.iplot(kind='heatmap',
+                          colorscale=colorscale,
+                          filename='cufflinks/simple-heatmap',
                           **kwargs)
 
     @staticmethod
@@ -198,18 +213,68 @@ class CufflinksPlotMap(BPM):
                           **kwargs)
 
     @staticmethod
-    def groupedhist(data, **kwargs):
+    def line(data, **kwargs):
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
-        bins = kwargs.pop('bins', CufflinksPlotMap.args('subplothist')['bins'])
-        histnorm = kwargs.pop('histnorm', CufflinksPlotMap.args('subplothist')['histnorm'][0])
-        histfunc = kwargs.pop('histfunc', CufflinksPlotMap.args('subplothist')['histfunc'][0])
+        return data.iplot(kind='scatter',
+                          # subplots=kwargs.get('subplots', False),
+                          # hline=kwargs.get('hline', []),
+                          # vline=kwargs.get('vline', []),
+                          # hspan=kwargs.get('hspan', _HSPAN_NONE),
+                          # vspan=kwargs.get('vspan', _VSPAN_NONE),
+                          # bestfit=kwargs.get('bestfit', False),
+                          # bestfit_colors=kwargs.get('bestfit_colors', []),
+                          filename='cufflinks/cf-simple-line',
+                          **kwargs)
 
-        return data.iplot(kind='histogram',
-                          barmode='group',
-                          bins=bins,
-                          histnorm=histnorm,
-                          histfunc=histfunc,
-                          filename='cufflinks/basic-histogram',
+    @staticmethod
+    def pie(data, **kwargs):
+        kwargs = CufflinksPlotMap._wrapper(**kwargs)
+        labels = kwargs.pop('labels', 'labels')
+        values = kwargs.pop('values', 'values')
+        return data.iplot(kind='pie',
+                          labels=labels,
+                          values=values,
+                          **kwargs)
+
+    @staticmethod
+    def scatter(data, **kwargs):
+        kwargs = CufflinksPlotMap._wrapper(**kwargs)
+        x = kwargs.pop('x', data.columns[0])
+        y = kwargs.pop('y', data.columns[1]) if len(data.columns) > 1 else kwargs.pop('y', data.columns[0])
+        size = kwargs.pop('size', None)
+
+        return data.iplot(kind='scatter',
+                          mode='markers',
+                          x=x,
+                          y=y,
+                          size=size,
+                          filename='cufflinks/simple-scatter',
+                          **kwargs)
+
+    @staticmethod
+    def scattermatrix(data, **kwargs):
+        kwargs = CufflinksPlotMap._wrapper(**kwargs)
+        return data.scatter_matrix(filename='cufflinks/scatter-matrix-subplot',
+                                   **kwargs)
+
+    @staticmethod
+    def spread(data, **kwargs):
+        kwargs = CufflinksPlotMap._wrapper(**kwargs)
+
+        return data.iplot(kind='spread',
+                          fill=True,
+                          filename='cufflinks/cf-simple-line',
+                          **kwargs)
+
+    @staticmethod
+    def stackedbar(data, **kwargs):
+        kwargs = CufflinksPlotMap._wrapper(**kwargs)
+        bargap = kwargs.pop('bargap', CufflinksPlotMap.args(p.STACKEDBAR)['bargap'])
+
+        return data.iplot(kind='bar',
+                          barmode='stack',
+                          bargap=bargap,
+                          filename='cufflinks/grouped-bar-chart',
                           **kwargs)
 
     @staticmethod
@@ -245,23 +310,6 @@ class CufflinksPlotMap(BPM):
                           **kwargs)
 
     @staticmethod
-    def box(data, **kwargs):
-        kwargs = CufflinksPlotMap._wrapper(**kwargs)
-        return data.iplot(kind='box',
-                          filename='cufflinks/box-plots',
-                          **kwargs)
-
-    @staticmethod
-    def pie(data, **kwargs):
-        kwargs = CufflinksPlotMap._wrapper(**kwargs)
-        labels = kwargs.pop('labels', 'labels')
-        values = kwargs.pop('values', 'values')
-        return data.iplot(kind='pie',
-                          labels=labels,
-                          values=values,
-                          **kwargs)
-
-    @staticmethod
     def stackedarea(data, **kwargs):
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
         fill = kwargs.pop('fill', True)
@@ -269,54 +317,6 @@ class CufflinksPlotMap(BPM):
         return data.iplot(kind='area',
                           fill=fill,
                           filename='cuflinks/stacked-area',
-                          **kwargs)
-
-    @staticmethod
-    def scatter(data, **kwargs):
-        kwargs = CufflinksPlotMap._wrapper(**kwargs)
-        x = kwargs.pop('x', data.columns[0])
-        y = kwargs.pop('y', data.columns[1]) if len(data.columns) > 1 else kwargs.pop('y', data.columns[0])
-        size = kwargs.pop('size', None)
-
-        return data.iplot(kind='scatter',
-                          mode='markers',
-                          x=x,
-                          y=y,
-                          size=size,
-                          filename='cufflinks/simple-scatter',
-                          **kwargs)
-
-    @staticmethod
-    def bubble(data, **kwargs):
-        kwargs = CufflinksPlotMap._wrapper(**kwargs)
-        x = kwargs.pop('x', data.columns[0])
-        y = kwargs.pop('y', data.columns[1]) if len(data.columns) > 1 else kwargs.pop('y', data.columns[0])
-        size = kwargs.pop('size', data.columns[1]) if len(data.columns) > 1 else kwargs.pop('size', data.columns[0])
-        text = kwargs.pop('text', 'text')
-        categories = kwargs.pop('categories', 'categories')
-
-        return data.iplot(kind='bubble',
-                          x=x,
-                          y=y,
-                          size=size,
-                          text=text,
-                          categories=categories,
-                          filename='cufflinks/simple-bubble-chart',
-                          **kwargs)
-
-    @staticmethod
-    def scattermatrix(data, **kwargs):
-        kwargs = CufflinksPlotMap._wrapper(**kwargs)
-        return data.scatter_matrix(filename='cufflinks/scatter-matrix-subplot',
-                                   **kwargs)
-
-    @staticmethod
-    def heatmap(data, **kwargs):
-        kwargs = CufflinksPlotMap._wrapper(**kwargs)
-        colorscale = kwargs.pop('colorscale', 'spectral')
-        return data.iplot(kind='heatmap',
-                          colorscale=colorscale,
-                          filename='cufflinks/simple-heatmap',
                           **kwargs)
 
     @staticmethod
@@ -355,6 +355,20 @@ class CufflinksPlotMap(BPM):
         #         }
         # }, filename='cufflinks/scatter-group-by')
         raise NotImplementedError()
+
+    @staticmethod
+    def hexbin(data, **kwargs):
+        raise NotImplementedError()
+
+    @staticmethod
+    def density(data, **kwargs):
+        raise NotImplementedError()
+
+    @staticmethod
+    def ohlc(data, **kwargs):
+        kwargs = CufflinksPlotMap._wrapper(**kwargs)
+        legend = kwargs.pop('legend', 'top')
+        return cf.QuantFig(data, legend=legend).iplot()
 
     @staticmethod
     def ohlcv(data, **kwargs):

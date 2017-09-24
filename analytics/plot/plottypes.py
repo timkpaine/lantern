@@ -2,197 +2,171 @@ from enum import Enum
 from abc import abstractmethod, ABCMeta
 
 
+class abstractstatic(staticmethod):
+    __slots__ = ()
+
+    def __init__(self, function):
+        super(abstractstatic, self).__init__(function)
+        function.__isabstractmethod__ = True
+    __isabstractmethod__ = True
+
+
 class BasePlotType(Enum):
-    BASIC = 'basic'
-    LINE = 'line'
-    SPREAD = 'spread'
-    BAR = 'bar'
-    GROUPEDBAR = 'groupedbar'
-    STACKEDBAR = 'stackedbar'
-    HORIZONTALBAR = 'horizontalbar'
-    HORIZONTALSTACKEDBAR = 'horizontalstackedbar'
-    HISTOGRAM = 'histogram'
-    GROUPEDHIST = 'groupedhist'
-    STACKEDHIST = 'stackedhist'
-    BOX = 'box'
-    PIE = 'pie'
     AREA = 'area'
-    STACKEDAREA = 'stackedarea'
-    SCATTER = 'scatter'
+    BASIC = 'basic'
+    BAR = 'bar'
+    BOX = 'box'
     BUBBLE = 'bubble'
-    SCATTERMATRIX = 'scattermatrix'
-    HEATMAP = 'heatmap'
-    MULTISCATTER = 'multiscatter'
-    GROUPEDSCATTER = 'groupedscatter'
-    OHLC = 'ohlc'
-    OHLVC = 'ohlcv'
     CANDLESTICK = 'candlestick'
     DENSITY = 'density'
+    GROUPEDBAR = 'groupedbar'
+    GROUPEDHIST = 'groupedhist'
+    GROUPEDSCATTER = 'groupedscatter'
+    HEATMAP = 'heatmap'
     HEXBIN = 'hexbin'
+    HISTOGRAM = 'histogram'
+    HORIZONTALBAR = 'horizontalbar'
+    HORIZONTALSTACKEDBAR = 'horizontalstackedbar'
+    LINE = 'line'
+    MULTISCATTER = 'multiscatter'
+    OHLC = 'ohlc'
+    OHLVC = 'ohlcv'
+    PIE = 'pie'
+    SCATTER = 'scatter'
+    SCATTERMATRIX = 'scattermatrix'
+    SPREAD = 'spread'
+    STACKEDBAR = 'stackedbar'
+    STACKEDHIST = 'stackedhist'
+    STACKEDAREA = 'stackedarea'
 
 
-class BasePlotMap(object):
-    __metaclass__ = ABCMeta
-
-    @staticmethod
-    @abstractmethod
+class BasePlotMap(metaclass=ABCMeta):
+    @abstractstatic
     def setup():
         '''called prior to plotting in case of initialization'''
 
-    @staticmethod
-    @abstractmethod
+    @abstractstatic
     def args():
         '''return lib-specific args for the plot type'''
 
-    @staticmethod
-    @abstractmethod
+    @abstractstatic
     def plot():
         '''base plot command'''
 
-    @staticmethod
     @abstractmethod
     def setTheme():
         '''set the plotting theme'''
 
-    @staticmethod
     @abstractmethod
     def getTheme():
         '''get the current theme'''
 
-    @staticmethod
-    @abstractmethod
+    @abstractstatic
     def themes():
         '''get available themes'''
 
-    @staticmethod
-    @abstractmethod
-    def basic():
-        '''basic plotting'''
-
-    @staticmethod
-    @abstractmethod
-    def line():
-        '''plot type'''
-
-    @staticmethod
-    @abstractmethod
-    def spread():
-        '''plot type'''
-
-    @staticmethod
-    @abstractmethod
-    def bar():
-        '''plot type'''
-
-    @staticmethod
-    @abstractmethod
-    def groupedbar():
-        '''plot type'''
-
-    @staticmethod
-    @abstractmethod
-    def stackedbar():
-        '''plot type'''
-
-    @staticmethod
-    @abstractmethod
-    def horizontalbar():
-        '''plot type'''
-
-    @staticmethod
-    @abstractmethod
-    def horizontalstackedbar():
-        '''plot type'''
-
-    @staticmethod
-    @abstractmethod
-    def histogram():
-        '''plot type'''
-
-    @staticmethod
-    @abstractmethod
-    def groupedhist():
-        '''plot type'''
-
-    @staticmethod
-    @abstractmethod
-    def stackedhist():
-        '''plot type'''
-
-    @staticmethod
-    @abstractmethod
-    def box():
-        '''plot type'''
-
-    @staticmethod
-    @abstractmethod
-    def pie():
-        '''plot type'''
-
-    @staticmethod
-    @abstractmethod
+    @abstractstatic
     def area():
         '''plot type'''
 
-    @staticmethod
-    @abstractmethod
-    def stackedarea():
+    @abstractstatic
+    def basic():
+        '''basic plotting'''
+
+    @abstractstatic
+    def bar():
         '''plot type'''
 
-    @staticmethod
-    @abstractmethod
-    def scatter():
+    @abstractstatic
+    def box():
         '''plot type'''
 
-    @staticmethod
-    @abstractmethod
+    @abstractstatic
     def bubble():
         '''plot type'''
 
-    @staticmethod
-    @abstractmethod
-    def scattermatrix():
-        '''plot type'''
-
-    @staticmethod
-    @abstractmethod
-    def heatmap():
-        '''plot type'''
-
-    @staticmethod
-    @abstractmethod
-    def multiscatter():
-        '''plot type'''
-
-    @staticmethod
-    @abstractmethod
-    def groupedscatter():
-        '''plot type'''
-
-    @staticmethod
-    @abstractmethod
-    def ohlc():
-        '''plot type'''
-
-    @staticmethod
-    @abstractmethod
-    def ohlcv():
-        '''plot type'''
-
-    @staticmethod
-    @abstractmethod
+    @abstractstatic
     def candlestick():
         '''plot type'''
 
-    @staticmethod
-    @abstractmethod
+    @abstractstatic
     def density():
         '''plot type'''
 
-    @staticmethod
-    @abstractmethod
+    @abstractstatic
+    def groupedbar():
+        '''plot type'''
+
+    @abstractstatic
+    def heatmap():
+        '''plot type'''
+
+    @abstractstatic
     def hexbin():
         '''plot type'''
+    @abstractstatic
+    def histogram():
+        '''plot type'''
+
+    @abstractstatic
+    def groupedscatter():
+        '''plot type'''
+
+    @abstractstatic
+    def groupedhist():
+        '''plot type'''
+
+    @abstractstatic
+    def horizontalbar():
+        '''plot type'''
+
+    @abstractstatic
+    def horizontalstackedbar():
+        '''plot type'''
+
+    @abstractstatic
+    def line():
+        '''plot type'''
+
+    @abstractstatic
+    def multiscatter():
+        '''plot type'''
+
+    @abstractstatic
+    def ohlc():
+        '''plot type'''
+
+    @abstractstatic
+    def ohlcv():
+        '''plot type'''
+
+    @abstractstatic
+    def pie():
+        '''plot type'''
+
+    @abstractstatic
+    def scatter():
+        '''plot type'''
+    @abstractstatic
+    def spread():
+        '''plot type'''
+
+    @abstractstatic
+    def stackedbar():
+        '''plot type'''
+
+    @abstractstatic
+    def stackedhist():
+        '''plot type'''
+
+    @abstractstatic
+    def stackedarea():
+        '''plot type'''
+
+    @abstractstatic
+    def scattermatrix():
+        '''plot type'''
+
 
 _lookup = {v: k for k, v in BasePlotType.__members__.items()}
 
