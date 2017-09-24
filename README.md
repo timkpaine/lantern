@@ -9,7 +9,10 @@ An orchestration layer for plots and tables, dummy datasets, research, reports, 
 ## Plotting
 Abstracts away the nuances of individual charting libraries by providing a single `plot` command with library specific kwarg introspection.
 
+### Dummy data
 ![](https://raw.githubusercontent.com/timkpaine/analytics/master/docs/preview.gif)
+
+### Plot command
 ![](https://raw.githubusercontent.com/timkpaine/analytics/master/docs/preview2.gif)
 
 ## Grids
