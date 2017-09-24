@@ -13,8 +13,9 @@ annotate_l: ## MyPy type annotation check - count only
 	mypy -s analytics | wc -l 
 
 clean: ## clean the repository
-	find -name "__pycache__" | xargs  rm -rf 
-	find -name "*.pyc" | xargs rm -rf 
+	find . -name "__pycache__" | xargs  rm -rf 
+	find . -name "*.pyc" | xargs rm -rf 
+	find . -name ".ipynb_checkpoints" | xargs  rm -rf 
 	rm -rf .coverage cover htmlcov logs
 
 example: ## run simple example
