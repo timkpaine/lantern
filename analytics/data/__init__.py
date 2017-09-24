@@ -92,10 +92,10 @@ heat = Style('heatmap',
              {'type': 'heatmap', 'n_x': 20, 'n_y': 20},
              {'type': 'heatmap'})
 
-bars = Style('bars',
-             getCFData,
-             {'type': 'bar', 'n_categories': 5, 'n': 10},
-             {'type': 'bar'})
+bar = Style('bar',
+            getCFData,
+            {'type': 'bar', 'n_categories': 5, 'n': 10},
+            {'type': 'bar'})
 
 ohlc = Style('ohlc',
              getCFData,
