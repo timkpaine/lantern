@@ -14,7 +14,7 @@ setup(
     long_description=long_description,
     url='https://github.com/timkpaine/analytics',
     author='Tim Paine',
-    author_email='timothy.k.paine@google.com',
+    author_email='timothy.k.paine@gmail.com',
     license='LGPL',
 
     classifiers=[
