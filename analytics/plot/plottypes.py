@@ -37,3 +37,7 @@ _lookup = {v: k for k, v in PlotType.__members__.items()}
 
 def lookup(str):
     return PlotType(str)
+
+
+class PlotMap(object):
+    pass

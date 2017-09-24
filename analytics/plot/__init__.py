@@ -45,7 +45,8 @@ def _r():
 
 
 def plot(data, type=None, raw=False, colors=None, **kwargs):
-    _pm[BACKEND][lookup('pre')]()
+    if lookup('pre') in _pm[BACKEND]:
+        _pm[BACKEND][lookup('pre')]()
 
     fig = []
     if type is None:
