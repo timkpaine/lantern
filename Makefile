@@ -16,7 +16,7 @@ clean: ## clean the repository
 	find . -name "__pycache__" | xargs  rm -rf 
 	find . -name "*.pyc" | xargs rm -rf 
 	find . -name ".ipynb_checkpoints" | xargs  rm -rf 
-	rm -rf .coverage cover htmlcov logs
+	rm -rf .coverage cover htmlcov logs build dist *.egg-info
 
 example: ## run simple example
 	python3 analytics/example.py
