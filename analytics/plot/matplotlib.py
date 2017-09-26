@@ -1,17 +1,15 @@
 import matplotlib.pyplot as plt
-from .plottypes import BasePlotType as p
 from .plottypes import BasePlotMap as BPM
-from .plottypes import lookup
 
 
-_F = None
+_MF = None
 
 
 class MatplotlibPlotMap(BPM):
     @staticmethod
     def setup():
-        global _F
-        _F = plt.figure()
+        global _MF
+        _MF = plt.figure()
 
     @staticmethod
     def args():
@@ -41,7 +39,7 @@ class MatplotlibPlotMap(BPM):
 
     @staticmethod
     def plot(data, **kwargs):
-        _F.canvas.draw()
+        _MF.canvas.draw()
         ax = plt.gca()
         ax.relim()
         ax.autoscale_view()
