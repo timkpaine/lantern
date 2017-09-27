@@ -4,7 +4,7 @@ from .plottypes import BasePlotMap as BPM
 from bokeh.models import HoverTool
 
 
-output_notebook()
+# output_notebook()
 _BF = None
 
 
