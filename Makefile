@@ -1,16 +1,16 @@
 run:  ## clean and make target, run target
-	python3 -m analytics 
+	python3 -m lantern 
 
 tests: ## Clean and Make unit tests
-	python3 -m nose -v analytics/tests --with-coverage --cover-erase --cover-package=`find analytics -name "*.py" | sed "s=\./==g" | sed "s=/=.=g" | sed "s/.py//g" | tr '\n' ',' | rev | cut -c2- | rev`
+	python3 -m nose -v lantern/tests --with-coverage --cover-erase --cover-package=`find lantern -name "*.py" | sed "s=\./==g" | sed "s=/=.=g" | sed "s/.py//g" | tr '\n' ',' | rev | cut -c2- | rev`
 test: ## run the tests for travis CI
-	@ python3 -m nose -v analytics/tests --with-coverage --cover-erase --cover-package=`find analytics -name "*.py" | sed "s=\./==g" | sed "s=/=.=g" | sed "s/.py//g" | tr '\n' ',' | rev | cut -c2- | rev`
+	@ python3 -m nose -v lantern/tests --with-coverage --cover-erase --cover-package=`find lantern -name "*.py" | sed "s=\./==g" | sed "s=/=.=g" | sed "s/.py//g" | tr '\n' ',' | rev | cut -c2- | rev`
  
 annotate: ## MyPy type annotation check
-	mypy -s analytics  
+	mypy -s lantern  
 
 annotate_l: ## MyPy type annotation check - count only
-	mypy -s analytics | wc -l 
+	mypy -s lantern | wc -l 
 
 clean: ## clean the repository
 	find . -name "__pycache__" | xargs  rm -rf 
@@ -19,7 +19,7 @@ clean: ## clean the repository
 	rm -rf .coverage cover htmlcov logs build dist *.egg-info
 
 example: ## run simple example
-	python3 analytics/example.py
+	python3 lantern/example.py
 
 install:  ## install to site-packages
 	python3 setup.py install

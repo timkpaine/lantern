@@ -1,19 +1,20 @@
-# analytics
+# Lantern
+(analytics was too general a name..)
 An orchestration layer for plots and tables, dummy datasets, research, reports, and anything else a data scientist might need.
 
 [![Version](https://img.shields.io/badge/version-0.0.1-lightgrey.svg)](https://img.shields.io/badge/version-0.0.1-lightgrey.svg)
-[![Build Status](https://travis-ci.org/timkpaine/analytics.svg?branch=master)](https://travis-ci.org/timkpaine/analytics)
-[![Waffle.io](https://badge.waffle.io/timkpaine/analytics.svg?label=ready&title=Ready)](http://waffle.io/timkpaine/analytics)
-[![codecov](https://codecov.io/gh/timkpaine/analytics/branch/master/graph/badge.svg)](https://codecov.io/gh/timkpaine/analytics)
+[![Build Status](https://travis-ci.org/timkpaine/lantern.svg?branch=master)](https://travis-ci.org/timkpaine/lantern)
+[![Waffle.io](https://badge.waffle.io/timkpaine/lantern.svg?label=ready&title=Ready)](http://waffle.io/timkpaine/lantern)
+[![codecov](https://codecov.io/gh/timkpaine/lantern/branch/master/graph/badge.svg)](https://codecov.io/gh/timkpaine/lantern)
 
 ## Plotting
 Abstracts away the nuances of individual charting libraries by providing a single `plot` command with library specific kwarg introspection.
 
 ### Dummy data
-![](https://raw.githubusercontent.com/timkpaine/analytics/master/docs/preview.gif)
+![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/preview.gif)
 
 ### Plot command
-![](https://raw.githubusercontent.com/timkpaine/analytics/master/docs/preview2.gif)
+![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/preview2.gif)
 
 ## Grids
 The same.

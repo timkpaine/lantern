@@ -8,11 +8,11 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='analytics',
+    name='lantern',
     version='0.0.1',
     description='Analytics library',
     long_description=long_description,
-    url='https://github.com/timkpaine/analytics',
+    url='https://github.com/timkpaine/lantern',
     author='Tim Paine',
     author_email='timothy.k.paine@gmail.com',
     license='LGPL',

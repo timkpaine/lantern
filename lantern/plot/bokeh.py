@@ -1,7 +1,7 @@
-import pandas as pd
 from bokeh.plotting import figure, show, output_notebook
-from bokeh.models import ColumnDataSource
+# from bokeh.models import ColumnDataSource
 from .plottypes import BasePlotMap as BPM
+from bokeh.models import HoverTool
 
 
 output_notebook()
@@ -12,7 +12,9 @@ class BokehPlotMap(BPM):
     @staticmethod
     def setup():
         global _BF
-        _BF = figure()
+        _BF = figure(toolbar_location="below",
+                     toolbar_sticky=False,
+                     x_axis_type='datetime')  ## TODO remove
 
     @staticmethod
     def _wrapper(**kwargs):
@@ -45,7 +47,18 @@ class BokehPlotMap(BPM):
         kwargs = BokehPlotMap._wrapper(**kwargs)
         if not isinstance(data, list):
             _BF.line(x=data.index, y=data.values, **kwargs)
-        return show(_BF)
+        else:
+            _BF.add_tools(*[HoverTool(
+            tooltips=[
+                ('(x,y)', '$x{date-time}, $y'),
+            ],
+            formatters={
+            },
+            # display a tooltip whenever the cursor is vertically in line with a glyph
+            mode='vline'
+        ) for _ in data])
+        show(_BF)
+        return _BF
 
     @staticmethod
     def line(data, **kwargs):
@@ -54,6 +67,8 @@ class BokehPlotMap(BPM):
 
     @staticmethod
     def bar(data, **kwargs):
+        kwargs = BokehPlotMap._wrapper(**kwargs)
+        return _BF.vbar(x=data.index, top=data.values, **kwargs)
         raise NotImplementedError()
 
     @staticmethod
@@ -82,6 +97,9 @@ class BokehPlotMap(BPM):
 
     @staticmethod
     def area(data, **kwargs):
+        kwargs = BokehPlotMap._wrapper(**kwargs)
+        # fill_color = kwargs.get('fill_color', kwargs.get('color'))
+        return _BF.patch(x=data.index, y=data.values, fill_alpha=.2, **kwargs)
         raise NotImplementedError()
 
     @staticmethod
