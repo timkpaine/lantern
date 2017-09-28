@@ -1,9 +1,9 @@
 import random
 from .cufflinks import CufflinksPlotMap as _cpm
-# from .plotly import PlotMap as _ppm
+from .plotly import PlotlyPlotMap as _ppm
 from .bokeh import BokehPlotMap as _bpm
 from .matplotlib import MatplotlibPlotMap as _mpm
-from .plottypes import lookup, BasePlotType
+from .plottypes import lookup
 from enum import Enum
 
 
@@ -35,10 +35,11 @@ def getBackend():
 _cpm()  # ensure all methods are implemented
 _mpm()  # ensure all methods are implemented
 _bpm()  # ensure all methods are implemented
+_ppm()  # ensure all methods are implemented
 
 _pm = {
     Backend.CUFFLINKS: _cpm,
-    # Backend.PLOTLY: _ppm,
+    Backend.PLOTLY: _ppm,
     Backend.BOKEH: _bpm,
     Backend.MATPLOTLIB: _mpm,
 }

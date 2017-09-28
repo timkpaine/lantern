@@ -1,13 +1,14 @@
+from ..utils import in_ipynb
 from .plottypes import BasePlotType as p
 from .plottypes import BasePlotMap as BPM
 from .plottypes import lookup
-
 import cufflinks as cf
-from plotly.offline import init_notebook_mode, iplot
+from plotly.offline import init_notebook_mode
 
-init_notebook_mode(connected=True)
-cf.go_offline()
-
+if in_ipynb():
+    init_notebook_mode(connected=True)
+    cf.go_offline()
+    print('Cufflinks loaded')
 
 _HSPAN_NONE = {'x0': 0, 'x1': 0, 'color': 'rgba(30,30,30,0.0)', 'fill': False, 'opacity': 1.0}
 _VSPAN_NONE = {'y0': 0, 'y1': 0, 'color': 'rgba(30,30,30,0.0)', 'fill': False, 'opacity': 1.0}
@@ -19,7 +20,8 @@ _VSPAN_NONE = {'y0': 0, 'y1': 0, 'color': 'rgba(30,30,30,0.0)', 'fill': False, '
 class CufflinksPlotMap(BPM):
     @staticmethod
     def setup(**kwargs):
-        pass
+        if not in_ipynb():
+            raise Exception('Cufflinks currently unsupported outside of notebooks')
 
     @staticmethod
     def args(plottype):
@@ -47,7 +49,6 @@ class CufflinksPlotMap(BPM):
     def _wrapper(**kwargs):
         if 'type' in kwargs:
             kwargs.pop('type', None)
-
         if 'raw' in kwargs:
             kwargs['asFigure'] = kwargs.pop('raw')
         else:

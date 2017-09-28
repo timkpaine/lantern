@@ -3,6 +3,7 @@ from .plottypes import BasePlotMap as BPM
 
 
 _MF = None
+print('Matplotlib loaded')
 
 
 class MatplotlibPlotMap(BPM):
