@@ -1,8 +1,9 @@
 # Lantern
 (analytics was too general a name..)
+
 An orchestration layer for plots and tables, dummy datasets, research, reports, and anything else a data scientist might need.
 
-[![Version](https://img.shields.io/badge/version-0.0.3-lightgrey.svg)](https://img.shields.io/badge/version-0.0.3-lightgrey.svg)
+[![Version](https://img.shields.io/badge/version-0.0.4-lightgrey.svg)](https://img.shields.io/badge/version-0.0.4-lightgrey.svg)
 [![Build Status](https://travis-ci.org/timkpaine/lantern.svg?branch=master)](https://travis-ci.org/timkpaine/lantern)
 [![Waffle.io](https://badge.waffle.io/timkpaine/lantern.svg?label=ready&title=Ready)](http://waffle.io/timkpaine/lantern)
 [![codecov](https://codecov.io/gh/timkpaine/lantern/branch/master/graph/badge.svg)](https://codecov.io/gh/timkpaine/lantern)
@@ -18,6 +19,14 @@ Abstracts away the nuances of individual charting libraries by providing a singl
 
 ## Grids
 The same.
+
+## Jupyter Integration
+Single-command code-less exporting for report generation.
+```python
+    import lantern.extensions
+    lantern.extensions.export_pdf('my_notebook.ipynb')  # my_notebook.pdf
+    lantern.extensions.export_html('my_notebook.ipynb') # my_notebook.html
+```
 
 ## Dummy datasets
 - Lines
