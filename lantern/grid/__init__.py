@@ -1,1 +1,1 @@
-from .plotly import grid
+from .grid_plotly import grid

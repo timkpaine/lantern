@@ -1,8 +1,8 @@
 import random
-from .cufflinks import CufflinksPlotMap as _cpm
-from .plotly import PlotlyPlotMap as _ppm
-from .bokeh import BokehPlotMap as _bpm
-from .matplotlib import MatplotlibPlotMap as _mpm
+from .plot_cufflinks import CufflinksPlotMap as _cpm
+from .plot_plotly import PlotlyPlotMap as _ppm
+from .plot_bokeh import BokehPlotMap as _bpm
+from .plot_matplotlib import MatplotlibPlotMap as _mpm
 from .plottypes import lookup
 from enum import Enum
 

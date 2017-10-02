@@ -3,7 +3,7 @@ from .plottypes import BasePlotType as p
 from .plottypes import BasePlotMap as BPM
 from .plottypes import lookup
 import cufflinks as cf
-from plotly.offline import init_notebook_mode
+from plotly.offline import init_notebook_mode, iplot
 
 if in_ipynb():
     init_notebook_mode(connected=True)
