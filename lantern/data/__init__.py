@@ -1,7 +1,7 @@
 from ..plot import plot
-from .cufflinks import getCFData
+from .data_cufflinks import getCFData
 from .other import getTsData, getTicker
-from .sklearn import getSKData
+from .data_sklearn import getSKData
 
 
 class Style(object):
