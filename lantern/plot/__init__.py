@@ -32,7 +32,7 @@ except ImportError:
 try:
     from .plot_bokeh import BokehPlotMap as _bpm
     _bpm()  # ensure all methods are implemented
-    _pm[Backend.BOKEH:] = _bpm
+    _pm[Backend.BOKEH] = _bpm
     BACKEND = Backend.BOKEH
 except ImportError:
     pass
