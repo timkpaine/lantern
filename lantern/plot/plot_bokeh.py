@@ -1,8 +1,7 @@
-from ..utils import in_ipynb
 from bokeh.plotting import figure, show, output_notebook
-# from bokeh.models import ColumnDataSource
-from .plottypes import BasePlotMap as BPM
 from bokeh.models import HoverTool
+from ..utils import in_ipynb
+from .plottypes import BasePlotMap as BPM
 
 
 if in_ipynb():

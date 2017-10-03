@@ -1,8 +1,17 @@
 import matplotlib.pyplot as plt
 from .plottypes import BasePlotMap as BPM
+from ..utils import in_ipynb
 
 
 _MF = None
+
+
+if in_ipynb():
+    from IPython import get_ipython
+    ipython = get_ipython()
+    if ipython:
+        ipython.magic("matplotlib inline")
+
 print('Matplotlib loaded')
 
 
