@@ -51,14 +51,10 @@ class BokehPlotMap(BPM):
             _BF.line(x=data.index, y=data.values, **kwargs)
         else:
             _BF.add_tools(*[HoverTool(
-            tooltips=[
-                ('(x,y)', '$x{date-time}, $y'),
-            ],
-            formatters={
-            },
-            # display a tooltip whenever the cursor is vertically in line with a glyph
-            mode='vline'
-        ) for _ in data])
+                tooltips=[('x', '@x{%F}'), ('y', '@y')],
+                formatters={'x': 'datetime'},
+                mode='vline'
+            ) for _ in data])
         show(_BF)
         return _BF
 
