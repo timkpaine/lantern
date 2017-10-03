@@ -9,7 +9,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='lantern',
-    version='0.0.4',
+    version='0.0.5',
     description='Analytics library',
     long_description=long_description,
     url='https://github.com/timkpaine/lantern',
