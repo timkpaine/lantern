@@ -1,8 +1,8 @@
 import os.path
 from nbconvert.nbconvertapp import NbConvertApp
 
-_html_no_code_template = os.path.join('/'.join(__file__.split('/')[:-1]), 'hide_code_cells_html.tpl')
-_pdf_no_code_template = os.path.join('/'.join(__file__.split('/')[:-1]), 'hide_code_cells_pdf.tplx')
+_html_no_code_template = os.path.join(os.path.dirname(__file__), 'hide_code_cells_html.tpl')
+_pdf_no_code_template = os.path.join(os.path.dirname(__file__), 'hide_code_cells_pdf.tplx')
 
 
 def export_pdf(nbpath):
