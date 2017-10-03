@@ -1,10 +1,6 @@
 import random
-from .plot_cufflinks import CufflinksPlotMap as _cpm
-from .plot_plotly import PlotlyPlotMap as _ppm
-from .plot_bokeh import BokehPlotMap as _bpm
-from .plot_matplotlib import MatplotlibPlotMap as _mpm
-from .plottypes import lookup
 from enum import Enum
+from .plottypes import lookup
 
 
 class Backend(Enum):
@@ -14,8 +10,44 @@ class Backend(Enum):
     HIGHCHARTS = 'highcharts'
     MATPLOTLIB = 'matplotlib'
 
+BACKEND = None
+_pm = {}
 
-BACKEND = Backend.CUFFLINKS
+try:
+    from .plot_cufflinks import CufflinksPlotMap as _cpm
+    _cpm()  # ensure all methods are implemented
+    _pm[Backend.CUFFLINKS] = _cpm
+    BACKEND = Backend.CUFFLINKS
+except ImportError:
+    pass
+
+try:
+    from .plot_plotly import PlotlyPlotMap as _ppm
+    _ppm()  # ensure all methods are implemented
+    _pm[Backend.PLOTLY] = _ppm
+    BACKEND = Backend.PLOTLY
+except ImportError:
+    pass
+
+try:
+    from .plot_bokeh import BokehPlotMap as _bpm
+    _bpm()  # ensure all methods are implemented
+    _pm[Backend.BOKEH:] = _bpm
+    BACKEND = Backend.BOKEH
+except ImportError:
+    pass
+
+try:
+    from .plot_matplotlib import MatplotlibPlotMap as _mpm
+    _mpm()  # ensure all methods are implemented
+    _pm[Backend.MATPLOTLIB] = _mpm
+    BACKEND = Backend.MATPLOTLIB
+except ImportError:
+    pass
+
+if BACKEND is None:
+    raise Exception('No backend available! Please install at least one \
+        of {matplotlib, bokeh, plotly, cufflinks}')
 
 
 def setBackend(backend):
@@ -23,26 +55,18 @@ def setBackend(backend):
     if isinstance(backend, str):
         if backend.upper() not in Backend.__members__:
             raise Exception('Backend not recognized - %s' % backend)
+        elif Backend.__members__[backend.upper()] not in _pm.keys():
+            raise Exception('Backend %s could not be loaded, did you install all dependencies?' % backend.upper())
         else:
             BACKEND = Backend.__members__[backend.upper()]
     else:
+        if Backend.__members__[backend] not in _pm.keys():
+            raise Exception('Backend %s could not be loaded, did you install all dependencies?' % backend.value)
         BACKEND = backend
 
 
 def getBackend():
     return BACKEND
-
-_cpm()  # ensure all methods are implemented
-_mpm()  # ensure all methods are implemented
-_bpm()  # ensure all methods are implemented
-_ppm()  # ensure all methods are implemented
-
-_pm = {
-    Backend.CUFFLINKS: _cpm,
-    Backend.PLOTLY: _ppm,
-    Backend.BOKEH: _bpm,
-    Backend.MATPLOTLIB: _mpm,
-}
 
 
 def _r():
