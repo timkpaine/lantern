@@ -65,8 +65,8 @@ class BokehPlotMap(BPM):
     @staticmethod
     def bar(data, **kwargs):
         kwargs = BokehPlotMap._wrapper(**kwargs)
+        kwargs['width'] = kwargs.get('width', .9)
         return _BF.vbar(x=data.index, top=data.values, **kwargs)
-        raise NotImplementedError()
 
     @staticmethod
     def stackedbar(data, **kwargs):
@@ -97,7 +97,6 @@ class BokehPlotMap(BPM):
         kwargs = BokehPlotMap._wrapper(**kwargs)
         # fill_color = kwargs.get('fill_color', kwargs.get('color'))
         return _BF.patch(x=data.index, y=data.values, fill_alpha=.2, **kwargs)
-        raise NotImplementedError()
 
     @staticmethod
     def stackedarea(data, **kwargs):
