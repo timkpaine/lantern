@@ -95,8 +95,7 @@ class CufflinksPlotMap(BPM):
     @staticmethod
     def area(data, **kwargs):
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
-        return data.iplot(kind='area',
-                          fill=True,
+        return data.iplot(fill=True,
                           filename='cufflinks/filled-area',
                           **kwargs)
 
