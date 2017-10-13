@@ -123,10 +123,10 @@ class CufflinksPlotMap(BPM):
     def bubble(data, **kwargs):
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
         x = kwargs.pop('x', data.columns[0])
-        y = kwargs.pop('y', data.columns[1]) if len(data.columns) > 1 else kwargs.pop('y', data.columns[0])
-        size = kwargs.pop('size', data.columns[1]) if len(data.columns) > 1 else kwargs.pop('size', data.columns[0])
-        text = kwargs.pop('text', 'text')
-        categories = kwargs.pop('categories', 'categories')
+        y = kwargs.pop('y', data.columns[0])
+        size = kwargs.pop('size', 10)
+        text = kwargs.pop('text', data.columns[0])
+        categories = kwargs.pop('categories', data.columns[0])
 
         return data.iplot(kind='bubble',
                           x=x,
@@ -201,9 +201,9 @@ class CufflinksPlotMap(BPM):
     @staticmethod
     def histogram(data, **kwargs):
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
-        bins = kwargs.pop('bins', CufflinksPlotMap.args('subplothist')['bins'])
-        histnorm = kwargs.pop('histnorm', CufflinksPlotMap.args('subplothist')['histnorm'][0])
-        histfunc = kwargs.pop('histfunc', CufflinksPlotMap.args('subplothist')['histfunc'][0])
+        bins = kwargs.pop('bins', CufflinksPlotMap.args(p.HISTOGRAM)['bins'])
+        histnorm = kwargs.pop('histnorm', CufflinksPlotMap.args(p.HISTOGRAM)['histnorm'][0])
+        histfunc = kwargs.pop('histfunc', CufflinksPlotMap.args(p.HISTOGRAM)['histfunc'][0])
 
         return data.iplot(kind='histogram',
                           bins=bins,
@@ -229,8 +229,8 @@ class CufflinksPlotMap(BPM):
     @staticmethod
     def pie(data, **kwargs):
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
-        labels = kwargs.pop('labels', 'labels')
-        values = kwargs.pop('values', 'values')
+        labels = kwargs.pop('labels', data.columns[0])
+        values = kwargs.pop('values', data.columns[0])
         return data.iplot(kind='pie',
                           labels=labels,
                           values=values,
@@ -240,14 +240,16 @@ class CufflinksPlotMap(BPM):
     def scatter(data, **kwargs):
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
         x = kwargs.pop('x', data.columns[0])
-        y = kwargs.pop('y', data.columns[1]) if len(data.columns) > 1 else kwargs.pop('y', data.columns[0])
-        size = kwargs.pop('size', None)
-
+        y = kwargs.pop('y', data.columns[0])
+        categories = kwargs.pop('categories', data.columns[0])
+        size = kwargs.pop('size', 10)
+        mode = kwargs.pop('mode', 'markers')
         return data.iplot(kind='scatter',
-                          mode='markers',
+                          mode=mode,
                           x=x,
                           y=y,
                           size=size,
+                          categories=categories,
                           filename='cufflinks/simple-scatter',
                           **kwargs)
 

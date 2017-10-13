@@ -1,5 +1,5 @@
-from .plot import plot, setBackend, getBackend, Backend
+from .plotting import plot, setBackend, getBackend, Backend
 from .data import *
-from .grid import grid
+from .grids import grid
 
-__all__ = ['plot', 'grid', 'data', 'extensions']
+__all__ = ['plot', 'grids', 'data', 'extensions']

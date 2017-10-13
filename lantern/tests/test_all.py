@@ -1,4 +1,4 @@
 from ..data import *
 from ..extensions import *
-from ..grid import *
-from ..plot import *
+from ..grids import *
+from ..plotting import *

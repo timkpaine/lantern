@@ -1,4 +1,5 @@
 import random
+import pandas as pd
 from enum import Enum
 from .plottypes import lookup
 
@@ -74,14 +75,15 @@ def _r():
 
 
 def _conf(type, colors, i, col):
+    # select type and color from their options, allow strings for some
     if isinstance(type, str):
         typ = lookup(type)
-
         if isinstance(colors, list):
             color = (colors[i:i+1] or [_r()])[0]
-
         elif isinstance(colors, dict):
             color = colors.get(col, _r())
+        elif isinstance(colors, str) and colors:
+            color = colors
         else:
             color = _r()
 
@@ -89,12 +91,12 @@ def _conf(type, colors, i, col):
         typ = (type[i:i+1] or ['line'])[0]
         if isinstance(typ, str):
             typ = lookup(typ)
-
         if isinstance(colors, list):
             color = (colors[i:i+1] or [_r()])[0]
-
         elif isinstance(colors, dict):
             color = colors.get(col, _r())
+        elif isinstance(colors, str) and colors:
+            color = colors
         else:
             color = _r()
 
@@ -107,6 +109,8 @@ def _conf(type, colors, i, col):
             color = (colors[i:i+1] or [_r()])[0]
         elif isinstance(colors, dict):
             color = colors.get(col, _r())
+        elif isinstance(colors, str):
+            color = colors
         else:
             color = _r()
     return typ, color
@@ -115,16 +119,62 @@ def _conf(type, colors, i, col):
 def plot(data, type=None, raw=False, colors=None, **kwargs):
     getattr(_pm[BACKEND], 'setup')()
 
+    # assemble figure as collection of subplots
     fig = []
     if type is None:
         type = 'line'
 
+    # some plot types may utilize multiple types. skip these if so
+    skip = set()
+
     for i, col in enumerate(data.columns):
+        # if in skip, it has already been plotted or used
+        if col in skip:
+            continue
         typ, color = _conf(type, colors, i, col)
 
+        if typ in [lookup('heatmap'), lookup('ohlc'), lookup('ohlcv'), lookup('histogram')]:
+            return getattr(_pm[BACKEND], typ.value)(data, type=typ, colors=colors, **kwargs)
+
         # require all to be present:
-        if typ in [lookup('pie'), lookup('bubble')]:
-            fig.append(getattr(_pm[BACKEND], typ.value)(data, type=typ, raw=raw, colors=colors, **kwargs))
+        if typ in [lookup('pie'), lookup('bubble'), lookup('scatter'), lookup('bar')]:
+            select = [col]
+            skip.add(col)
+
+            # pie specific options
+            if typ == lookup('pie'):
+                labels = kwargs.get('labels', '')
+                values = kwargs.get('values', '')
+                select += [labels] if labels and labels in data.columns else []
+                select += [values] if values and values in data.columns else []
+                skip.add(labels)
+                skip.add(values)
+
+            # bubble specific options
+            # scatter specific options
+            if typ in [lookup('bubble'), lookup('scatter'), lookup('bubble3d'), lookup('scatter3d')]:
+                x = kwargs.get('x', '')
+                y = kwargs.get('y', '')
+                size = kwargs.get('size', '')
+                text = kwargs.get('text', '')
+                categories = kwargs.get('categories', '')
+                select += [x] if x and x in data.columns else []
+                select += [y] if y and y in data.columns else []
+                select += [size] if size and size in data.columns else []
+                select += [text] if text and text in data.columns else []
+                select += [categories] if categories and categories in data.columns else []
+                skip.add(x)
+                skip.add(y)
+                skip.add(size)
+                skip.add(text)
+                skip.add(categories)
+
+            if typ in [lookup('bubble3d'), lookup('scatter3d')]:
+                z = kwargs.get('z', '')
+                select += [z] if z and z in data.columns else []
+                skip.add(z)
+
+            fig.append(getattr(_pm[BACKEND], typ.value)(data[list(set(select))], type=typ, raw=True, colors=colors, **kwargs))
         else:
             fig.append(getattr(_pm[BACKEND], typ.value)(data[col], type=typ, raw=True, colors=color, **kwargs))
-    return _pm[BACKEND].plot(fig)
+    return _pm[BACKEND].plot(fig, **kwargs)

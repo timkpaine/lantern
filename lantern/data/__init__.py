@@ -1,4 +1,4 @@
-from ..plot import plot
+from ..plotting import plot
 from .data_cufflinks import getCFData
 from .other import getTsData, getTicker
 from .data_sklearn import getSKData
@@ -65,22 +65,22 @@ timeseries = Style('line',
 scatter = Style('scatter',
                 getCFData,
                 {'type': 'scatter', 'n_categories': 5, 'n': 10},
-                {'type': 'scatter', 'mode': 'markers', 'size': 10, 'symbol': 'x', 'colorscale': 'paired'})
+                {'type': 'scatter', 'mode': 'markers', 'size': 10, 'x': 'x', 'y': 'y', 'categories': 'categories', 'text': 'text', 'symbol': 'x', 'colorscale': 'paired'})
 
-scatter3d = Style('scatter3d',
-                  getCFData,
-                  {'type': 'scatter3d'},
-                  {'type': 'scatter3d'})
+# scatter3d = Style('scatter3d',
+#                   getCFData,
+#                   {'type': 'scatter3d'},
+#                   {'type': 'scatter3d', 'mode': 'markers', 'size': 10, 'x': 'x', 'y': 'y', 'z': 'z', 'categories': 'categories', 'text': 'text', 'symbol': 'x', 'colorscale': 'paired'})
 
 bubble = Style('bubble',
                getCFData,
                {'type': 'bubble', 'n_categories': 5, 'n': 10},
                {'type': 'bubble', 'x': 'x', 'y': 'y', 'size': 'size', 'categories': 'categories', 'text': 'text'})
 
-bubble3d = Style('bubble3d',
-                 getCFData,
-                 {'type': 'bubble3d', 'n_categories': 5, 'n': 10},
-                 {'type': 'bubble3d', 'x': 'x', 'y': 'y', 'z': 'z', 'size': 'size', 'categories': 'categories', 'text': 'text'})
+# bubble3d = Style('bubble3d',
+#                  getCFData,
+#                  {'type': 'bubble3d', 'n_categories': 5, 'n': 10},
+#                  {'type': 'bubble3d', 'x': 'x', 'y': 'y', 'z': 'z', 'size': 'size', 'categories': 'categories', 'text': 'text'})
 
 pie = Style('pie',
             getCFData,
