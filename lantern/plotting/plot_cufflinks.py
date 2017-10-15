@@ -382,3 +382,7 @@ class CufflinksPlotMap(BPM):
     def candlestick(data, **kwargs):
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
         raise NotImplementedError()
+
+    @staticmethod
+    def pairplot():
+        raise NotImplementedError()

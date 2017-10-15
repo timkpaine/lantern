@@ -174,7 +174,19 @@ def plot(data, type=None, raw=False, colors=None, **kwargs):
                 select += [z] if z and z in data.columns else []
                 skip.add(z)
 
-            fig.append(getattr(_pm[BACKEND], typ.value)(data[list(set(select))], type=typ, raw=True, colors=colors, **kwargs))
+            if typ in [lookup('bar')]:
+                cols_tmp = [col]
+                colors_tmp = []
+                # plot all bars at once
+                for j, col_t in enumerate(data.columns):
+                    typ, color = _conf(type, colors, j, col_t)
+                    if typ in [lookup('bar')]:
+                        colors_tmp.append(color)
+                        cols_tmp.append(col_t)
+                        skip.add(col_t)
+                fig.append(getattr(_pm[BACKEND], typ.value)(data[list(set(cols_tmp))], type=typ, raw=True, colors=colors_tmp, **kwargs))
+            else:
+                fig.append(getattr(_pm[BACKEND], typ.value)(data[list(set(select))], type=typ, raw=True, colors=colors, **kwargs))
         else:
             fig.append(getattr(_pm[BACKEND], typ.value)(data[col], type=typ, raw=True, colors=color, **kwargs))
     return _pm[BACKEND].plot(fig, **kwargs)

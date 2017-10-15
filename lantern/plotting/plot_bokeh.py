@@ -165,3 +165,8 @@ class BokehPlotMap(BPM):
     @staticmethod
     def stackedhist():
         raise NotImplementedError()
+
+    @staticmethod
+    def pairplot():
+        raise NotImplementedError()
+

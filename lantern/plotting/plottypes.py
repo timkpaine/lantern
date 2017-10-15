@@ -32,6 +32,7 @@ class BasePlotType(Enum):
     MULTISCATTER = 'multiscatter'
     OHLC = 'ohlc'
     OHLVC = 'ohlcv'
+    PAIRPLOT = 'pairplot'
     PIE = 'pie'
     SCATTER = 'scatter'
     SCATTER3D = 'scatter3d'
@@ -140,6 +141,10 @@ class BasePlotMap(metaclass=ABCMeta):
 
     @abstractstatic
     def ohlcv():
+        '''plot type'''
+
+    @abstractstatic
+    def pairplot():
         '''plot type'''
 
     @abstractstatic
