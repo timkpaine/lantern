@@ -1,1 +1,2 @@
 recursive-include lantern/extensions/hideinput *
+prune tests/

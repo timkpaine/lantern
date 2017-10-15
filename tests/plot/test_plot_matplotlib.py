@@ -1,5 +1,8 @@
 from mock import patch
 
+import matplotlib
+matplotlib.use('Agg')
+
 
 class TestConfig:
     def setup(self):
