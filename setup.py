@@ -28,7 +28,7 @@ setup(
 
     keywords='analytics tools plotting',
 
-    packages=find_packages(exclude=['analytics_kr', 'notebooks', 'kr', 'scripts', 'example-datagrid']),
+    packages=find_packages(exclude=['analytics_kr', 'notebooks', 'kr', 'scripts', 'example-datagrid', 'tests']),
     zip_safe=False,
 
     # entry_points={
