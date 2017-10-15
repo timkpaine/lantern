@@ -4,6 +4,8 @@ from .plottypes import BasePlotMap as BPM
 from .plottypes import lookup
 import cufflinks as cf
 from plotly.offline import init_notebook_mode, iplot
+import plotly.graph_objs as go
+
 
 if in_ipynb():
     init_notebook_mode(connected=True)
@@ -67,15 +69,19 @@ class CufflinksPlotMap(BPM):
     def plot(data, **kwargs):
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
 
+        other_args = {}
+
         if isinstance(data, list):
             tdata = []
 
             for figure in data:
                 for trace in figure.data:
                     tdata.append(trace)
+                if 'barmode' in figure.layout:
+                    other_args['barmode'] = figure.layout['barmode']
             data = tdata
-            # data = [x.data[i] for x in data for i in x.data]
-        return iplot(data)
+        fig = go.Figure(data=tdata, layout=other_args)
+        return iplot(fig)
 
     @staticmethod
     def setTheme(theme='pearl'):
@@ -124,7 +130,7 @@ class CufflinksPlotMap(BPM):
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
         x = kwargs.pop('x', data.columns[0])
         y = kwargs.pop('y', data.columns[0])
-        size = kwargs.pop('size', 10)
+        size = kwargs.pop('size', data.columns[0])
         text = kwargs.pop('text', data.columns[0])
         categories = kwargs.pop('categories', data.columns[0])
 
@@ -370,13 +376,25 @@ class CufflinksPlotMap(BPM):
     def ohlc(data, **kwargs):
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
         legend = kwargs.pop('legend', 'top')
-        return cf.QuantFig(data, legend=legend).iplot()
+        qf = cf.QuantFig(data, legend=legend)
+        # qf.add_sma([10, 20], width=2, color=['green', 'lightgreen'], legendgroup=True)
+        qf.add_bollinger_bands()
+        # qf.add_volume()
+        # qf.add_macd()
+        # qf.add_rsi(periods=20, color='java')
+        return qf.iplot()
 
     @staticmethod
     def ohlcv(data, **kwargs):
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
         legend = kwargs.pop('legend', 'top')
-        return cf.QuantFig(data, legend=legend).iplot()
+        qf = cf.QuantFig(data, legend=legend)
+        qf.add_sma([10, 20], width=2, color=['green', 'lightgreen'], legendgroup=True)
+        qf.add_bollinger_bands(periods=20, boll_std=2, colors=['magenta', 'grey'], fill=True)
+        qf.add_volume()
+        qf.add_macd()
+        qf.add_rsi(periods=20, color='java')
+        return qf.iplot()
 
     @staticmethod
     def candlestick(data, **kwargs):

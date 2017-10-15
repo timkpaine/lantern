@@ -10,6 +10,7 @@ class Backend(Enum):
     BOKEH = 'bokeh'
     HIGHCHARTS = 'highcharts'
     MATPLOTLIB = 'matplotlib'
+    SEABORN = 'seaborn'
 
 BACKEND = None
 _pm = {}
@@ -18,15 +19,8 @@ try:
     from .plot_cufflinks import CufflinksPlotMap as _cpm
     _cpm()  # ensure all methods are implemented
     _pm[Backend.CUFFLINKS] = _cpm
+    _pm[Backend.PLOTLY] = _cpm
     BACKEND = Backend.CUFFLINKS
-except ImportError:
-    pass
-
-try:
-    from .plot_plotly import PlotlyPlotMap as _ppm
-    _ppm()  # ensure all methods are implemented
-    _pm[Backend.PLOTLY] = _ppm
-    BACKEND = Backend.PLOTLY
 except ImportError:
     pass
 
@@ -42,6 +36,7 @@ try:
     from .plot_matplotlib import MatplotlibPlotMap as _mpm
     _mpm()  # ensure all methods are implemented
     _pm[Backend.MATPLOTLIB] = _mpm
+    _pm[Backend.SEABORN] = _mpm
     BACKEND = Backend.MATPLOTLIB
 except ImportError:
     pass
@@ -169,11 +164,13 @@ def plot(data, type=None, raw=False, colors=None, **kwargs):
                 skip.add(text)
                 skip.add(categories)
 
+            # 3d plotters
             if typ in [lookup('bubble3d'), lookup('scatter3d')]:
                 z = kwargs.get('z', '')
                 select += [z] if z and z in data.columns else []
                 skip.add(z)
 
+            # plot all at the same time
             if typ in [lookup('bar'), lookup('horizontalbar'), lookup('stackedbar'), lookup('horizontalstackedbar'), lookup('box')]:
                 cols_tmp = [col]
                 colors_tmp = []

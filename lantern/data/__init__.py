@@ -186,7 +186,6 @@ scatter = Style('scatter',
 #                    {'type': 'scattergeo'})
 
 scattermat = None
-sinwave = Style('line', getCFData, {'type': 'line'}, {'type': 'sin'})
 spread = None
 
 stackedarea = Style('line',
