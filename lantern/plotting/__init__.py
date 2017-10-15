@@ -65,6 +65,18 @@ def getBackend():
     return BACKEND
 
 
+def themes():
+    return _pm[BACKEND].themes()
+
+
+def setTheme(theme):
+    _pm[BACKEND].setTheme(theme)
+
+
+def getTheme():
+    return _pm[BACKEND].getTheme()
+
+
 def _r():
     return '#%02X%02X%02X' % (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 

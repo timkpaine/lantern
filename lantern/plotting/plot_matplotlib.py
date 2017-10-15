@@ -5,6 +5,7 @@ from .plottypes import BasePlotMap as BPM
 from ..utils import in_ipynb
 
 _MF = None
+sns.set()
 
 
 if in_ipynb():
@@ -32,11 +33,11 @@ class MatplotlibPlotMap(BPM):
 
     @staticmethod
     def setTheme(theme):
-        raise NotImplementedError()
+        plt.style.use(theme)
 
     @staticmethod
     def themes():
-        raise NotImplementedError()
+        return plt.style.available
 
     @staticmethod
     def _wrapper(**kwargs):
