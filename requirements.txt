@@ -1,11 +1,11 @@
+bokeh
+cufflinks
 jupyterlab
 knowledge-repo
-sklearn
-cufflinks
-bokeh
-plotly
 matplotlib
-pandas
 numpy
+pandas
+plotly
+seaborn
 scipy
-bokeh
+sklearn
