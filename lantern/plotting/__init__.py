@@ -137,7 +137,7 @@ def plot(data, type=None, raw=False, colors=None, **kwargs):
             return getattr(_pm[BACKEND], typ.value)(data, type=typ, colors=colors, **kwargs)
 
         # require all to be present:
-        if typ in [lookup('pie'), lookup('bubble'), lookup('scatter'), lookup('bar'), lookup('stackedbar'), lookup('box')]:
+        if typ in [lookup('pie'), lookup('bubble'), lookup('scatter'), lookup('bar'), lookup('stackedbar'), lookup('horizontalbar'), lookup('horizontalstackedbar'), lookup('box')]:
             select = [col]
             skip.add(col)
 
@@ -174,35 +174,13 @@ def plot(data, type=None, raw=False, colors=None, **kwargs):
                 select += [z] if z and z in data.columns else []
                 skip.add(z)
 
-            if typ == lookup('bar'):
+            if typ in [lookup('bar'), lookup('horizontalbar'), lookup('stackedbar'), lookup('horizontalstackedbar'), lookup('box')]:
                 cols_tmp = [col]
                 colors_tmp = []
                 # plot all bars at once
                 for j, col_t in enumerate(data.columns):
-                    typ, color = _conf(type, colors, j, col_t)
-                    if typ == lookup('bar'):
-                        colors_tmp.append(color)
-                        cols_tmp.append(col_t)
-                        skip.add(col_t)
-                fig.append(getattr(_pm[BACKEND], typ.value)(data[list(set(cols_tmp))], type=typ, raw=True, colors=colors_tmp, **kwargs))
-            elif typ == lookup('stackedbar'):
-                cols_tmp = [col]
-                colors_tmp = []
-                # plot all bars at once
-                for j, col_t in enumerate(data.columns):
-                    typ, color = _conf(type, colors, j, col_t)
-                    if typ == lookup('stackedbar'):
-                        colors_tmp.append(color)
-                        cols_tmp.append(col_t)
-                        skip.add(col_t)
-                fig.append(getattr(_pm[BACKEND], typ.value)(data[list(set(cols_tmp))], type=typ, raw=True, colors=colors_tmp, **kwargs))
-            elif typ == lookup('box'):
-                cols_tmp = [col]
-                colors_tmp = []
-                # plot all bars at once
-                for j, col_t in enumerate(data.columns):
-                    typ, color = _conf(type, colors, j, col_t)
-                    if typ == lookup('box'):
+                    typ2, color = _conf(type, colors, j, col_t)
+                    if typ == typ2:
                         colors_tmp.append(color)
                         cols_tmp.append(col_t)
                         skip.add(col_t)
