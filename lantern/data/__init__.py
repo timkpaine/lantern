@@ -46,31 +46,52 @@ FRIEDMAN = 'friedman'
 FRIEDMAN2 = 'friedman2'
 FRIEDMAN3 = 'friedman3'
 
-# cufflinks
-lines = Style('line',
-              getCFData,
-              {'type': 'line'},
-              {'type': 'line'})
+# plotting
+AREA = 'area'
+BASIC = 'basic'
+BAR = 'bar'
+BOX = 'box'
+BUBBLE = 'bubble'
+BUBBLE3D = 'bubble3d'
+CANDLESTICK = 'candlestick'
+DENSITY = 'density'
+GROUPEDBAR = 'groupedbar'
+GROUPEDHIST = 'groupedhist'
+GROUPEDSCATTER = 'groupedscatter'
+HEATMAP = 'heatmap'
+HEXBIN = 'hexbin'
+HISTOGRAM = 'histogram'
+HORIZONTALBAR = 'horizontalbar'
+HORIZONTALSTACKEDBAR = 'horizontalstackedbar'
+LINE = 'line'
+MULTISCATTER = 'multiscatter'
+OHLC = 'ohlc'
+OHLVC = 'ohlcv'
+PAIRPLOT = 'pairplot'
+PIE = 'pie'
+SCATTER = 'scatter'
+SCATTER3D = 'scatter3d'
+SCATTERMATRIX = 'scattermatrix'
+SPREAD = 'spread'
+STACKEDBAR = 'stackedbar'
+STACKEDHIST = 'stackedhist'
+STACKEDAREA = 'stackedarea'
 
-area = Style('line',
+# cufflinks
+area = Style('area',
              getCFData,
              {'type': 'line'},
              {'type': 'area'})
 
-timeseries = Style('line',
-                   getCFData,
-                   {'type': 'line'},
-                   {'type': 'line'})
+bar = Style('bar',
+            getCFData,
+            {'type': 'bar', 'n_categories': 5, 'n': 10},
+            {'type': 'bar'})
 
-scatter = Style('scatter',
-                getCFData,
-                {'type': 'scatter', 'n_categories': 5, 'n': 10},
-                {'type': 'scatter', 'mode': 'markers', 'size': 10, 'x': 'x', 'y': 'y', 'categories': 'categories', 'text': 'text', 'symbol': 'x', 'colorscale': 'paired'})
-
-# scatter3d = Style('scatter3d',
-#                   getCFData,
-#                   {'type': 'scatter3d'},
-#                   {'type': 'scatter3d', 'mode': 'markers', 'size': 10, 'x': 'x', 'y': 'y', 'z': 'z', 'categories': 'categories', 'text': 'text', 'symbol': 'x', 'colorscale': 'paired'})
+box = Style('box',
+            getCFData,
+            {'type': 'box'},
+            {'type': 'box'})
 
 bubble = Style('bubble',
                getCFData,
@@ -82,20 +103,55 @@ bubble = Style('bubble',
 #                  {'type': 'bubble3d', 'n_categories': 5, 'n': 10},
 #                  {'type': 'bubble3d', 'x': 'x', 'y': 'y', 'z': 'z', 'size': 'size', 'categories': 'categories', 'text': 'text'})
 
-pie = Style('pie',
-            getCFData,
-            {'type': 'pie'},
-            {'type': 'pie', 'labels': 'labels', 'values': 'values'})
+candlestick = None
+choropleth = None
+density = None
 
-heat = Style('heatmap',
+groupedbar = Style('groupedbar',
+                   getCFData,
+                   {'type': 'bar', 'n_categories': 5, 'n': 10},
+                   {'type': 'groupedbar'})
+
+groupedhist = Style('histogram',
+                    getCFData,
+                    {'type': 'histogram', 'n_traces': 2, 'n': 100},
+                    {'type': 'groupedhist'})
+
+groupedscatter = Style('scatter',
+                       getCFData,
+                       {'type': 'scatter', 'n_categories': 5, 'n': 10},
+                       {'type': 'groupedscatter', 'mode': 'markers', 'size': 10, 'x': 'x', 'y': 'y', 'categories': 'categories', 'text': 'text', 'symbol': 'x', 'colorscale': 'paired'})
+
+
+heatmap = Style('heatmap',
+                getCFData,
+                {'type': 'heatmap', 'n_x': 20, 'n_y': 20},
+                {'type': 'heatmap'})
+
+
+hexbin = None
+
+histogram = Style('histogram',
+                  getCFData,
+                  {'type': 'histogram', 'n_traces': 2, 'n': 100},
+                  {'type': 'histogram'})
+
+horizontalbar = Style('horizontalbar',
+                      getCFData,
+                      {'type': 'bar', 'n_categories': 5, 'n': 10},
+                      {'type': 'horizontalbar'})
+
+horizontalstackedbar = Style('horizontalstackedbar',
+                             getCFData,
+                             {'type': 'bar', 'n_categories': 5, 'n': 10},
+                             {'type': 'horizontalstackedbar'})
+
+line = Style('line',
              getCFData,
-             {'type': 'heatmap', 'n_x': 20, 'n_y': 20},
-             {'type': 'heatmap'})
+             {'type': 'line'},
+             {'type': 'line'})
 
-bar = Style('bar',
-            getCFData,
-            {'type': 'bar', 'n_categories': 5, 'n': 10},
-            {'type': 'bar'})
+multiscatter = None
 
 ohlc = Style('ohlc',
              getCFData,
@@ -106,15 +162,22 @@ ohlcv = Style('ohlcv',
               {'type': 'ohlcv'},
               {'type': 'ohlcv'})
 
-box = Style('box',
-            getCFData,
-            {'type': 'box'},
-            {'type': 'box'})
+pairplot = None
 
-histogram = Style('histogram',
-                  getCFData,
-                  {'type': 'histogram', 'n_traces': 2, 'n': 100},
-                  {'type': 'histogram'})
+pie = Style('pie',
+            getCFData,
+            {'type': 'pie'},
+            {'type': 'pie', 'labels': 'labels', 'values': 'values'})
+
+scatter = Style('scatter',
+                getCFData,
+                {'type': 'scatter', 'n_categories': 5, 'n': 10},
+                {'type': 'scatter', 'mode': 'markers', 'size': 10, 'x': 'x', 'y': 'y', 'categories': 'categories', 'text': 'text', 'symbol': 'x', 'colorscale': 'paired'})
+
+# scatter3d = Style('scatter3d',
+#                   getCFData,
+#                   {'type': 'scatter3d'},
+#                   {'type': 'scatter3d', 'mode': 'markers', 'size': 10, 'x': 'x', 'y': 'y', 'z': 'z', 'categories': 'categories', 'text': 'text', 'symbol': 'x', 'colorscale': 'paired'})
 
 # FIXME
 # scattergeo = Style('scattergeo',
@@ -122,18 +185,27 @@ histogram = Style('histogram',
 #                    {'type': 'scattergeo'},
 #                    {'type': 'scattergeo'})
 
-surface = 'surface'
-
+scattermat = None
 sinwave = Style('line', getCFData, {'type': 'line'}, {'type': 'sin'})
+spread = None
 
-choropleth = 'choropleth'
-stock = 'stock'
+stackedarea = Style('line',
+                    getCFData,
+                    {'type': 'line'},
+                    {'type': 'stackedarea'})
 
-# other
-simple_ts = 'timeseries'
-ticker = 'ticker'
+stackedbar = Style('stackedbar',
+                   getCFData,
+                   {'type': 'bar', 'n_categories': 5, 'n': 10},
+                   {'type': 'stackedbar'})
 
+stackedhist = Style('histogram',
+                    getCFData,
+                    {'type': 'histogram', 'n_traces': 2, 'n': 100},
+                    {'type': 'stackedhist'})
+surface = None
 
-def getData(typ, **kwargs):
-    if type == lines:
-        return
+timeseries = Style('line',
+                   getCFData,
+                   {'type': 'line'},
+                   {'type': 'line'})

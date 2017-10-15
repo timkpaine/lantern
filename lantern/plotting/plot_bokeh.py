@@ -36,7 +36,7 @@ class BokehPlotMap(BPM):
         raise NotImplementedError()
 
     @staticmethod
-    def setTheme():
+    def setTheme(theme):
         raise NotImplementedError()
 
     @staticmethod
@@ -111,62 +111,61 @@ class BokehPlotMap(BPM):
         raise NotImplementedError()
 
     @staticmethod
-    def basic():
+    def basic(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def bubble():
+    def bubble(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def candlestick():
+    def candlestick(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def groupedbar():
+    def groupedbar(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def groupedhist():
+    def groupedhist(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def groupedscatter():
+    def groupedscatter(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def heatmap():
+    def heatmap(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def multiscatter():
+    def multiscatter(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def ohlc():
+    def ohlc(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def ohlcv():
+    def ohlcv(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def pie():
+    def pie(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def scattermatrix():
+    def scattermatrix(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def spread():
+    def spread(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def stackedhist():
+    def stackedhist(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def pairplot():
+    def pairplot(data, **kwargs):
         raise NotImplementedError()
-

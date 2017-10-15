@@ -40,9 +40,9 @@ class CufflinksPlotMap(BPM):
           p.STACKEDHIST: {'bins': None,
                           'histnorm': ['', 'percent', 'probability', 'density', 'probability density'],
                           'histfunc': ['count', 'sum', 'avg', 'min', 'max']},
-          'subplothist': {'bins': None,
-                          'histnorm': ['', 'percent', 'probability', 'density', 'probability density'],
-                          'histfunc': ['count', 'sum', 'avg', 'min', 'max']},
+          # 'subplothist': {'bins': None,
+          #                 'histnorm': ['', 'percent', 'probability', 'density', 'probability density'],
+          #                 'histfunc': ['count', 'sum', 'avg', 'min', 'max']},
         }.get(lookup(plottype), {})
 
     @staticmethod
@@ -157,9 +157,9 @@ class CufflinksPlotMap(BPM):
     @staticmethod
     def groupedhist(data, **kwargs):
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
-        bins = kwargs.pop('bins', CufflinksPlotMap.args('subplothist')['bins'])
-        histnorm = kwargs.pop('histnorm', CufflinksPlotMap.args('subplothist')['histnorm'][0])
-        histfunc = kwargs.pop('histfunc', CufflinksPlotMap.args('subplothist')['histfunc'][0])
+        bins = kwargs.pop('bins', CufflinksPlotMap.args(p.GROUPEDHIST)['bins'])
+        histnorm = kwargs.pop('histnorm', CufflinksPlotMap.args(p.GROUPEDHIST)['histnorm'][0])
+        histfunc = kwargs.pop('histfunc', CufflinksPlotMap.args(p.GROUPEDHIST)['histfunc'][0])
 
         return data.iplot(kind='histogram',
                           barmode='group',
@@ -282,9 +282,9 @@ class CufflinksPlotMap(BPM):
     @staticmethod
     def stackedhist(data, **kwargs):
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
-        bins = kwargs.pop('bins', CufflinksPlotMap.args('subplothist')['bins'])
-        histnorm = kwargs.pop('histnorm', CufflinksPlotMap.args('subplothist')['histnorm'][0])
-        histfunc = kwargs.pop('histfunc', CufflinksPlotMap.args('subplothist')['histfunc'][0])
+        bins = kwargs.pop('bins', CufflinksPlotMap.args(p.STACKEDHIST)['bins'])
+        histnorm = kwargs.pop('histnorm', CufflinksPlotMap.args(p.STACKEDHIST)['histnorm'][0])
+        histfunc = kwargs.pop('histfunc', CufflinksPlotMap.args(p.STACKEDHIST)['histfunc'][0])
 
         return data.iplot(kind='histogram',
                           barmode='stack',
@@ -384,5 +384,5 @@ class CufflinksPlotMap(BPM):
         raise NotImplementedError()
 
     @staticmethod
-    def pairplot():
+    def pairplot(data, **kwargs):
         raise NotImplementedError()

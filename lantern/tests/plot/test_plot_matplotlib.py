@@ -22,19 +22,29 @@ class TestConfig:
 
     def test_all(self):
         with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
-            from lantern import lines, bar, area, bubble, pie, timeseries, scatter, heat, ohlc, ohlcv, box, histogram, setBackend
+            from lantern import setBackend
+            from lantern import area, bar, box, bubble, groupedbar, groupedhist, groupedscatter, heatmap, histogram, horizontalbar, horizontalstackedbar, line, ohlc, ohlcv, pie, scatter, sinwave, stackedarea, stackedbar, stackedhist, timeseries
             mock1.return_value = True
             setBackend('matplotlib')
 
-            lines.show()
-            bar.show()
             area.show()
-            # bubble.show()
-            # pie.show()
-            timeseries.show()
-            # scatter.show()
-            # heat.show()
+            bar.show()
+            box.show()
+            bubble.show()
+            # groupedbar.show()
+            # groupedhist.show()
+            # groupedscatter.show()
+            # heatmap.show()
+            histogram.show()
+            horizontalbar.show()
+            horizontalstackedbar.show()
+            line.show()
             # ohlc.show()
             # ohlcv.show()
-            # box.show()
-            histogram.show()
+            # pie.show()
+            scatter.show()
+            # sinwave.show()
+            # stackedarea.show()
+            stackedbar.show()
+            stackedhist.show()
+            timeseries.show()

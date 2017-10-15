@@ -24,19 +24,30 @@ class TestConfig:
         with patch('lantern.plotting.plot_cufflinks.in_ipynb', create=True) as mock1:
             import cufflinks
             cufflinks.go_offline()
-            from lantern import lines, bar, area, bubble, pie, timeseries, scatter, heat, ohlc, ohlcv, box, histogram, setBackend
+            from lantern import setBackend
+            from lantern import area, bar, box, bubble, groupedbar, groupedhist, groupedscatter, heatmap, histogram, horizontalbar, horizontalstackedbar, line, ohlc, ohlcv, pie, scatter, sinwave, stackedarea, stackedbar, stackedhist, timeseries
+
             mock1.return_value = True
             setBackend('cufflinks')
 
-            lines.show()
-            bar.show()
             area.show()
+            bar.show()
+            box.show()
             bubble.show()
-            pie.show()
-            timeseries.show()
-            scatter.show()
-            heat.show()
+            groupedbar.show()
+            groupedhist.show()
+            # groupedscatter.show()
+            heatmap.show()
+            histogram.show()
+            horizontalbar.show()
+            horizontalstackedbar.show()
+            line.show()
             ohlc.show()
             ohlcv.show()
-            box.show()
-            histogram.show()
+            pie.show()
+            scatter.show()
+            # sinwave.show()
+            stackedarea.show()
+            stackedbar.show()
+            stackedhist.show()
+            timeseries.show()

@@ -1,7 +1,8 @@
+import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 from .plottypes import BasePlotMap as BPM
 from ..utils import in_ipynb
-
 
 _MF = None
 
@@ -30,7 +31,7 @@ class MatplotlibPlotMap(BPM):
         raise NotImplementedError()
 
     @staticmethod
-    def setTheme():
+    def setTheme(theme):
         raise NotImplementedError()
 
     @staticmethod
@@ -51,7 +52,7 @@ class MatplotlibPlotMap(BPM):
     def plot(data, **kwargs):
         _MF.canvas.draw()
         ax = plt.gca()
-        ax.relim()
+        # ax.relim()
         ax.autoscale_view()
         plt.draw()
         return plt.show()
@@ -73,8 +74,32 @@ class MatplotlibPlotMap(BPM):
     @staticmethod
     def box(data, **kwargs):
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
+        color = kwargs.pop('color', '')  # FIXME
         return data.plot(kind='box',
                          **kwargs)
+
+    @staticmethod
+    def bubble(data, **kwargs):
+        kwargs = MatplotlibPlotMap._wrapper(**kwargs)
+        x = kwargs.pop('x', data.columns[0])
+        y = kwargs.pop('y', data.columns[0])
+        markers = kwargs.pop('symbol', '.')
+        size = kwargs.pop('size', 10)
+
+        if isinstance(size, str):
+            size = data[size] * 10
+
+        mode = kwargs.pop('mode', '')  # FIXME
+        categories = kwargs.pop('categories', 'categories') # FIXME
+        text = kwargs.pop('text', '') # FIXME
+        colorscale = kwargs.pop('colorscale', '')  # FIXME
+        color = kwargs.pop('color', '')
+
+
+        groups = list(set(data[categories].values))
+
+        fg = sns.FacetGrid(data=data, hue='categories', hue_order=groups, aspect=1.61)
+        return fg.map(plt.scatter, x, y, s=size, marker=markers, **kwargs)
 
     @staticmethod
     def density(data, **kwargs):
@@ -117,7 +142,23 @@ class MatplotlibPlotMap(BPM):
     @staticmethod
     def scatter(data, **kwargs):
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
+
+        x = kwargs.pop('x', data.columns[0])
+        y = kwargs.pop('y', data.columns[0])
+        markers = kwargs.pop('symbol', '.')
+        size = kwargs.pop('size', 10)
+
+        mode = kwargs.pop('mode', '')  # FIXME
+        categories = kwargs.pop('categories', 'categories') # FIXME
+        text = kwargs.pop('text', '') # FIXME
+        colorscale = kwargs.pop('colorscale', '')  # FIXME
+        color = kwargs.pop('color', '')
+
         return data.plot(kind='scatter',
+                         x=x,
+                         y=y,
+                         s=size,
+                         marker=markers,
                          **kwargs)
 
     @staticmethod
@@ -142,57 +183,53 @@ class MatplotlibPlotMap(BPM):
                          **kwargs)
 
     @staticmethod
-    def basic():
+    def basic(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def bubble():
+    def candlestick(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def candlestick():
+    def groupedbar(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def groupedbar():
+    def groupedhist(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def groupedhist():
+    def groupedscatter(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def groupedscatter():
+    def heatmap(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def heatmap():
+    def multiscatter(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def multiscatter():
+    def ohlc(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def ohlc():
+    def ohlcv(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def ohlcv():
+    def pie(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def pie():
+    def scattermatrix(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def scattermatrix():
+    def spread(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
-    def spread():
-        raise NotImplementedError()
-
-    @staticmethod
-    def pairplot():
+    def pairplot(data, **kwargs):
         raise NotImplementedError()
