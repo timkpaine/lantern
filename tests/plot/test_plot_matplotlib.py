@@ -26,7 +26,7 @@ class TestConfig:
     def test_all(self):
         with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
             from lantern import setBackend
-            from lantern import area, bar, box, bubble, groupedbar, groupedhist, groupedscatter, heatmap, histogram, horizontalbar, horizontalstackedbar, line, ohlc, ohlcv, pie, scatter, sinwave, stackedarea, stackedbar, stackedhist, timeseries
+            from lantern import area, bar, box, bubble, groupedbar, groupedhist, groupedscatter, heatmap, histogram, horizontalbar, horizontalstackedbar, line, ohlc, ohlcv, pie, scatter, stackedarea, stackedbar, stackedhist, timeseries
             mock1.return_value = True
             setBackend('matplotlib')
 
@@ -46,7 +46,6 @@ class TestConfig:
             # ohlcv.show()
             # pie.show()
             scatter.show()
-            # sinwave.show()
             # stackedarea.show()
             stackedbar.show()
             stackedhist.show()

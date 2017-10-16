@@ -25,7 +25,7 @@ class TestConfig:
             import cufflinks
             cufflinks.go_offline()
             from lantern import setBackend
-            from lantern import area, bar, box, bubble, groupedbar, groupedhist, groupedscatter, heatmap, histogram, horizontalbar, horizontalstackedbar, line, ohlc, ohlcv, pie, scatter, sinwave, stackedarea, stackedbar, stackedhist, timeseries
+            from lantern import area, bar, box, bubble, groupedbar, groupedhist, groupedscatter, heatmap, histogram, horizontalbar, horizontalstackedbar, line, ohlc, ohlcv, pie, scatter, stackedarea, stackedbar, stackedhist, timeseries
 
             mock1.return_value = True
             setBackend('cufflinks')
@@ -46,7 +46,6 @@ class TestConfig:
             ohlcv.show()
             pie.show()
             scatter.show()
-            # sinwave.show()
             stackedarea.show()
             stackedbar.show()
             stackedhist.show()
