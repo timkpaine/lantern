@@ -5,6 +5,8 @@ from .plottypes import BasePlotMap as BPM
 from ..utils import in_ipynb
 
 _MF = None
+_MFA = None
+_MFA2 = None
 sns.set()
 
 
@@ -20,8 +22,11 @@ print('Matplotlib loaded')
 class MatplotlibPlotMap(BPM):
     @staticmethod
     def setup():
-        global _MF
-        _MF = plt.figure()
+        global _MF, _MFA, _MFA2
+        _MF, _MFA = plt.subplots(figsize=(12, 5))
+        _MFA2 = _MFA.twiny()
+        _MFA2.get_xaxis().set_visible(False)
+        _MFA2.xaxis.get_major_formatter().set_useOffset(False)
 
     @staticmethod
     def args():
@@ -52,9 +57,12 @@ class MatplotlibPlotMap(BPM):
     @staticmethod
     def plot(data, **kwargs):
         _MF.canvas.draw()
-        ax = plt.gca()
+        # ax = plt.gca()
         # ax.relim()
-        ax.autoscale_view()
+        _MFA.autoscale_view()
+        h1, l1 = _MFA.get_legend_handles_labels()
+        h2, l2 = _MFA2.get_legend_handles_labels()
+        _MFA.legend(h1+h2, l1+l2, loc=2)
         plt.draw()
         return plt.show()
 
@@ -63,6 +71,7 @@ class MatplotlibPlotMap(BPM):
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
         return data.plot(kind='area',
                          stacked=kwargs.get('stacked', False),
+                         ax=_MFA2,
                          **kwargs)
 
     @staticmethod
@@ -70,6 +79,7 @@ class MatplotlibPlotMap(BPM):
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
         return data.plot(kind='bar',
                          stacked=False,
+                         ax=_MFA,
                          **kwargs)
 
     @staticmethod
@@ -77,6 +87,7 @@ class MatplotlibPlotMap(BPM):
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
         color = kwargs.pop('color', '')  # FIXME
         return data.plot(kind='box',
+                         ax=_MFA,
                          **kwargs)
 
     @staticmethod
@@ -138,7 +149,7 @@ class MatplotlibPlotMap(BPM):
     @staticmethod
     def line(data, **kwargs):
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
-        return data.plot(**kwargs)
+        return data.plot(ax=_MFA2, **kwargs)
 
     @staticmethod
     def scatter(data, **kwargs):
@@ -174,6 +185,7 @@ class MatplotlibPlotMap(BPM):
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
         return data.plot(kind='bar',
                          stacked=True,
+                         ax=_MFA,
                          **kwargs)
 
     @staticmethod

@@ -1,2 +1,3 @@
 recursive-include lantern/extensions/hideinput *
 prune tests/
+prunt examples/
