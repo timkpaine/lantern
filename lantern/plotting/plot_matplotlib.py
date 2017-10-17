@@ -5,8 +5,7 @@ from .plottypes import BasePlotMap as BPM
 from ..utils import in_ipynb
 
 _MF = None
-_MFA = None
-_MFA2 = None
+_MFA = []
 sns.set()
 
 
@@ -21,12 +20,30 @@ print('Matplotlib loaded')
 
 class MatplotlibPlotMap(BPM):
     @staticmethod
+    def _newX():
+        global _MFA
+        _MFA.append(_MFA[0].twiny())
+        _MFA[-1].get_xaxis().set_label_position("bottom")
+        _MFA[-1].tick_params(axis='both', which='both', labelbottom=True, labeltop=False, labelleft=True, labelright=False)
+        _MFA[-1].tick_params(axis='x', pad=30*len(_MFA))
+        labels = _MFA[-1].get_xticklabels()
+        plt.setp(labels, rotation=30, fontsize=10)
+        _MFA[-1].get_xaxis().set_visible(False)
+        _MFA[-1].get_xaxis().get_major_formatter().set_useOffset(False)
+        _MFA[-1].legend_ = None
+
+        return _MFA[-1]
+
+    @staticmethod
     def setup():
-        global _MF, _MFA, _MFA2
+        global _MF, _MFA
         _MF, _MFA = plt.subplots(figsize=(12, 5))
-        _MFA2 = _MFA.twiny()
-        _MFA2.get_xaxis().set_visible(False)
-        _MFA2.xaxis.get_major_formatter().set_useOffset(False)
+        _MFA = [_MFA]
+        _MFA[0].get_xaxis().set_label_position("bottom")
+        _MFA[0].tick_params(axis='both', which='both', labelbottom=True, labeltop=False, labelleft=True, labelright=False)
+        labels = _MFA[0].get_xticklabels()
+        plt.setp(labels, rotation=30, fontsize=10)
+        _MFA[0].get_xaxis().get_major_formatter().set_useOffset(False)
 
     @staticmethod
     def args():
@@ -52,6 +69,9 @@ class MatplotlibPlotMap(BPM):
             kwargs.pop('raw')
         if 'colors' in kwargs:
             kwargs['color'] = kwargs.pop('colors')
+        kwargs.pop('xlabel')
+        kwargs.pop('ylabel')
+        kwargs.pop('title')
         return kwargs
 
     @staticmethod
@@ -59,35 +79,51 @@ class MatplotlibPlotMap(BPM):
         _MF.canvas.draw()
         # ax = plt.gca()
         # ax.relim()
-        _MFA.autoscale_view()
-        h1, l1 = _MFA.get_legend_handles_labels()
-        h2, l2 = _MFA2.get_legend_handles_labels()
-        _MFA.legend(h1+h2, l1+l2, loc=2)
+        _MFA[0].autoscale_view()
+        h = []
+        l = []
+        for m in _MFA:
+            h1, l1 = m.get_legend_handles_labels()
+            h += h1
+            l += l1
+            print(h1)
+            print(l1)
+        # plt.legend([h,l])
+        _MFA[0].legend(h, l, loc=2)
         plt.draw()
+        if 'xlabel' in kwargs:
+            _MFA[0].set_xlabel(kwargs.get('xlabel'))
+        if 'ylabel' in kwargs:
+            _MFA[0].set_ylabel(kwargs.get('ylabel'))
+        if 'title' in kwargs:
+            plt.title(kwargs.get('title'))
         return plt.show()
 
     @staticmethod
     def area(data, **kwargs):
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
+        ax = _MFA[0]
         return data.plot(kind='area',
                          stacked=kwargs.get('stacked', False),
-                         ax=_MFA2,
+                         ax=ax,
                          **kwargs)
 
     @staticmethod
     def bar(data, **kwargs):
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
+        ax = MatplotlibPlotMap._newX()
         return data.plot(kind='bar',
                          stacked=False,
-                         ax=_MFA,
+                         ax=ax,
                          **kwargs)
 
     @staticmethod
     def box(data, **kwargs):
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
+        ax = MatplotlibPlotMap._newX()
         color = kwargs.pop('color', '')  # FIXME
         return data.plot(kind='box',
-                         ax=_MFA,
+                         ax=ax,
                          **kwargs)
 
     @staticmethod
@@ -149,7 +185,8 @@ class MatplotlibPlotMap(BPM):
     @staticmethod
     def line(data, **kwargs):
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
-        return data.plot(ax=_MFA2, **kwargs)
+        ax = _MFA[0]
+        return data.plot(ax=ax, **kwargs)
 
     @staticmethod
     def scatter(data, **kwargs):
@@ -183,9 +220,10 @@ class MatplotlibPlotMap(BPM):
     @staticmethod
     def stackedbar(data, **kwargs):
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
+        ax = MatplotlibPlotMap._newX()
         return data.plot(kind='bar',
                          stacked=True,
-                         ax=_MFA,
+                         ax=ax,
                          **kwargs)
 
     @staticmethod
