@@ -71,9 +71,12 @@ class MatplotlibPlotMap(BPM):
             kwargs.pop('raw')
         if 'colors' in kwargs:
             kwargs['color'] = kwargs.pop('colors')
+
+        # purge from subplot calls, only use for main plot command
         kwargs.pop('xlabel', None)
         kwargs.pop('ylabel', None)
         kwargs.pop('title', None)
+
         return kwargs
 
     @staticmethod
@@ -135,18 +138,19 @@ class MatplotlibPlotMap(BPM):
     @staticmethod
     def bubble(data, **kwargs):
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
-        x = kwargs.pop('x', data.columns[0])
-        y = kwargs.pop('y', data.columns[0])
+        scatter = kwargs.pop('scatter', {})
+        x = scatter.pop('x', data.columns[0])
+        y = scatter.pop('y', data.columns[0])
         markers = kwargs.pop('symbol', '.')
-        size = kwargs.pop('size', 10)
+        size = scatter.pop('size', 10)
 
         if isinstance(size, str):
             size = data[size] * 10
 
-        mode = kwargs.pop('mode', '')  # FIXME
-        categories = kwargs.pop('categories', 'categories') # FIXME
-        text = kwargs.pop('text', '') # FIXME
-        colorscale = kwargs.pop('colorscale', '')  # FIXME
+        mode = scatter.pop('mode', '')  # FIXME
+        categories = scatter.pop('categories', 'categories') # FIXME
+        text = scatter.pop('text', '') # FIXME
+        colorscale = scatter.pop('colorscale', '')  # FIXME
         color = kwargs.pop('color', '')
 
 
@@ -202,15 +206,15 @@ class MatplotlibPlotMap(BPM):
     @staticmethod
     def scatter(data, **kwargs):
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
-
-        x = kwargs.pop('x', data.columns[0])
-        y = kwargs.pop('y', data.columns[0])
+        scatter = kwargs.pop('scatter', {})
+        x = scatter.pop('x', data.columns[0])
+        y = scatter.pop('y', data.columns[0])
         markers = kwargs.pop('symbol', '.')
-        size = kwargs.pop('size', 10)
+        size = kwargs.pop('size', 50)
 
         mode = kwargs.pop('mode', '')  # FIXME
-        categories = kwargs.pop('categories', 'categories') # FIXME
-        text = kwargs.pop('text', '') # FIXME
+        categories = scatter.pop('categories', 'categories') # FIXME
+        text = scatter.pop('text', '') # FIXME
         colorscale = kwargs.pop('colorscale', '')  # FIXME
         color = kwargs.pop('color', '')
 
