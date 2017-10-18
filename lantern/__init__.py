@@ -1,4 +1,4 @@
-from .plotting import plot, setBackend, getBackend, Backend
+from .plotting import plot, setBackend, getBackend, Backend, setTheme, themes, getTheme
 from .data import *
 from .grids import grid
 
