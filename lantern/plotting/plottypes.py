@@ -30,6 +30,7 @@ class BasePlotType(Enum):
     HORIZONTALSTACKEDBAR = 'horizontalstackedbar'
     LINE = 'line'
     MULTISCATTER = 'multiscatter'
+    NONE = 'none'
     OHLC = 'ohlc'
     OHLVC = 'ohlcv'
     PAIRPLOT = 'pairplot'

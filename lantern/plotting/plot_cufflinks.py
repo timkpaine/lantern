@@ -63,10 +63,19 @@ class CufflinksPlotMap(BPM):
         else:
             kwargs['colors'] = None
 
+        # purge from subplot calls, only use for main plot command
+        kwargs.pop('xlabel', None)
+        kwargs.pop('ylabel', None)
+        kwargs.pop('title', None)
+
         return kwargs
 
     @staticmethod
     def plot(data, **kwargs):
+        # get before wrapper strips
+        title = kwargs.get('title', '')
+        xlabel = kwargs.get('xlabel', '')
+        ylabel = kwargs.get('ylabel', '')
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
 
         other_args = {}
@@ -80,6 +89,28 @@ class CufflinksPlotMap(BPM):
                 if 'barmode' in figure.layout:
                     other_args['barmode'] = figure.layout['barmode']
             data = tdata
+
+        if title:
+            other_args['title'] = title
+        if ylabel:
+            other_args['yaxis'] = dict(
+                title=ylabel,
+                titlefont=dict(
+                    family='Courier New, monospace',
+                    size=18,
+                    color='#7f7f7f'
+                )
+            )
+        if xlabel:
+            other_args['xaxis'] = dict(
+                title=xlabel,
+                titlefont=dict(
+                    family='Courier New, monospace',
+                    size=18,
+                    color='#7f7f7f'
+                )
+            )
+
         fig = go.Figure(data=tdata, layout=other_args)
         return iplot(fig)
 
@@ -128,12 +159,12 @@ class CufflinksPlotMap(BPM):
     @staticmethod
     def bubble(data, **kwargs):
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
-        x = kwargs.pop('x', data.columns[0])
-        y = kwargs.pop('y', data.columns[0])
-        size = kwargs.pop('size', data.columns[0])
-        text = kwargs.pop('text', data.columns[0])
-        categories = kwargs.pop('categories', data.columns[0])
-
+        scatter = kwargs.pop('scatter', {})
+        x = scatter.pop('x', data.columns[0])
+        y = scatter.pop('y', data.columns[0])
+        size = scatter.pop('size', data.columns[0])
+        text = scatter.pop('text', data.columns[0])
+        categories = scatter.pop('categories', data.columns[0])
         return data.iplot(kind='bubble',
                           x=x,
                           y=y,
@@ -235,8 +266,9 @@ class CufflinksPlotMap(BPM):
     @staticmethod
     def pie(data, **kwargs):
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
-        labels = kwargs.pop('labels', data.columns[0])
-        values = kwargs.pop('values', data.columns[0])
+        scatter = kwargs.pop('scatter', {})
+        labels = scatter.pop('labels', data.columns[0])
+        values = scatter.pop('values', data.columns[0])
         return data.iplot(kind='pie',
                           labels=labels,
                           values=values,
@@ -245,10 +277,11 @@ class CufflinksPlotMap(BPM):
     @staticmethod
     def scatter(data, **kwargs):
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
-        x = kwargs.pop('x', data.columns[0])
-        y = kwargs.pop('y', data.columns[0])
-        categories = kwargs.pop('categories', data.columns[0])
-        size = kwargs.pop('size', 10)
+        scatter = kwargs.pop('scatter', {})
+        x = scatter.pop('x', data.columns[0])
+        y = scatter.pop('y', data.columns[0])
+        categories = scatter.pop('categories', data.columns[0])
+        size = scatter.pop('size', 10)
         mode = kwargs.pop('mode', 'markers')
         return data.iplot(kind='scatter',
                           mode=mode,

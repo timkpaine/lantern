@@ -96,7 +96,7 @@ box = Style('box',
 bubble = Style('bubble',
                getCFData,
                {'type': 'bubble', 'n_categories': 5, 'n': 10},
-               {'type': 'bubble', 'x': 'x', 'y': 'y', 'size': 'size', 'categories': 'categories', 'text': 'text'})
+               {'type': ['none', 'none', 'none', 'bubble', 'none'], 'scatter': {'x': {'x': 'x', 'y': 'y', 'size': 'size', 'categories': 'categories', 'text': 'text'}}})
 
 # bubble3d = Style('bubble3d',
 #                  getCFData,
@@ -167,12 +167,12 @@ pairplot = None
 pie = Style('pie',
             getCFData,
             {'type': 'pie'},
-            {'type': 'pie', 'labels': 'labels', 'values': 'values'})
+            {'type': 'pie', 'scatter': {'values': {'labels': 'labels', 'values': 'values'}}})
 
 scatter = Style('scatter',
                 getCFData,
                 {'type': 'scatter', 'n_categories': 5, 'n': 10},
-                {'type': 'scatter', 'mode': 'markers', 'size': 10, 'x': 'x', 'y': 'y', 'categories': 'categories', 'text': 'text', 'symbol': 'x', 'colorscale': 'paired'})
+                {'type': ['none', 'none', 'scatter', 'none'], 'mode': 'markers', 'scatter': {'x': {'x': 'x', 'y': 'y', 'size': 'size', 'categories': 'categories', 'text': 'text'}}, 'symbol': 'x', 'colorscale': 'paired'})
 
 # scatter3d = Style('scatter3d',
 #                   getCFData,
