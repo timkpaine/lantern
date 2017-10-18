@@ -44,6 +44,7 @@ class MatplotlibPlotMap(BPM):
         labels = _MFA[0].get_xticklabels()
         plt.setp(labels, rotation=30, fontsize=10)
         _MFA[0].get_xaxis().get_major_formatter().set_useOffset(False)
+        _MFA[0].legend_ = None
 
     @staticmethod
     def args():
