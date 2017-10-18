@@ -5,6 +5,14 @@ from .plottypes import lookup
 
 
 class Backend(Enum):
+    '''Enumeration of the implemented backends
+
+    Cufflinks - (aliases plot.ly) https://plot.ly/ipython-notebooks/cufflinks/
+    Plot.ly - https://plot.ly
+    Bokeh - https://bokeh.pydata.org
+    Matplotlib - https://matplotlib.org
+    Seaborn - (aliases matplotlib)
+    '''
     CUFFLINKS = 'cufflinks'
     PLOTLY = 'plotly'
     BOKEH = 'bokeh'
@@ -15,6 +23,10 @@ class Backend(Enum):
 BACKEND = None
 _pm = {}
 
+
+# **************************************** #
+# Try to import backends/aliases
+# **************************************** #
 try:
     from .plot_cufflinks import CufflinksPlotMap as _cpm
     _cpm()  # ensure all methods are implemented
@@ -40,13 +52,25 @@ try:
     BACKEND = Backend.MATPLOTLIB
 except ImportError:
     pass
+# **************************************** #
 
+# At least one backend must be available
 if BACKEND is None:
     raise Exception('No backend available! Please install at least one \
         of {matplotlib, bokeh, plotly, cufflinks}')
 
 
 def setBackend(backend):
+    '''Set the plotting backend
+
+    This will set `plot` to operate on the given backend
+
+    Arguments:
+        backend {str} -- One of the available backends installed on the machine
+
+    Raises:
+        Exception -- if backend is not recognized or not installed on the machine
+    '''
     global BACKEND
     if isinstance(backend, str):
         if backend.upper() not in Backend.__members__:
@@ -62,27 +86,32 @@ def setBackend(backend):
 
 
 def getBackend():
+    '''return the active backend'''
     return BACKEND
 
 
 def themes():
+    '''return available themes for the active backend'''
     return _pm[BACKEND].themes()
 
 
 def setTheme(theme):
+    '''set theme for the active backend'''
     _pm[BACKEND].setTheme(theme)
 
 
 def getTheme():
+    '''get theme for the active backend'''
     return _pm[BACKEND].getTheme()
 
 
 def _r():
+    '''generate random color'''
     return '#%02X%02X%02X' % (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
 
 def _conf(type, colors, i, col):
-    # select type and color from their options, allow strings for some
+    '''select type and color from their options, allow strings for some'''
     if isinstance(type, str):
         typ = lookup(type)
         if isinstance(colors, list):
@@ -124,6 +153,21 @@ def _conf(type, colors, i, col):
 
 
 def plot(data, type=None, raw=False, colors=None, **kwargs):
+    '''Lantern plot
+
+    Abstracts away the details of the underlying plotting libraries, exposing a generic and easy to use "plot" command.
+
+    Arguments:
+       data {DataFrame} - the data to plot
+
+    Keyword Arguments:
+       type {str or list or dict} - mapping columns in the data to type of chart
+       color {str or list or dict} - mapping columns in the data to color of chart
+       raw {bool} - return the raw chart object, used in order to do library-specific operations on the underlying chart
+       kwargs - passed through to the charting library
+    Returns:
+       Either the rendered plot, or the raw plot object
+    '''
     getattr(_pm[BACKEND], 'setup')()
 
     # assemble figure as collection of subplots
