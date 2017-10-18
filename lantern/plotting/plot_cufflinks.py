@@ -63,10 +63,19 @@ class CufflinksPlotMap(BPM):
         else:
             kwargs['colors'] = None
 
+        # purge from subplot calls, only use for main plot command
+        kwargs.pop('xlabel', None)
+        kwargs.pop('ylabel', None)
+        kwargs.pop('title', None)
+
         return kwargs
 
     @staticmethod
     def plot(data, **kwargs):
+        # get before wrapper strips
+        title = kwargs.get('title', '')
+        xlabel = kwargs.get('xlabel', '')
+        ylabel = kwargs.get('ylabel', '')
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
 
         other_args = {}
@@ -80,6 +89,28 @@ class CufflinksPlotMap(BPM):
                 if 'barmode' in figure.layout:
                     other_args['barmode'] = figure.layout['barmode']
             data = tdata
+
+        if title:
+            other_args['title'] = title
+        if ylabel:
+            other_args['yaxis'] = dict(
+                title=ylabel,
+                titlefont=dict(
+                    family='Courier New, monospace',
+                    size=18,
+                    color='#7f7f7f'
+                )
+            )
+        if xlabel:
+            other_args['xaxis'] = dict(
+                title=xlabel,
+                titlefont=dict(
+                    family='Courier New, monospace',
+                    size=18,
+                    color='#7f7f7f'
+                )
+            )
+
         fig = go.Figure(data=tdata, layout=other_args)
         return iplot(fig)
 

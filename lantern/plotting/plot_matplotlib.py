@@ -92,7 +92,8 @@ class MatplotlibPlotMap(BPM):
             line, label = m.get_legend_handles_labels()
             lines += line
             labels += label
-        _MFA[0].legend(lines, labels, loc=2)
+        if kwargs.get('legend', True):
+            _MFA[0].legend(lines, labels, loc=2)
         _MF.canvas.draw()
         plt.draw()
 
