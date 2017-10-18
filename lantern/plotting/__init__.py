@@ -150,8 +150,8 @@ def plot(data, type=None, raw=False, colors=None, **kwargs):
 
             # pie specific options
             if typ == lookup('pie'):
-                labels = kwargs.get('labels', '')
-                values = kwargs.get('values', '')
+                labels = kwargs.get('labels', data.columns[0])
+                values = kwargs.get('values', data.columns[0])
                 select += [labels] if labels and labels in data.columns else []
                 select += [values] if values and values in data.columns else []
                 skip.add(labels)
@@ -160,11 +160,11 @@ def plot(data, type=None, raw=False, colors=None, **kwargs):
             # bubble specific options
             # scatter specific options
             if typ in [lookup('bubble'), lookup('scatter'), lookup('bubble3d'), lookup('scatter3d')]:
-                x = kwargs.get('x', '')
-                y = kwargs.get('y', '')
-                size = kwargs.get('size', '')
-                text = kwargs.get('text', '')
-                categories = kwargs.get('categories', '')
+                x = kwargs.get('x', data.columns[0])
+                y = kwargs.get('y', data.columns[0])
+                size = kwargs.get('size', data.columns[0])
+                text = kwargs.get('text', data.columns[0])
+                categories = kwargs.get('categories', data.columns[0])
                 select += [x] if x and x in data.columns else []
                 select += [y] if y and y in data.columns else []
                 select += [size] if size and size in data.columns else []
@@ -178,7 +178,7 @@ def plot(data, type=None, raw=False, colors=None, **kwargs):
 
             # 3d plotters
             if typ in [lookup('bubble3d'), lookup('scatter3d')]:
-                z = kwargs.get('z', '')
+                z = kwargs.get('z', data.columns[0])
                 select += [z] if z and z in data.columns else []
                 skip.add(z)
 

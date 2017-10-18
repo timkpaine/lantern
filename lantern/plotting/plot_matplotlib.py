@@ -6,7 +6,6 @@ from ..utils import in_ipynb
 
 _MF = None
 _MFA = []
-sns.set()
 
 
 if in_ipynb():
@@ -22,29 +21,31 @@ class MatplotlibPlotMap(BPM):
     @staticmethod
     def _newX():
         global _MFA
-        _MFA.append(_MFA[0].twiny())
-        _MFA[-1].get_xaxis().set_label_position("bottom")
-        _MFA[-1].tick_params(axis='both', which='both', labelbottom=True, labeltop=False, labelleft=True, labelright=False)
-        _MFA[-1].tick_params(axis='x', pad=30*len(_MFA))
-        labels = _MFA[-1].get_xticklabels()
+        ax = _MFA[0].twiny()
+        ax.get_xaxis().set_label_position("bottom")
+        ax.tick_params(axis='both', which='both', labelbottom=True, labeltop=False, labelleft=True, labelright=False)
+        ax.tick_params(axis='x', pad=30*len(_MFA))
+        labels = ax.get_xticklabels()
         plt.setp(labels, rotation=30, fontsize=10)
-        _MFA[-1].get_xaxis().set_visible(False)
-        _MFA[-1].get_xaxis().get_major_formatter().set_useOffset(False)
-        _MFA[-1].legend_ = None
-
-        return _MFA[-1]
+        ax.get_xaxis().set_visible(False)
+        ax.get_xaxis().get_major_formatter().set_useOffset(False)
+        ax.legend_ = None
+        ax.autoscale(True)
+        _MFA.append(ax)
+        return ax
 
     @staticmethod
     def setup():
         global _MF, _MFA
         _MF, _MFA = plt.subplots(figsize=(12, 5))
-        _MFA = [_MFA]
-        _MFA[0].get_xaxis().set_label_position("bottom")
-        _MFA[0].tick_params(axis='both', which='both', labelbottom=True, labeltop=False, labelleft=True, labelright=False)
-        labels = _MFA[0].get_xticklabels()
+        _MFA.legend_ = None
+        _MFA.get_xaxis().set_label_position("bottom")
+        _MFA.tick_params(axis='both', which='both', labelbottom=True, labeltop=False, labelleft=True, labelright=False)
+        labels = _MFA.get_xticklabels()
         plt.setp(labels, rotation=30, fontsize=10)
-        _MFA[0].get_xaxis().get_major_formatter().set_useOffset(False)
-        _MFA[0].legend_ = None
+        _MFA.get_xaxis().get_major_formatter().set_useOffset(False)
+        _MFA.autoscale(True)
+        _MFA = [_MFA]
 
     @staticmethod
     def args():
@@ -70,28 +71,31 @@ class MatplotlibPlotMap(BPM):
             kwargs.pop('raw')
         if 'colors' in kwargs:
             kwargs['color'] = kwargs.pop('colors')
-        kwargs.pop('xlabel')
-        kwargs.pop('ylabel')
-        kwargs.pop('title')
+        kwargs.pop('xlabel', None)
+        kwargs.pop('ylabel', None)
+        kwargs.pop('title', None)
         return kwargs
 
     @staticmethod
     def plot(data, **kwargs):
-        _MF.canvas.draw()
-        # ax = plt.gca()
-        # ax.relim()
-        _MFA[0].autoscale_view()
-        h = []
-        l = []
+        lines = []
+        labels = []
+        plt.legend([])
+        for ax in _MFA:
+            if ax.has_data():
+                ax.legend_ = None
+                ax.relim()
+                ax.autoscale_view()
+            else:
+                _MF.delaxes(ax)
         for m in _MFA:
-            h1, l1 = m.get_legend_handles_labels()
-            h += h1
-            l += l1
-            print(h1)
-            print(l1)
-        # plt.legend([h,l])
-        _MFA[0].legend(h, l, loc=2)
+            line, label = m.get_legend_handles_labels()
+            lines += line
+            labels += label
+        _MFA[0].legend(lines, labels, loc=2)
+        _MF.canvas.draw()
         plt.draw()
+
         if 'xlabel' in kwargs:
             _MFA[0].set_xlabel(kwargs.get('xlabel'))
         if 'ylabel' in kwargs:
@@ -148,7 +152,12 @@ class MatplotlibPlotMap(BPM):
         groups = list(set(data[categories].values))
 
         fg = sns.FacetGrid(data=data, hue='categories', hue_order=groups, aspect=1.61)
-        return fg.map(plt.scatter, x, y, s=size, marker=markers, **kwargs)
+        return fg.map(plt.scatter,
+                      x,
+                      y,
+                      s=size,
+                      marker=markers,
+                      **kwargs)
 
     @staticmethod
     def density(data, **kwargs):
