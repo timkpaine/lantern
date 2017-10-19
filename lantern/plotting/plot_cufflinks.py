@@ -76,6 +76,7 @@ class CufflinksPlotMap(BPM):
         title = kwargs.get('title', '')
         xlabel = kwargs.get('xlabel', '')
         ylabel = kwargs.get('ylabel', '')
+        legend = kwargs.get('legend', True)
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
 
         other_args = {}
@@ -110,6 +111,8 @@ class CufflinksPlotMap(BPM):
                     color='#7f7f7f'
                 )
             )
+
+        other_args['showlegend'] = legend
 
         fig = go.Figure(data=tdata, layout=other_args)
         return iplot(fig)

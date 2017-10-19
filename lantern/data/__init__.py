@@ -96,7 +96,7 @@ box = Style('box',
 bubble = Style('bubble',
                getCFData,
                {'type': 'bubble', 'n_categories': 5, 'n': 10},
-               {'type': ['none', 'none', 'none', 'bubble', 'none'], 'scatter': {'x': {'x': 'x', 'y': 'y', 'size': 'size', 'categories': 'categories', 'text': 'text'}}})
+               {'type': 'bubble', 'scatter': {'x': {'x': 'x', 'y': 'y', 'size': 'size', 'categories': 'categories', 'text': 'text'}}})
 
 # bubble3d = Style('bubble3d',
 #                  getCFData,
@@ -172,7 +172,7 @@ pie = Style('pie',
 scatter = Style('scatter',
                 getCFData,
                 {'type': 'scatter', 'n_categories': 5, 'n': 10},
-                {'type': ['none', 'none', 'scatter', 'none'], 'mode': 'markers', 'scatter': {'x': {'x': 'x', 'y': 'y', 'size': 'size', 'categories': 'categories', 'text': 'text'}}, 'symbol': 'x', 'colorscale': 'paired'})
+                {'type': 'scatter', 'mode': 'markers', 'scatter': {'x': {'x': 'x', 'y': 'y', 'size': 'size', 'categories': 'categories', 'text': 'text'}}, 'symbol': 'x', 'colorscale': 'paired'})
 
 # scatter3d = Style('scatter3d',
 #                   getCFData,

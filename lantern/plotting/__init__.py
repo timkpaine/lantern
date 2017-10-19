@@ -156,8 +156,8 @@ def plot(data, type=None, raw=False, colors=None, **kwargs):
                 values = scatter.get('values', col)
                 select += [labels] if labels and labels in data.columns else []
                 select += [values] if values and values in data.columns else []
-                # skip.add(labels)
-                # skip.add(values)
+                skip.add(labels)
+                skip.add(values)
 
             # bubble specific options
             # scatter specific options
@@ -174,17 +174,17 @@ def plot(data, type=None, raw=False, colors=None, **kwargs):
                 select += [size] if size and size in data.columns else []
                 select += [text] if text and text in data.columns else []
                 select += [categories] if categories and categories in data.columns else []
-                # skip.add(x)
-                # skip.add(y)
-                # skip.add(size)
-                # skip.add(text)
-                # skip.add(categories)
+                skip.add(x)
+                skip.add(y)
+                skip.add(size)
+                skip.add(text)
+                skip.add(categories)
 
             # 3d plotters
             if typ in [lookup('bubble3d'), lookup('scatter3d')]:
                 z = scatter.get('z', col)
                 select += [z] if z and z in data.columns else []
-                # skip.add(z)
+                skip.add(z)
 
             # plot all at the same time
             if typ in [lookup('bar'), lookup('horizontalbar'), lookup('stackedbar'), lookup('horizontalstackedbar'), lookup('box')]:

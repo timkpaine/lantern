@@ -22,7 +22,7 @@ def getCFData(type, n_categories=5, n=100, **kwargs):
         return scatter(n_categories,
                        n,
                        prefix=kwargs.get('prefix', 'category'),
-                       mode=kwargs.get('mode', None))
+                       mode=kwargs.get('mode', None))[['x', 'y', 'categories', 'text']]
     elif type == 'scatter3d':
         return scatter3d(n_categories,
                          n,
@@ -32,7 +32,7 @@ def getCFData(type, n_categories=5, n=100, **kwargs):
         return bubble(n_categories,
                       n,
                       prefix=kwargs.get('prefix', 'category'),
-                      mode=kwargs.get('mode', None))
+                      mode=kwargs.get('mode', None))[['x', 'y', 'categories', 'size', 'text']]
     elif type == 'bubble3d':
         return bubble3d(n_categories,
                         n,
