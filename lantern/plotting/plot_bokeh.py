@@ -25,6 +25,9 @@ class BokehPlotMap(BPM):
             kwargs.pop('raw')
         if 'colors' in kwargs:
             kwargs['line_color'] = kwargs.pop('colors')
+
+        kwargs.pop('x', None)  # FIXME
+        kwargs.pop('y', None)  # FIXME
         return kwargs
 
     @staticmethod
