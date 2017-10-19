@@ -25,8 +25,8 @@ Abstracts away the nuances of individual charting libraries by providing a singl
 ![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/preview2.gif)
 
 ## Advanced Plotting
-![]()
-![]()
+![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/plot2.png)
+![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/plot1.png)
 
 ## Grids
 The same.
