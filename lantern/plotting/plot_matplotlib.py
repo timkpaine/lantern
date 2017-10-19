@@ -6,9 +6,16 @@ from ..utils import in_ipynb
 
 _MF = None
 _MFA = []
+_AXES = {'left': [],
+         'right': [],
+         'top': [],
+         'bottom': []}
+
+_MPLTHEME = 'classic'
 
 
 if in_ipynb():
+    # auto-run the matplotlib inline magic
     from IPython import get_ipython
     ipython = get_ipython()
     if ipython:
@@ -17,42 +24,102 @@ if in_ipynb():
 print('Matplotlib loaded')
 
 
+def align_yaxis_np(axes):
+    """Align zeros of the two axes, zooming them out by same ratio"""
+    axes = np.array(axes)
+    extrema = np.array([ax.get_ylim() for ax in axes])
+    tops = extrema[:,1] / (extrema[:,1] - extrema[:,0])
+
+    # Ensure that plots (intervals) are ordered bottom to top:
+    if tops[0] > tops[1]:
+        axes, extrema, tops = [a[::-1] for a in (axes, extrema, tops)]
+
+    # How much would the plot overflow if we kept current zoom levels?
+    tot_span = tops[1] + 1 - tops[0]
+
+    extrema[0,1] = extrema[0,0] + tot_span * (extrema[0,1] - extrema[0,0])
+    extrema[1,0] = extrema[1,1] + tot_span * (extrema[1,0] - extrema[1,1])
+    [axes[i].set_ylim(*extrema[i]) for i in range(2)]
+
+
 class MatplotlibPlotMap(BPM):
     @staticmethod
-    def _newAx(x=False, y=False):
-        global _MFA
+    def _newAx(x=False, y=False, y_side='left', color='black'):
+        global _MFA, _AXES
+
+        # axis managemens
         if not x and not y:
             return _MFA[0]
         if x and y:
             ax = _MFA[0].twiny().twinx()
+            _AXES[y_side].append(ax)
+            _AXES['bottom'].append(ax)
         elif x:
             ax = _MFA[0].twiny()
+            _AXES['bottom'].append(ax)
         elif y:
             ax = _MFA[0].twinx()
+            _AXES[y_side].append(ax)
 
+        # set positioning
         ax.get_xaxis().set_label_position("bottom")
-        ax.tick_params(axis='both', which='both', labelbottom=not x, labeltop=x, labelleft=not y, labelright=y)
-        ax.tick_params(axis='x', pad=30*len(_MFA))
+        ax.tick_params(axis='both', which='both',
+                       labelbottom=True,
+                       labeltop=False,
+                       labelleft=(y_side == 'left') and y,
+                       labelright=(y_side == 'right') and y)
+
+        # pad axes
+        xpad = 30*(len(_AXES['bottom'])-1)
+        ypad = 30*(len(_AXES[y_side])-1)
+        ax.tick_params(axis='x', pad=xpad)
+        ax.tick_params(axis='y', pad=ypad)
+
+        # rotate labels
         labels = ax.get_xticklabels()
         plt.setp(labels, rotation=30, fontsize=10)
-        ax.get_xaxis().set_visible(False)
+
+        # ax.get_xaxis().set_visible(False)
         ax.get_xaxis().get_major_formatter().set_useOffset(False)
+
+        # manage legend later
         ax.legend_ = None
+
+        # colorize
+        if isinstance(color, list):
+            # Take just the first color
+            color = color[0]
+        if y:
+            ax.spines[y_side].set_color(color)
+            ax.yaxis.label.set_color(color)
+            ax.tick_params(axis='y', colors=color)
+
+        # autoscale
         ax.autoscale(True)
         _MFA.append(ax)
         return ax
 
     @staticmethod
     def setup():
-        global _MF, _MFA
+        global _MF, _MFA, _AXES
+        # reset
+        _MF = None
+        _MFA = []
+        _AXES = {'left': [],
+                 'right': [],
+                 'top': [],
+                 'bottom': []}
+
+        # initialize
         _MF, _MFA = plt.subplots(figsize=(12, 5))
+
+        # default axis
+        # deal with legends later
         _MFA.legend_ = None
         _MFA.get_xaxis().set_label_position("bottom")
         _MFA.tick_params(axis='both', which='both', labelbottom=True, labeltop=False, labelleft=True, labelright=False)
-        labels = _MFA.get_xticklabels()
-        plt.setp(labels, rotation=30, fontsize=10)
-        _MFA.get_xaxis().get_major_formatter().set_useOffset(False)
-        _MFA.autoscale(True)
+        _AXES['bottom'].append(_MFA)
+        _AXES['left'].append(_MFA)
         _MFA = [_MFA]
 
     @staticmethod
@@ -61,11 +128,13 @@ class MatplotlibPlotMap(BPM):
 
     @staticmethod
     def getTheme():
-        raise NotImplementedError()
+        return _MPLTHEME
 
     @staticmethod
     def setTheme(theme):
+        global _MPLTHEME
         plt.style.use(theme)
+        _MPLTHEME = theme
 
     @staticmethod
     def themes():
@@ -100,6 +169,8 @@ class MatplotlibPlotMap(BPM):
                 ax.autoscale_view()
             else:
                 _MF.delaxes(ax)
+        align_yaxis_np(_MFA)
+
         for m in _MFA:
             line, label = m.get_legend_handles_labels()
             lines += line
@@ -119,7 +190,8 @@ class MatplotlibPlotMap(BPM):
 
     @staticmethod
     def area(data, **kwargs):
-        ax = MatplotlibPlotMap._newAx(x=False, y=kwargs.pop('y', 'left') == 'right')
+        ax = MatplotlibPlotMap._newAx(x=False, y=kwargs.get('y', 'left') == 'right', y_side=kwargs.pop('y', 'left'), color=kwargs.get('colors'))
+
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
         return data.plot(kind='area',
                          stacked=kwargs.get('stacked', False),
@@ -128,7 +200,7 @@ class MatplotlibPlotMap(BPM):
 
     @staticmethod
     def bar(data, **kwargs):
-        ax = MatplotlibPlotMap._newAx(x=True, y=kwargs.pop('y', 'left') == 'right')
+        ax = MatplotlibPlotMap._newAx(x=True, y=kwargs.get('y', 'left') == 'right', y_side=kwargs.pop('y', 'left'), color=kwargs.get('colors'))
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
         return data.plot(kind='bar',
                          stacked=False,
