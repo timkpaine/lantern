@@ -24,6 +24,10 @@ Abstracts away the nuances of individual charting libraries by providing a singl
 ### Plot command
 ![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/preview2.gif)
 
+## Advanced Plotting
+![]()
+![]()
+
 ## Grids
 The same.
 
