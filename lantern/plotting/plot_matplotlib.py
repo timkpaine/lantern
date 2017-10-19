@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+from scipy import stats
 from .plottypes import BasePlotMap as BPM
 from ..utils import in_ipynb
 
@@ -122,7 +123,6 @@ class MatplotlibPlotMap(BPM):
         _AXES['left'].append(_MFA)
         _MFA = [_MFA]
 
-
     @staticmethod
     def args():
         raise NotImplementedError()
@@ -239,7 +239,7 @@ class MatplotlibPlotMap(BPM):
 
         groups = list(set(data[categories].values))
 
-        fg = sns.FacetGrid(data=data, hue='categories', hue_order=groups, aspect=1.61)
+        fg = sns.FacetGrid(data=data, hue='categories', hue_order=groups, aspect=2.4)
         return fg.map(plt.scatter,
                       x,
                       y,
@@ -285,6 +285,28 @@ class MatplotlibPlotMap(BPM):
         ax = MatplotlibPlotMap._newAx(x=False, y=kwargs.pop('y', 'left') == 'right')
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
         return data.plot(ax=ax, **kwargs)
+
+    @staticmethod
+    def lmplot(data, **kwargs):
+        kwargs = MatplotlibPlotMap._wrapper(**kwargs)
+        kwargs = MatplotlibPlotMap._wrapper(**kwargs)
+        scatter = kwargs.pop('scatter', {})
+        x = scatter.pop('x', data.columns[0])
+        y = scatter.pop('y', data.columns[0])
+        kwargs.pop('color', None)  # FIXME
+        return sns.lmplot(x=x, y=y, data=data, **kwargs)
+
+    @staticmethod
+    def pairplot(data, **kwargs):
+        kwargs = MatplotlibPlotMap._wrapper(**kwargs)
+        kwargs.pop('color', None)  # FIXME
+        return sns.pairplot(data, **kwargs)
+
+    @staticmethod
+    def probplot(data, **kwargs):
+        kwargs = MatplotlibPlotMap._wrapper(**kwargs)
+        kwargs.pop('color', None)  # FIXME
+        return stats.probplot(data, dist='norm', plot=plt, **kwargs)
 
     @staticmethod
     def scatter(data, **kwargs):
@@ -379,8 +401,4 @@ class MatplotlibPlotMap(BPM):
 
     @staticmethod
     def spread(data, **kwargs):
-        raise NotImplementedError()
-
-    @staticmethod
-    def pairplot(data, **kwargs):
         raise NotImplementedError()

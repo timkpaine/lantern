@@ -280,6 +280,30 @@ class CufflinksPlotMap(BPM):
                           **kwargs)
 
     @staticmethod
+    def ohlc(data, **kwargs):
+        kwargs = CufflinksPlotMap._wrapper(**kwargs)
+        legend = kwargs.pop('legend', 'top')
+        qf = cf.QuantFig(data, legend=legend)
+        # qf.add_sma([10, 20], width=2, color=['green', 'lightgreen'], legendgroup=True)
+        qf.add_bollinger_bands()
+        # qf.add_volume()
+        # qf.add_macd()
+        # qf.add_rsi(periods=20, color='java')
+        return qf.iplot()
+
+    @staticmethod
+    def ohlcv(data, **kwargs):
+        kwargs = CufflinksPlotMap._wrapper(**kwargs)
+        legend = kwargs.pop('legend', 'top')
+        qf = cf.QuantFig(data, legend=legend)
+        qf.add_sma([10, 20], width=2, color=['green', 'lightgreen'], legendgroup=True)
+        qf.add_bollinger_bands(periods=20, boll_std=2, colors=['magenta', 'grey'], fill=True)
+        qf.add_volume()
+        qf.add_macd()
+        qf.add_rsi(periods=20, color='java')
+        return qf.iplot()
+
+    @staticmethod
     def pie(data, **kwargs):
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
         scatter = kwargs.pop('scatter', {})
@@ -414,7 +438,8 @@ class CufflinksPlotMap(BPM):
         raise NotImplementedError()
 
     @staticmethod
-    def hexbin(data, **kwargs):
+    def candlestick(data, **kwargs):
+        kwargs = CufflinksPlotMap._wrapper(**kwargs)
         raise NotImplementedError()
 
     @staticmethod
@@ -422,34 +447,17 @@ class CufflinksPlotMap(BPM):
         raise NotImplementedError()
 
     @staticmethod
-    def ohlc(data, **kwargs):
-        kwargs = CufflinksPlotMap._wrapper(**kwargs)
-        legend = kwargs.pop('legend', 'top')
-        qf = cf.QuantFig(data, legend=legend)
-        # qf.add_sma([10, 20], width=2, color=['green', 'lightgreen'], legendgroup=True)
-        qf.add_bollinger_bands()
-        # qf.add_volume()
-        # qf.add_macd()
-        # qf.add_rsi(periods=20, color='java')
-        return qf.iplot()
+    def lmplot(data, **kwargs):
+        raise NotImplementedError()
 
     @staticmethod
-    def ohlcv(data, **kwargs):
-        kwargs = CufflinksPlotMap._wrapper(**kwargs)
-        legend = kwargs.pop('legend', 'top')
-        qf = cf.QuantFig(data, legend=legend)
-        qf.add_sma([10, 20], width=2, color=['green', 'lightgreen'], legendgroup=True)
-        qf.add_bollinger_bands(periods=20, boll_std=2, colors=['magenta', 'grey'], fill=True)
-        qf.add_volume()
-        qf.add_macd()
-        qf.add_rsi(periods=20, color='java')
-        return qf.iplot()
-
-    @staticmethod
-    def candlestick(data, **kwargs):
-        kwargs = CufflinksPlotMap._wrapper(**kwargs)
+    def hexbin(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod
     def pairplot(data, **kwargs):
+        raise NotImplementedError()
+
+    @staticmethod
+    def probplot(data, **kwargs):
         raise NotImplementedError()

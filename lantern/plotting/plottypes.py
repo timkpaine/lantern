@@ -29,12 +29,14 @@ class BasePlotType(Enum):
     HORIZONTALBAR = 'horizontalbar'
     HORIZONTALSTACKEDBAR = 'horizontalstackedbar'
     LINE = 'line'
+    LMPLOT = 'lmplot'
     MULTISCATTER = 'multiscatter'
     NONE = 'none'
     OHLC = 'ohlc'
     OHLVC = 'ohlcv'
     PAIRPLOT = 'pairplot'
     PIE = 'pie'
+    PROBPLOT = 'probplot'
     SCATTER = 'scatter'
     SCATTER3D = 'scatter3d'
     SCATTERMATRIX = 'scattermatrix'
@@ -133,6 +135,10 @@ class BasePlotMap(metaclass=ABCMeta):
         '''plot type'''
 
     @abstractstatic
+    def lmplot():
+        '''plot type'''
+
+    @abstractstatic
     def multiscatter():
         '''plot type'''
 
@@ -150,6 +156,10 @@ class BasePlotMap(metaclass=ABCMeta):
 
     @abstractstatic
     def pie():
+        '''plot type'''
+
+    @abstractstatic
+    def probplot():
         '''plot type'''
 
     @abstractstatic

@@ -120,7 +120,8 @@ def plot(data, type=None, raw=False, colors=None, **kwargs):
     Returns:
        Either the rendered plot, or the raw plot object
     '''
-    getattr(_pm[BACKEND], 'setup')()
+    if BACKEND != Backend.MATPLOTLIB or lookup(type) != lookup('pairplot'):  # FIXME
+        getattr(_pm[BACKEND], 'setup')()
 
     # assemble figure as collection of subplots
     fig = []
@@ -144,11 +145,11 @@ def plot(data, type=None, raw=False, colors=None, **kwargs):
             continue
 
         # require ALL columns to plot
-        if typ in [lookup('heatmap'), lookup('ohlc'), lookup('ohlcv'), lookup('histogram')]:
+        if typ in [lookup('heatmap'), lookup('ohlc'), lookup('ohlcv'), lookup('histogram'), lookup('pairplot')]:
             return getattr(_pm[BACKEND], typ.value)(data, type=typ, colors=colors, **kwargs)
 
         # require more than 1 column
-        if typ in [lookup('pie'), lookup('bubble'), lookup('scatter'), lookup('bar'), lookup('stackedbar'), lookup('horizontalbar'), lookup('horizontalstackedbar'), lookup('box')]:
+        if typ in [lookup('pie'), lookup('bubble'), lookup('scatter'), lookup('bar'), lookup('stackedbar'), lookup('horizontalbar'), lookup('horizontalstackedbar'), lookup('box'), lookup('lmplot')]:
             select = [col]
             skip.add(col)
 
@@ -164,7 +165,7 @@ def plot(data, type=None, raw=False, colors=None, **kwargs):
 
             # bubble specific options
             # scatter specific options
-            if typ in [lookup('bubble'), lookup('scatter'), lookup('bubble3d'), lookup('scatter3d')]:
+            if typ in [lookup('bubble'), lookup('scatter'), lookup('bubble3d'), lookup('scatter3d'), lookup('lmplot')]:
                 scatter = _parseScatter(kwargs.pop('scatter', {}), col)
                 x = scatter.get('x', col)
                 y = scatter.get('y', col)

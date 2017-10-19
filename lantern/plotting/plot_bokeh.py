@@ -139,6 +139,10 @@ class BokehPlotMap(BPM):
         raise NotImplementedError()
 
     @staticmethod
+    def lmplot(data, **kwargs):
+        raise NotImplementedError()
+
+    @staticmethod
     def multiscatter(data, **kwargs):
         raise NotImplementedError()
 
@@ -168,4 +172,8 @@ class BokehPlotMap(BPM):
 
     @staticmethod
     def pairplot(data, **kwargs):
+        raise NotImplementedError()
+
+    @staticmethod
+    def probplot(data, **kwargs):
         raise NotImplementedError()
