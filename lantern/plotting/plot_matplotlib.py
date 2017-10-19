@@ -64,7 +64,7 @@ class MatplotlibPlotMap(BPM):
         # set positioning
         ax.get_xaxis().set_label_position("bottom")
         ax.tick_params(axis='both', which='both',
-                       labelbottom=True,
+                       labelbottom=False,
                        labeltop=False,
                        labelleft=(y_side == 'left') and y,
                        labelright=(y_side == 'right') and y)
@@ -75,12 +75,12 @@ class MatplotlibPlotMap(BPM):
         ax.tick_params(axis='x', pad=xpad)
         ax.tick_params(axis='y', pad=ypad)
 
-        # rotate labels
-        labels = ax.get_xticklabels()
-        plt.setp(labels, rotation=30, fontsize=10)
-
-        # ax.get_xaxis().set_visible(False)
+        # hide
         ax.get_xaxis().get_major_formatter().set_useOffset(False)
+        labels = ax.get_xticklabels()
+        plt.setp(labels, rotation=30, fontsize=0)
+        ax.get_xaxis().set_visible(False)
+        ax.get_xaxis().set_ticks([])
 
         # manage legend later
         ax.legend_ = None
@@ -121,6 +121,7 @@ class MatplotlibPlotMap(BPM):
         _AXES['bottom'].append(_MFA)
         _AXES['left'].append(_MFA)
         _MFA = [_MFA]
+
 
     @staticmethod
     def args():
@@ -169,7 +170,8 @@ class MatplotlibPlotMap(BPM):
                 ax.autoscale_view()
             else:
                 _MF.delaxes(ax)
-        align_yaxis_np(_MFA)
+
+        # align_yaxis_np(_MFA)
 
         for m in _MFA:
             line, label = m.get_legend_handles_labels()
@@ -177,6 +179,7 @@ class MatplotlibPlotMap(BPM):
             labels += label
         if kwargs.get('legend', True):
             _MFA[0].legend(lines, labels, loc=2)
+        plt.axhline(0, color='black')
         _MF.canvas.draw()
         plt.draw()
 
