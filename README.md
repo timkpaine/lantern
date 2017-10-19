@@ -3,7 +3,7 @@
 
 An orchestration layer for plots and tables, dummy datasets, research, reports, and anything else a data scientist might need.
 
-[![Version](https://img.shields.io/badge/version-0.0.8-lightgrey.svg)](https://img.shields.io/badge/version-0.0.8-lightgrey.svg)
+[![Version](https://img.shields.io/badge/version-0.0.9-lightgrey.svg)](https://img.shields.io/badge/version-0.0.9-lightgrey.svg)
 [![Build Status](https://travis-ci.org/timkpaine/lantern.svg?branch=master)](https://travis-ci.org/timkpaine/lantern)
 [![GitHub issues](https://img.shields.io/github/issues/timkpaine/lantern.svg)]()
 [![Waffle.io](https://badge.waffle.io/timkpaine/lantern.svg?label=ready&title=Ready)](http://waffle.io/timkpaine/lantern)
