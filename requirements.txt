@@ -1,7 +1,6 @@
 bokeh
 cufflinks
 jupyterlab
-knowledge-repo
 matplotlib
 numpy
 pandas
