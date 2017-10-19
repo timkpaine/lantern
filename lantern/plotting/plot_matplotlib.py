@@ -19,11 +19,19 @@ print('Matplotlib loaded')
 
 class MatplotlibPlotMap(BPM):
     @staticmethod
-    def _newX():
+    def _newAx(x=False, y=False):
         global _MFA
-        ax = _MFA[0].twiny()
+        if not x and not y:
+            return _MFA[0]
+        if x and y:
+            ax = _MFA[0].twiny().twinx()
+        elif x:
+            ax = _MFA[0].twiny()
+        elif y:
+            ax = _MFA[0].twinx()
+
         ax.get_xaxis().set_label_position("bottom")
-        ax.tick_params(axis='both', which='both', labelbottom=True, labeltop=False, labelleft=True, labelright=False)
+        ax.tick_params(axis='both', which='both', labelbottom=not x, labeltop=x, labelleft=not y, labelright=y)
         ax.tick_params(axis='x', pad=30*len(_MFA))
         labels = ax.get_xticklabels()
         plt.setp(labels, rotation=30, fontsize=10)
@@ -76,7 +84,8 @@ class MatplotlibPlotMap(BPM):
         kwargs.pop('xlabel', None)
         kwargs.pop('ylabel', None)
         kwargs.pop('title', None)
-
+        kwargs.pop('x', None)  # FIXME
+        kwargs.pop('y', None)  # FIXME
         return kwargs
 
     @staticmethod
@@ -110,8 +119,8 @@ class MatplotlibPlotMap(BPM):
 
     @staticmethod
     def area(data, **kwargs):
+        ax = MatplotlibPlotMap._newAx(x=False, y=kwargs.pop('y', 'left') == 'right')
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
-        ax = _MFA[0]
         return data.plot(kind='area',
                          stacked=kwargs.get('stacked', False),
                          ax=ax,
@@ -119,8 +128,8 @@ class MatplotlibPlotMap(BPM):
 
     @staticmethod
     def bar(data, **kwargs):
+        ax = MatplotlibPlotMap._newAx(x=True, y=kwargs.pop('y', 'left') == 'right')
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
-        ax = MatplotlibPlotMap._newX()
         return data.plot(kind='bar',
                          stacked=False,
                          ax=ax,
@@ -128,9 +137,9 @@ class MatplotlibPlotMap(BPM):
 
     @staticmethod
     def box(data, **kwargs):
+        ax = MatplotlibPlotMap._newAx(x=True, y=kwargs.pop('y', 'left') == 'right')
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
-        ax = MatplotlibPlotMap._newX()
-        color = kwargs.pop('color', '')  # FIXME
+        kwargs.pop('color', '')  # FIXME
         return data.plot(kind='box',
                          ax=ax,
                          **kwargs)
@@ -147,12 +156,11 @@ class MatplotlibPlotMap(BPM):
         if isinstance(size, str):
             size = data[size] * 10
 
-        mode = scatter.pop('mode', '')  # FIXME
-        categories = scatter.pop('categories', 'categories') # FIXME
-        text = scatter.pop('text', '') # FIXME
-        colorscale = scatter.pop('colorscale', '')  # FIXME
-        color = kwargs.pop('color', '')
-
+        scatter.pop('mode', '')  # FIXME
+        categories = scatter.pop('categories', 'categories')  # FIXME
+        scatter.pop('text', '')  # FIXME
+        scatter.pop('colorscale', '')  # FIXME
+        kwargs.pop('color', '')  # FIXME
 
         groups = list(set(data[categories].values))
 
@@ -199,8 +207,8 @@ class MatplotlibPlotMap(BPM):
 
     @staticmethod
     def line(data, **kwargs):
+        ax = MatplotlibPlotMap._newAx(x=False, y=kwargs.pop('y', 'left') == 'right')
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
-        ax = _MFA[0]
         return data.plot(ax=ax, **kwargs)
 
     @staticmethod
@@ -212,11 +220,11 @@ class MatplotlibPlotMap(BPM):
         markers = kwargs.pop('symbol', '.')
         size = kwargs.pop('size', 50)
 
-        mode = kwargs.pop('mode', '')  # FIXME
-        categories = scatter.pop('categories', 'categories') # FIXME
-        text = scatter.pop('text', '') # FIXME
-        colorscale = kwargs.pop('colorscale', '')  # FIXME
-        color = kwargs.pop('color', '')
+        kwargs.pop('mode', '')  # FIXME
+        scatter.pop('categories', 'categories')  # FIXME
+        scatter.pop('text', '')  # FIXME
+        kwargs.pop('colorscale', '')  # FIXME
+        kwargs.pop('color', '')  # FIXME
 
         return data.plot(kind='scatter',
                          x=x,
@@ -227,15 +235,17 @@ class MatplotlibPlotMap(BPM):
 
     @staticmethod
     def stackedarea(data, **kwargs):
+        ax = MatplotlibPlotMap._newAx(x=False, y=kwargs.pop('y', 'left') == 'right')
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
         return data.plot(kind='area',
                          stacked=kwargs.get('stacked', True),
+                         ax=ax,
                          **kwargs)
 
     @staticmethod
     def stackedbar(data, **kwargs):
+        ax = MatplotlibPlotMap._newAx(x=True, y=kwargs.pop('y', 'left') == 'right')
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
-        ax = MatplotlibPlotMap._newX()
         return data.plot(kind='bar',
                          stacked=True,
                          ax=ax,

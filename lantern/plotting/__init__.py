@@ -130,11 +130,14 @@ def plot(data, type=None, raw=False, colors=None, **kwargs):
     # some plot types may utilize multiple types. skip these if so
     skip = set()
 
+    x_dict = kwargs.pop('x', {})
+    y_dict = kwargs.pop('y', {})
+
     for i, col in enumerate(data.columns):
         # if in skip, it has already been plotted or used
         if col in skip:
             continue
-        typ, color = _conf(type, colors, i, col)
+        typ, color, x_dir, y_dir = _conf(type, colors, x_dict, y_dict, i, col)
 
         # skip
         if typ == lookup('none'):
@@ -192,14 +195,14 @@ def plot(data, type=None, raw=False, colors=None, **kwargs):
                 colors_tmp = []
                 # plot all bars at once
                 for j, col_t in enumerate(data.columns):
-                    typ2, color = _conf(type, colors, j, col_t)
+                    typ2, color, _, _ = _conf(type, colors, {}, {}, j, col_t)
                     if typ == typ2:
                         colors_tmp.append(color)
                         cols_tmp.append(col_t)
                         skip.add(col_t)
-                fig.append(getattr(_pm[BACKEND], typ.value)(data[list(set(cols_tmp))], type=typ, raw=True, colors=colors_tmp, **kwargs))
+                fig.append(getattr(_pm[BACKEND], typ.value)(data[list(set(cols_tmp))], type=typ, raw=True, colors=colors_tmp, x=x_dir, y=y_dir, **kwargs))
             else:
-                fig.append(getattr(_pm[BACKEND], typ.value)(data[list(set(select))], type=typ, raw=True, colors=colors, scatter=scatter, **kwargs))
+                fig.append(getattr(_pm[BACKEND], typ.value)(data[list(set(select))], type=typ, raw=True, colors=colors, scatter=scatter, x=x_dir, y=y_dir, **kwargs))
         else:
-            fig.append(getattr(_pm[BACKEND], typ.value)(data[col], type=typ, raw=True, colors=color, **kwargs))
-    return _pm[BACKEND].plot(fig, **kwargs)
+            fig.append(getattr(_pm[BACKEND], typ.value)(data[col], type=typ, raw=True, colors=color, x=x_dir, y=y_dir, **kwargs))
+    return _pm[BACKEND].plot(fig, x=x_dict, y=y_dict, **kwargs)

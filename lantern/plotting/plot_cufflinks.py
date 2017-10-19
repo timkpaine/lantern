@@ -67,7 +67,8 @@ class CufflinksPlotMap(BPM):
         kwargs.pop('xlabel', None)
         kwargs.pop('ylabel', None)
         kwargs.pop('title', None)
-
+        kwargs.pop('x', None)
+        kwargs.pop('y', None)
         return kwargs
 
     @staticmethod
@@ -77,6 +78,9 @@ class CufflinksPlotMap(BPM):
         xlabel = kwargs.get('xlabel', '')
         ylabel = kwargs.get('ylabel', '')
         legend = kwargs.get('legend', True)
+        x = kwargs.get('x', {})
+        y = kwargs.get('y', {})
+
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
 
         other_args = {}
@@ -86,6 +90,8 @@ class CufflinksPlotMap(BPM):
 
             for figure in data:
                 for trace in figure.data:
+                    if y.get(trace.name, 'left') == 'right':
+                        trace.yaxis = 'y2'
                     tdata.append(trace)
                 if 'barmode' in figure.layout:
                     other_args['barmode'] = figure.layout['barmode']
@@ -113,6 +119,13 @@ class CufflinksPlotMap(BPM):
             )
 
         other_args['showlegend'] = legend
+
+        if 'right' in y.values():
+            other_args['yaxis2'] = dict(
+                                   anchor='x',
+                                   overlaying='y',
+                                   side='right'
+                                   )
 
         fig = go.Figure(data=tdata, layout=other_args)
         return iplot(fig)

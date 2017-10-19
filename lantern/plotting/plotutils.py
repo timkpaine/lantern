@@ -7,7 +7,7 @@ def _r():
     return '#%02X%02X%02X' % (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
 
-def _conf(type, colors, i, col):
+def _conf(type, colors, x, y, i, col):
     '''select type and color from their options, allow strings for some'''
     if isinstance(type, str):
         typ = lookup(type)
@@ -46,7 +46,18 @@ def _conf(type, colors, i, col):
             color = colors
         else:
             color = _r()
-    return typ, color
+
+    if y and isinstance(y, dict):
+        y = y.get(col, 'left')
+    else:
+        y = 'left'
+
+    if x and isinstance(x, dict):
+        x = x.get(col, 'left')
+    else:
+        x = 'bottom'
+
+    return typ, color, x, y
 
 
 def _parseScatter(kwargs, col):
