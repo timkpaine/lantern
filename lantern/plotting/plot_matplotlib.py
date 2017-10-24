@@ -29,18 +29,37 @@ def align_yaxis_np(axes):
     """Align zeros of the two axes, zooming them out by same ratio"""
     axes = np.array(axes)
     extrema = np.array([ax.get_ylim() for ax in axes])
-    tops = extrema[:,1] / (extrema[:,1] - extrema[:,0])
 
-    # Ensure that plots (intervals) are ordered bottom to top:
-    if tops[0] > tops[1]:
-        axes, extrema, tops = [a[::-1] for a in (axes, extrema, tops)]
+    lowers = extrema[:, 0]
+    uppers = extrema[:, 1]
 
-    # How much would the plot overflow if we kept current zoom levels?
-    tot_span = tops[1] + 1 - tops[0]
+    all_positive = False
+    all_negative = False
+    if lowers.min() > 0.0:
+        all_positive = True
 
-    extrema[0,1] = extrema[0,0] + tot_span * (extrema[0,1] - extrema[0,0])
-    extrema[1,0] = extrema[1,1] + tot_span * (extrema[1,0] - extrema[1,1])
-    [axes[i].set_ylim(*extrema[i]) for i in range(2)]
+    if uppers.max() < 0.0:
+        all_negative = True
+
+    if all_negative or all_positive:
+        # don't scale
+        return
+    res = abs(uppers+lowers)
+    min_index = np.argmin(res)
+
+    multiplier1 = abs(uppers[min_index]/lowers[min_index])
+    multiplier2 = abs(lowers[min_index]/uppers[min_index])
+
+    for i in range(len(extrema)):
+        if i == min_index:
+            continue
+        lower_change = extrema[i, 1] * -1*multiplier2
+        upper_change = extrema[i, 0] * -1*multiplier1
+        if extrema[i, 1] > upper_change:
+            extrema[i, 0] = lower_change
+        else:
+            extrema[i, 1] = upper_change
+    [axes[i].set_ylim(*extrema[i]) for i in range(len(extrema))]
 
 
 class MatplotlibPlotMap(BPM):
@@ -77,7 +96,7 @@ class MatplotlibPlotMap(BPM):
         ax.tick_params(axis='y', pad=ypad)
 
         # hide
-        ax.get_xaxis().get_major_formatter().set_useOffset(False)
+        # ax.get_xaxis().get_major_formatter().set_useOffset(False)
         labels = ax.get_xticklabels()
         plt.setp(labels, rotation=30, fontsize=0)
         ax.get_xaxis().set_visible(False)
@@ -171,7 +190,7 @@ class MatplotlibPlotMap(BPM):
             else:
                 _MF.delaxes(ax)
 
-        # align_yaxis_np(_MFA)
+        align_yaxis_np(_MFA)
 
         for m in _MFA:
             line, label = m.get_legend_handles_labels()

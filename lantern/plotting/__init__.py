@@ -120,7 +120,7 @@ def plot(data, type=None, raw=False, colors=None, **kwargs):
     Returns:
        Either the rendered plot, or the raw plot object
     '''
-    if BACKEND != Backend.MATPLOTLIB or lookup(type) != lookup('pairplot'):  # FIXME
+    if BACKEND != Backend.MATPLOTLIB or isinstance(type, list) or (isinstance (type, str) and lookup(type) != lookup('pairplot')):  # FIXME
         getattr(_pm[BACKEND], 'setup')()
 
     # assemble figure as collection of subplots
