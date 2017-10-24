@@ -63,7 +63,7 @@ def align_yaxis_np(axes):
             continue
         lower_change = extrema[i, 1] * -1*multiplier2
         upper_change = extrema[i, 0] * -1*multiplier1
-        if extrema[i, 1] > upper_change:
+        if upper_change < extrema[i, 1]:
             extrema[i, 0] = lower_change
         else:
             extrema[i, 1] = upper_change
@@ -327,8 +327,10 @@ class MatplotlibPlotMap(BPM):
     @staticmethod
     def pairplot(data, **kwargs):
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
-        kwargs.pop('color', None)  # FIXME
-        return sns.pairplot(data, **kwargs)
+        color = kwargs.pop('color')
+        plot_kws = {'color': color}
+        diag_kws = {'color': color}
+        return sns.pairplot(data, plot_kws=plot_kws, diag_kws=diag_kws, **kwargs)
 
     @staticmethod
     def probplot(data, **kwargs):
