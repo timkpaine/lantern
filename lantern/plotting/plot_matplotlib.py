@@ -30,6 +30,13 @@ def align_yaxis_np(axes):
     axes = np.array(axes)
     extrema = np.array([ax.get_ylim() for ax in axes])
 
+    for i in range(len(extrema)):
+
+        if np.isclose(extrema[i, 0], 0.0):
+            extrema[i, 0] = -1
+        if np.isclose(extrema[i, 1], 0.0):
+            extrema[i, 1] = 1
+
     lowers = extrema[:, 0]
     uppers = extrema[:, 1]
 
@@ -44,6 +51,7 @@ def align_yaxis_np(axes):
     if all_negative or all_positive:
         # don't scale
         return
+
     res = abs(uppers+lowers)
     min_index = np.argmin(res)
 
@@ -109,11 +117,10 @@ class MatplotlibPlotMap(BPM):
         if isinstance(color, list):
             # Take just the first color
             color = color[0]
-        if y:
-            ax.spines[y_side].set_color(color)
-            ax.yaxis.label.set_color(color)
-            ax.tick_params(axis='y', colors=color)
-
+        # ax.spines[y_side].set_color(color)
+        ax.spines['top'].set_color('none')
+        ax.yaxis.label.set_color(color)
+        ax.tick_params(axis='y', colors=color)
         # autoscale
         ax.autoscale(True)
         _MFA.append(ax)
@@ -138,6 +145,7 @@ class MatplotlibPlotMap(BPM):
         _MFA.legend_ = None
         _MFA.get_xaxis().set_label_position("bottom")
         _MFA.tick_params(axis='both', which='both', labelbottom=True, labeltop=False, labelleft=True, labelright=False)
+        _MFA.autoscale(True)
         _AXES['bottom'].append(_MFA)
         _AXES['left'].append(_MFA)
         _MFA = [_MFA]
@@ -186,7 +194,9 @@ class MatplotlibPlotMap(BPM):
             if ax.has_data():
                 ax.legend_ = None
                 ax.relim()
+                ax.tick_params(axis='both', which='both', labelbottom=True, labeltop=False)
                 ax.autoscale_view()
+                ax.spines['top'].set_color('none')
             else:
                 _MF.delaxes(ax)
 
@@ -198,7 +208,6 @@ class MatplotlibPlotMap(BPM):
             labels += label
         if kwargs.get('legend', True):
             _MFA[0].legend(lines, labels, loc=2)
-        plt.axhline(0, color='black')
         _MF.canvas.draw()
         plt.draw()
 
@@ -301,7 +310,7 @@ class MatplotlibPlotMap(BPM):
 
     @staticmethod
     def line(data, **kwargs):
-        ax = MatplotlibPlotMap._newAx(x=False, y=kwargs.pop('y', 'left') == 'right')
+        ax = MatplotlibPlotMap._newAx(x=False, y=kwargs.get('y', 'left') == 'right', y_side=kwargs.pop('y', 'left'), color=kwargs.get('colors'))
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
         return data.plot(ax=ax, **kwargs)
 
