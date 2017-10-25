@@ -336,19 +336,21 @@ class MatplotlibPlotMap(BPM):
     @staticmethod
     def lmplot(data, **kwargs):
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
-        kwargs = MatplotlibPlotMap._wrapper(**kwargs)
         scatter = kwargs.pop('scatter', {})
         x = scatter.pop('x', data.columns[0])
         y = scatter.pop('y', data.columns[0])
-        kwargs.pop('color', None)  # FIXME
-        return sns.lmplot(x=x, y=y, data=data, **kwargs)
+
+        color = kwargs.pop('color')
+        scatter_kws = {'color': kwargs.pop('scatter_color', color)}
+        line_kws = {'color': kwargs.pop('line_color', color)}
+        return sns.lmplot(x=x, y=y, data=data, scatter_kws=scatter_kws, line_kws=line_kws, **kwargs)
 
     @staticmethod
     def pairplot(data, **kwargs):
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
         color = kwargs.pop('color')
-        plot_kws = {'color': color}
-        diag_kws = {'color': color}
+        plot_kws = {'color': kwargs.pop('plot_color', color)}
+        diag_kws = {'color': kwargs.pop('diag_color', color)}
         return sns.pairplot(data, plot_kws=plot_kws, diag_kws=diag_kws, **kwargs)
 
     @staticmethod

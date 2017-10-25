@@ -139,7 +139,6 @@ def plot(data, type=None, raw=False, colors=None, **kwargs):
         if col in skip:
             continue
         typ, color, x_dir, y_dir = _conf(type, colors, x_dict, y_dict, i, col)
-
         # skip
         if typ == lookup('none'):
             continue
@@ -203,7 +202,7 @@ def plot(data, type=None, raw=False, colors=None, **kwargs):
                         skip.add(col_t)
                 fig.append(getattr(_pm[BACKEND], typ.value)(data[list(set(cols_tmp))], type=typ, raw=True, colors=colors_tmp, x=x_dir, y=y_dir, **kwargs))
             else:
-                fig.append(getattr(_pm[BACKEND], typ.value)(data[list(set(select))], type=typ, raw=True, colors=colors, scatter=scatter, x=x_dir, y=y_dir, **kwargs))
+                fig.append(getattr(_pm[BACKEND], typ.value)(data[list(set(select))], type=typ, raw=True, colors=(colors or color), scatter=scatter, x=x_dir, y=y_dir, **kwargs))
         else:
             fig.append(getattr(_pm[BACKEND], typ.value)(data[col], type=typ, raw=True, colors=color, x=x_dir, y=y_dir, **kwargs))
     return _pm[BACKEND].plot(fig, x=x_dict, y=y_dict, **kwargs)
