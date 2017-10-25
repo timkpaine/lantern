@@ -28,12 +28,12 @@ setup(
 
     keywords='analytics tools plotting',
 
-    packages=find_packages(exclude=['tests',]),
+    packages=find_packages(exclude=['tests', ]),
     zip_safe=False,
-
-    # entry_points={
-    #     'console_scripts': [
-    #         'sample=sample:main',
-    #     ],
-    # },
+    entry_points={
+        'nbconvert.exporters': [
+            'pdf_hidecode = lantern.extensions.hideinput.exporters:PDFHideCodeExporter',
+            'html_hidecode = lantern.extensions.hideinput.exporters:HTMLHideCodeExporter',
+        ],
+    }
 )
