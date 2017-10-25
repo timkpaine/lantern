@@ -24,7 +24,7 @@ class TestConfig:
         with patch('lantern.plotting.plot_cufflinks.in_ipynb', create=True) as mock1:
             import cufflinks
             cufflinks.go_offline()
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import area
             mock1.return_value = True
             setBackend('cufflinks')
@@ -34,7 +34,7 @@ class TestConfig:
         with patch('lantern.plotting.plot_cufflinks.in_ipynb', create=True) as mock1:
             import cufflinks
             cufflinks.go_offline()
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import bar
             mock1.return_value = True
             setBackend('cufflinks')
@@ -44,7 +44,7 @@ class TestConfig:
         with patch('lantern.plotting.plot_cufflinks.in_ipynb', create=True) as mock1:
             import cufflinks
             cufflinks.go_offline()
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import box
             mock1.return_value = True
             setBackend('cufflinks')
@@ -54,7 +54,7 @@ class TestConfig:
         with patch('lantern.plotting.plot_cufflinks.in_ipynb', create=True) as mock1:
             import cufflinks
             cufflinks.go_offline()
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import bubble
             mock1.return_value = True
             setBackend('cufflinks')
@@ -64,7 +64,7 @@ class TestConfig:
         with patch('lantern.plotting.plot_cufflinks.in_ipynb', create=True) as mock1:
             import cufflinks
             cufflinks.go_offline()
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import groupedbar
             mock1.return_value = True
             setBackend('cufflinks')
@@ -74,7 +74,7 @@ class TestConfig:
         with patch('lantern.plotting.plot_cufflinks.in_ipynb', create=True) as mock1:
             import cufflinks
             cufflinks.go_offline()
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import groupedhist
             mock1.return_value = True
             setBackend('cufflinks')
@@ -84,7 +84,7 @@ class TestConfig:
         with patch('lantern.plotting.plot_cufflinks.in_ipynb', create=True) as mock1:
             import cufflinks
             cufflinks.go_offline()
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import heatmap
             mock1.return_value = True
             setBackend('cufflinks')
@@ -94,7 +94,7 @@ class TestConfig:
         with patch('lantern.plotting.plot_cufflinks.in_ipynb', create=True) as mock1:
             import cufflinks
             cufflinks.go_offline()
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import histogram
             mock1.return_value = True
             setBackend('cufflinks')
@@ -104,7 +104,7 @@ class TestConfig:
         with patch('lantern.plotting.plot_cufflinks.in_ipynb', create=True) as mock1:
             import cufflinks
             cufflinks.go_offline()
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import horizontalbar
             mock1.return_value = True
             setBackend('cufflinks')
@@ -114,7 +114,7 @@ class TestConfig:
         with patch('lantern.plotting.plot_cufflinks.in_ipynb', create=True) as mock1:
             import cufflinks
             cufflinks.go_offline()
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import horizontalstackedbar
             mock1.return_value = True
             setBackend('cufflinks')
@@ -124,7 +124,7 @@ class TestConfig:
         with patch('lantern.plotting.plot_cufflinks.in_ipynb', create=True) as mock1:
             import cufflinks
             cufflinks.go_offline()
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import line
             mock1.return_value = True
             setBackend('cufflinks')
@@ -134,7 +134,7 @@ class TestConfig:
         with patch('lantern.plotting.plot_cufflinks.in_ipynb', create=True) as mock1:
             import cufflinks
             cufflinks.go_offline()
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import ohlc
             mock1.return_value = True
             setBackend('cufflinks')
@@ -144,7 +144,7 @@ class TestConfig:
         with patch('lantern.plotting.plot_cufflinks.in_ipynb', create=True) as mock1:
             import cufflinks
             cufflinks.go_offline()
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import ohlcv
             mock1.return_value = True
             setBackend('cufflinks')
@@ -154,7 +154,7 @@ class TestConfig:
         with patch('lantern.plotting.plot_cufflinks.in_ipynb', create=True) as mock1:
             import cufflinks
             cufflinks.go_offline()
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import pie
             mock1.return_value = True
             setBackend('cufflinks')
@@ -164,7 +164,7 @@ class TestConfig:
         with patch('lantern.plotting.plot_cufflinks.in_ipynb', create=True) as mock1:
             import cufflinks
             cufflinks.go_offline()
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import scatter
             mock1.return_value = True
             setBackend('cufflinks')
@@ -174,7 +174,7 @@ class TestConfig:
         with patch('lantern.plotting.plot_cufflinks.in_ipynb', create=True) as mock1:
             import cufflinks
             cufflinks.go_offline()
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import stackedarea
             mock1.return_value = True
             setBackend('cufflinks')
@@ -184,7 +184,7 @@ class TestConfig:
         with patch('lantern.plotting.plot_cufflinks.in_ipynb', create=True) as mock1:
             import cufflinks
             cufflinks.go_offline()
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import stackedbar
             mock1.return_value = True
             setBackend('cufflinks')
@@ -194,7 +194,7 @@ class TestConfig:
         with patch('lantern.plotting.plot_cufflinks.in_ipynb', create=True) as mock1:
             import cufflinks
             cufflinks.go_offline()
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import stackedhist
             mock1.return_value = True
             setBackend('cufflinks')
@@ -204,7 +204,7 @@ class TestConfig:
         with patch('lantern.plotting.plot_cufflinks.in_ipynb', create=True) as mock1:
             import cufflinks
             cufflinks.go_offline()
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import timeseries
             mock1.return_value = True
             setBackend('cufflinks')

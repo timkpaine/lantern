@@ -25,7 +25,7 @@ class TestConfig:
 
     def test_area(self):
         with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import area
             mock1.return_value = True
             setBackend('matplotlib')
@@ -33,7 +33,7 @@ class TestConfig:
 
     def test_bar(self):
         with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import bar
             mock1.return_value = True
             setBackend('matplotlib')
@@ -41,7 +41,7 @@ class TestConfig:
 
     def test_box(self):
         with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import box
             mock1.return_value = True
             setBackend('matplotlib')
@@ -49,7 +49,7 @@ class TestConfig:
 
     def test_bubble(self):
         with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import bubble
             mock1.return_value = True
             setBackend('matplotlib')
@@ -57,7 +57,7 @@ class TestConfig:
 
     def test_histogram(self):
         with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import histogram
             mock1.return_value = True
             setBackend('matplotlib')
@@ -65,7 +65,7 @@ class TestConfig:
 
     def test_horizontalbar(self):
         with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import horizontalbar
             mock1.return_value = True
             setBackend('matplotlib')
@@ -73,7 +73,7 @@ class TestConfig:
 
     def test_horizontalstackedbar(self):
         with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import horizontalstackedbar
             mock1.return_value = True
             setBackend('matplotlib')
@@ -81,7 +81,7 @@ class TestConfig:
 
     def test_line(self):
         with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import line
             mock1.return_value = True
             setBackend('matplotlib')
@@ -89,7 +89,7 @@ class TestConfig:
 
     def test_scatter(self):
         with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import scatter
             mock1.return_value = True
             setBackend('matplotlib')
@@ -97,7 +97,7 @@ class TestConfig:
 
     def test_stackedbar(self):
         with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import stackedbar
             mock1.return_value = True
             setBackend('matplotlib')
@@ -105,7 +105,7 @@ class TestConfig:
 
     def test_stackedhist(self):
         with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import stackedhist
             mock1.return_value = True
             setBackend('matplotlib')
@@ -113,7 +113,7 @@ class TestConfig:
 
     def test_timeseries(self):
         with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import timeseries
             mock1.return_value = True
             setBackend('matplotlib')
@@ -121,7 +121,7 @@ class TestConfig:
 
     def test_lmplot(self):
         with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import line, plot
             mock1.return_value = True
             setBackend('matplotlib')
@@ -130,7 +130,7 @@ class TestConfig:
 
     def test_probplot(self):
         with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import line, plot
             mock1.return_value = True
             setBackend('matplotlib')
@@ -139,7 +139,7 @@ class TestConfig:
 
     def test_pairplot(self):
         with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import line, plot
             mock1.return_value = True
             setBackend('matplotlib')

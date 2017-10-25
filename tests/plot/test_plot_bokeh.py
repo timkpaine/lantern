@@ -25,7 +25,7 @@ class TestConfig:
             from bokeh.plotting import output_notebook
             output_notebook()
 
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import area
             mock1.return_value = True
             setBackend('bokeh')
@@ -36,7 +36,7 @@ class TestConfig:
             from bokeh.plotting import output_notebook
             output_notebook()
 
-            from lantern import setBackend
+            from lantern.plotting import setBackend
             from lantern import line
             mock1.return_value = True
             setBackend('bokeh')
