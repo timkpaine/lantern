@@ -19,6 +19,9 @@ clean: ## clean the repository
 	find . -name ".ipynb_checkpoints" | xargs  rm -rf 
 	rm -rf .coverage cover htmlcov logs build dist *.egg-info
 
+serverextension: install ## enable serverextension
+	jupyter serverextension enable --py lantern
+
 labextension: install ## enable labextension
 	jupyter labextension install jlab
 

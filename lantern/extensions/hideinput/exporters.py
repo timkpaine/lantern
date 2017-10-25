@@ -1,13 +1,12 @@
 import os
 import os.path
 from nbconvert.nbconvertapp import NbConvertApp
-from traitlets.config import Config
 from nbconvert.exporters.html import HTMLExporter
 from nbconvert.exporters.pdf import PDFExporter
 
 
-_html_no_code_template = os.path.join(os.path.dirname(__file__), 'hide_code_cells_html.tpl')
-_pdf_no_code_template = os.path.join(os.path.dirname(__file__), 'hide_code_cells_pdf.tplx')
+_html_no_code_template = os.path.join(os.path.dirname(__file__), 'templates', 'hide_code_cells_html.tpl')
+_pdf_no_code_template = os.path.join(os.path.dirname(__file__), 'templates', 'hide_code_cells_pdf.tplx')
 
 
 def export_pdf(nbpath):
@@ -24,7 +23,7 @@ class HTMLHideCodeExporter(HTMLExporter):
 
     @property
     def template_path(self):
-        return super(HTMLHideCodeExporter, self).template_path + [os.path.dirname(__file__)]
+        return super(HTMLHideCodeExporter, self).template_path + [os.path.join(os.path.dirname(__file__), 'templates')]
 
     def _template_file_default(self):
         return 'hide_code_cells_html.tpl'
@@ -36,7 +35,7 @@ class PDFHideCodeExporter(PDFExporter):
 
     @property
     def template_path(self):
-        return super(PDFHideCodeExporter, self).template_path + [os.path.dirname(__file__)]
+        return super(PDFHideCodeExporter, self).template_path + [os.path.join(os.path.dirname(__file__), 'templates')]
 
     def _template_file_default(self):
         return 'hide_code_cells_pdf.tplx'
