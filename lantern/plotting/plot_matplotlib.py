@@ -30,16 +30,18 @@ def align_yaxis_np(axes):
     axes = np.array(axes)
     extrema = np.array([ax.get_ylim() for ax in axes])
 
+    # reset for divide by zero issues
     for i in range(len(extrema)):
-
         if np.isclose(extrema[i, 0], 0.0):
             extrema[i, 0] = -1
         if np.isclose(extrema[i, 1], 0.0):
             extrema[i, 1] = 1
 
+    # upper and lower limits
     lowers = extrema[:, 0]
     uppers = extrema[:, 1]
 
+    # if all pos or all neg, don't scale
     all_positive = False
     all_negative = False
     if lowers.min() > 0.0:
@@ -52,21 +54,29 @@ def align_yaxis_np(axes):
         # don't scale
         return
 
+    # pick "most centered" axis
     res = abs(uppers+lowers)
     min_index = np.argmin(res)
 
+    # scale positive or negative part
     multiplier1 = abs(uppers[min_index]/lowers[min_index])
     multiplier2 = abs(lowers[min_index]/uppers[min_index])
 
     for i in range(len(extrema)):
-        if i == min_index:
-            continue
-        lower_change = extrema[i, 1] * -1*multiplier2
-        upper_change = extrema[i, 0] * -1*multiplier1
-        if upper_change < extrema[i, 1]:
-            extrema[i, 0] = lower_change
-        else:
-            extrema[i, 1] = upper_change
+        # scale positive or negative part based on which induces valid
+        if i != min_index:
+            lower_change = extrema[i, 1] * -1*multiplier2
+            upper_change = extrema[i, 0] * -1*multiplier1
+            if upper_change < extrema[i, 1]:
+                extrema[i, 0] = lower_change
+            else:
+                extrema[i, 1] = upper_change
+
+        # bump by 10% for a margin
+        extrema[i, 0] *= 1.1
+        extrema[i, 1] *= 1.1
+
+    # set axes limits
     [axes[i].set_ylim(*extrema[i]) for i in range(len(extrema))]
 
 
@@ -79,7 +89,9 @@ class MatplotlibPlotMap(BPM):
         if not x and not y:
             return _MFA[0]
         if x and y:
-            ax = _MFA[0].twiny().twinx()
+            ax = _MFA[0].twiny()
+            _MFA.append(ax)  # stash and delete superfluous axis later
+            ax = ax.twinx()
             _AXES[y_side].append(ax)
             _AXES['bottom'].append(ax)
         elif x:
@@ -91,7 +103,12 @@ class MatplotlibPlotMap(BPM):
 
         # set positioning
         ax.get_xaxis().set_label_position("bottom")
-        ax.tick_params(axis='both', which='both',
+        ax.tick_params(axis='both',
+                       which='both',
+                       bottom=True,
+                       top=False,
+                       left=(y_side == 'left') and y,
+                       right=(y_side == 'right') and y,
                        labelbottom=False,
                        labeltop=False,
                        labelleft=(y_side == 'left') and y,
@@ -100,27 +117,17 @@ class MatplotlibPlotMap(BPM):
         # pad axes
         xpad = 30*(len(_AXES['bottom'])-1)
         ypad = 30*(len(_AXES[y_side])-1)
-        ax.tick_params(axis='x', pad=xpad)
-        ax.tick_params(axis='y', pad=ypad)
-
-        # hide
-        # ax.get_xaxis().get_major_formatter().set_useOffset(False)
-        labels = ax.get_xticklabels()
-        plt.setp(labels, rotation=30, fontsize=0)
-        ax.get_xaxis().set_visible(False)
-        ax.get_xaxis().set_ticks([])
-
-        # manage legend later
-        ax.legend_ = None
+        ax.tick_params(axis='x', pad=xpad+2)
+        ax.tick_params(axis='y', pad=ypad+2)
 
         # colorize
         if isinstance(color, list):
             # Take just the first color
             color = color[0]
-        # ax.spines[y_side].set_color(color)
-        ax.spines['top'].set_color('none')
+
         ax.yaxis.label.set_color(color)
         ax.tick_params(axis='y', colors=color)
+
         # autoscale
         ax.autoscale(True)
         _MFA.append(ax)
@@ -144,7 +151,16 @@ class MatplotlibPlotMap(BPM):
         # deal with legends later
         _MFA.legend_ = None
         _MFA.get_xaxis().set_label_position("bottom")
-        _MFA.tick_params(axis='both', which='both', labelbottom=True, labeltop=False, labelleft=True, labelright=False)
+        _MFA.tick_params(axis='both',
+                         which='both',
+                         bottom=True,
+                         top=False,
+                         left=True,
+                         right=False,
+                         labelbottom=False,
+                         labeltop=False,
+                         labelleft=True,
+                         labelright=False)
         _MFA.autoscale(True)
         _AXES['bottom'].append(_MFA)
         _AXES['left'].append(_MFA)
@@ -191,12 +207,15 @@ class MatplotlibPlotMap(BPM):
         labels = []
         plt.legend([])
         for ax in _MFA:
+            # no top spines if no right
+            if len(_AXES['right']) == 0:
+                ax.spines['top'].set_visible(False)
+                ax.spines['right'].set_visible(False)
+
             if ax.has_data():
                 ax.legend_ = None
                 ax.relim()
-                ax.tick_params(axis='both', which='both', labelbottom=True, labeltop=False)
                 ax.autoscale_view()
-                ax.spines['top'].set_color('none')
             else:
                 _MF.delaxes(ax)
 
