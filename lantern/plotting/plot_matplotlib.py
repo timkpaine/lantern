@@ -207,7 +207,7 @@ class MatplotlibPlotMap(BPM):
             lines += line
             labels += label
         if kwargs.get('legend', True):
-            _MFA[0].legend(lines, labels, loc=2)
+            _MFA[-1].legend(lines, labels, loc='center left', bbox_to_anchor=(1 + .05*len(_AXES['right']), 0.5), fancybox=True)
         _MF.canvas.draw()
         plt.draw()
 
