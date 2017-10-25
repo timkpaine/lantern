@@ -38,6 +38,8 @@ Single-command code-less exporting for report generation.
     lantern.extensions.export_pdf('my_notebook.ipynb')  # my_notebook.pdf
     lantern.extensions.export_html('my_notebook.ipynb') # my_notebook.html
 ```
+Or install the plugins to use directly from JupyterLab
+![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/export.png)
 
 ## Dummy datasets
 - Lines
