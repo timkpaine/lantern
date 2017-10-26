@@ -306,7 +306,15 @@ class MatplotlibPlotMap(BPM):
     @staticmethod
     def hexbin(data, **kwargs):
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
+        scatter = kwargs.pop('scatter', {})
+        x = scatter.pop('x', data.columns[0])
+        y = scatter.pop('y', data.columns[0])
+        size = scatter.pop('size', 10)
+
         return data.plot(kind='hexbin',
+                         x=x,
+                         y=y,
+                         gridsize=size,
                          **kwargs)
 
     @staticmethod
@@ -462,10 +470,6 @@ class MatplotlibPlotMap(BPM):
 
     @staticmethod
     def pie(data, **kwargs):
-        raise NotImplementedError()
-
-    @staticmethod
-    def scattermatrix(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod

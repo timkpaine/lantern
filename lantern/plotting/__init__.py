@@ -148,9 +148,19 @@ def plot(data, type=None, raw=False, colors=None, **kwargs):
             return getattr(_pm[BACKEND], typ.value)(data, type=typ, colors=colors, **kwargs)
 
         # require more than 1 column
-        if typ in [lookup('pie'), lookup('bubble'), lookup('scatter'), lookup('bar'), lookup('stackedbar'), lookup('horizontalbar'), lookup('horizontalstackedbar'), lookup('box'), lookup('lmplot'), lookup('jointplot')]:
+        if typ in [lookup('pie'), lookup('bubble'), lookup('scatter'), lookup('bar'), lookup('stackedbar'), lookup('horizontalbar'), lookup('horizontalstackedbar'), lookup('box'), lookup('lmplot'), lookup('jointplot'), lookup('hexbin')]:
             select = [col]
             skip.add(col)
+
+            # hexbin
+            if typ == lookup('hexbin'):
+                scatter = _parseScatter(kwargs.pop('scatter', {}), col)
+                x = scatter.get('x', col)
+                y = scatter.get('y', col)
+                select += [x] if x and x in data.columns else []
+                select += [y] if y and y in data.columns else []
+                skip.add(x)
+                skip.add(y)
 
             # pie specific options
             if typ == lookup('pie'):

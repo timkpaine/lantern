@@ -40,7 +40,6 @@ class BasePlotType(Enum):
     PROBPLOT = 'probplot'
     SCATTER = 'scatter'
     SCATTER3D = 'scatter3d'
-    SCATTERMATRIX = 'scattermatrix'
     SPREAD = 'spread'
     STACKEDBAR = 'stackedbar'
     STACKEDHIST = 'stackedhist'
@@ -105,22 +104,23 @@ class BasePlotMap(metaclass=ABCMeta):
         '''plot type'''
 
     @abstractstatic
+    def groupedscatter():
+        '''plot type'''
+
+    @abstractstatic
+    def groupedhist():
+        '''plot type'''
+
+    @abstractstatic
     def heatmap():
         '''plot type'''
 
     @abstractstatic
     def hexbin():
         '''plot type'''
+
     @abstractstatic
     def histogram():
-        '''plot type'''
-
-    @abstractstatic
-    def groupedscatter():
-        '''plot type'''
-
-    @abstractstatic
-    def groupedhist():
         '''plot type'''
 
     @abstractstatic
@@ -170,6 +170,7 @@ class BasePlotMap(metaclass=ABCMeta):
     @abstractstatic
     def scatter():
         '''plot type'''
+
     @abstractstatic
     def spread():
         '''plot type'''
@@ -184,10 +185,6 @@ class BasePlotMap(metaclass=ABCMeta):
 
     @abstractstatic
     def stackedarea():
-        '''plot type'''
-
-    @abstractstatic
-    def scattermatrix():
         '''plot type'''
 
 

@@ -166,10 +166,6 @@ class BokehPlotMap(BPM):
         raise NotImplementedError()
 
     @staticmethod
-    def scattermatrix(data, **kwargs):
-        raise NotImplementedError()
-
-    @staticmethod
     def spread(data, **kwargs):
         raise NotImplementedError()
 

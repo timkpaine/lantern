@@ -306,8 +306,8 @@ class CufflinksPlotMap(BPM):
     @staticmethod
     def pairplot(data, **kwargs):
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
-        kwargs.pop('colors', '')  # FIXME
-        return data.scatter_matrix(**kwargs)
+        color = kwargs.pop('colors')  # FIXME
+        return data.scatter_matrix(color=color, size=kwargs.pop('size', 10), **kwargs)
 
     @staticmethod
     def pie(data, **kwargs):
@@ -337,12 +337,6 @@ class CufflinksPlotMap(BPM):
                           categories=categories,
                           filename='cufflinks/simple-scatter',
                           **kwargs)
-
-    @staticmethod
-    def scattermatrix(data, **kwargs):
-        kwargs = CufflinksPlotMap._wrapper(**kwargs)
-        return data.scatter_matrix(filename='cufflinks/scatter-matrix-subplot',
-                                   **kwargs)
 
     @staticmethod
     def spread(data, **kwargs):
