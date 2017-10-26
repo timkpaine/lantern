@@ -28,6 +28,7 @@ class BasePlotType(Enum):
     HISTOGRAM = 'histogram'
     HORIZONTALBAR = 'horizontalbar'
     HORIZONTALSTACKEDBAR = 'horizontalstackedbar'
+    JOINTPLOT = 'jointplot'
     LINE = 'line'
     LMPLOT = 'lmplot'
     MULTISCATTER = 'multiscatter'
@@ -128,6 +129,10 @@ class BasePlotMap(metaclass=ABCMeta):
 
     @abstractstatic
     def horizontalstackedbar():
+        '''plot type'''
+
+    @abstractmethod
+    def jointplot():
         '''plot type'''
 
     @abstractstatic

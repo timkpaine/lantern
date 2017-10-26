@@ -128,6 +128,15 @@ class TestConfig:
             df = line.sample()
             plot(df[[df.columns[0], df.columns[1]]], type='lmplot', scatter={df.columns[0]: {'x': df.columns[0], 'y': df.columns[1]}})
 
+    def test_jointplot(self):
+        with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
+            from lantern.plotting import setBackend
+            from lantern import line, plot
+            mock1.return_value = True
+            setBackend('matplotlib')
+            df = line.sample()
+            plot(df[[df.columns[0], df.columns[1]]], type='jointplot', scatter={df.columns[0]: {'x': df.columns[0], 'y': df.columns[1]}})
+
     def test_probplot(self):
         with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
             from lantern.plotting import setBackend

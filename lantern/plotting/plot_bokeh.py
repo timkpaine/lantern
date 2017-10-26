@@ -142,6 +142,10 @@ class BokehPlotMap(BPM):
         raise NotImplementedError()
 
     @staticmethod
+    def jointplot(data, **kwargs):
+        raise NotImplementedError()
+
+    @staticmethod
     def lmplot(data, **kwargs):
         raise NotImplementedError()
 

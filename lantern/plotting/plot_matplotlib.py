@@ -328,6 +328,20 @@ class MatplotlibPlotMap(BPM):
                          **kwargs)
 
     @staticmethod
+    def jointplot(data, **kwargs):
+        kwargs = MatplotlibPlotMap._wrapper(**kwargs)
+        scatter = kwargs.pop('scatter', {})
+        x = scatter.pop('x', data.columns[0])
+        y = scatter.pop('y', data.columns[0])
+
+        color = kwargs.pop('color')
+        scatter_kws = {'color': kwargs.pop('scatter_color', color)}
+        line_kws = {'color': kwargs.pop('line_color', color)}
+        marginal_kws = {'color': kwargs.pop('bar_color', color)}
+        kind = kwargs.pop('kind', 'reg')
+        return sns.jointplot(x=x, y=y, data=data, kind=kind, scatter_kws=scatter_kws, line_kws=line_kws, marginal_kws=marginal_kws, **kwargs)
+
+    @staticmethod
     def line(data, **kwargs):
         ax = MatplotlibPlotMap._newAx(x=False, y=kwargs.get('y', 'left') == 'right', y_side=kwargs.pop('y', 'left'), color=kwargs.get('colors'))
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)

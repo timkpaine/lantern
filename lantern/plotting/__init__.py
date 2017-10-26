@@ -148,7 +148,7 @@ def plot(data, type=None, raw=False, colors=None, **kwargs):
             return getattr(_pm[BACKEND], typ.value)(data, type=typ, colors=colors, **kwargs)
 
         # require more than 1 column
-        if typ in [lookup('pie'), lookup('bubble'), lookup('scatter'), lookup('bar'), lookup('stackedbar'), lookup('horizontalbar'), lookup('horizontalstackedbar'), lookup('box'), lookup('lmplot')]:
+        if typ in [lookup('pie'), lookup('bubble'), lookup('scatter'), lookup('bar'), lookup('stackedbar'), lookup('horizontalbar'), lookup('horizontalstackedbar'), lookup('box'), lookup('lmplot'), lookup('jointplot')]:
             select = [col]
             skip.add(col)
 
@@ -164,7 +164,7 @@ def plot(data, type=None, raw=False, colors=None, **kwargs):
 
             # bubble specific options
             # scatter specific options
-            if typ in [lookup('bubble'), lookup('scatter'), lookup('bubble3d'), lookup('scatter3d'), lookup('lmplot')]:
+            if typ in [lookup('bubble'), lookup('scatter'), lookup('bubble3d'), lookup('scatter3d'), lookup('lmplot'), lookup('jointplot')]:
                 scatter = _parseScatter(kwargs.pop('scatter', {}), col)
                 x = scatter.get('x', col)
                 y = scatter.get('y', col)
