@@ -236,6 +236,9 @@ class MatplotlibPlotMap(BPM):
             _MFA[0].set_ylabel(kwargs.get('ylabel'))
         if 'title' in kwargs:
             plt.title(kwargs.get('title'))
+
+        if kwargs.get('raw', False):
+            return plt
         return plt.show()
 
     @staticmethod
