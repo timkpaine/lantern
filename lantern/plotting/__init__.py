@@ -205,4 +205,4 @@ def plot(data, type=None, raw=False, colors=None, **kwargs):
                 fig.append(getattr(_pm[BACKEND], typ.value)(data[list(set(select))], type=typ, raw=True, colors=(colors or color), scatter=scatter, x=x_dir, y=y_dir, **kwargs))
         else:
             fig.append(getattr(_pm[BACKEND], typ.value)(data[col], type=typ, raw=True, colors=color, x=x_dir, y=y_dir, **kwargs))
-    return _pm[BACKEND].plot(fig, x=x_dict, y=y_dict, **kwargs)
+    return _pm[BACKEND].plot(fig, x=x_dict, y=y_dict, raw=raw, **kwargs)

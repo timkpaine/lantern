@@ -304,6 +304,12 @@ class CufflinksPlotMap(BPM):
         return qf.iplot()
 
     @staticmethod
+    def pairplot(data, **kwargs):
+        kwargs = CufflinksPlotMap._wrapper(**kwargs)
+        kwargs.pop('colors', '')  # FIXME
+        return data.scatter_matrix(**kwargs)
+
+    @staticmethod
     def pie(data, **kwargs):
         kwargs = CufflinksPlotMap._wrapper(**kwargs)
         scatter = kwargs.pop('scatter', {})
@@ -456,10 +462,6 @@ class CufflinksPlotMap(BPM):
 
     @staticmethod
     def hexbin(data, **kwargs):
-        raise NotImplementedError()
-
-    @staticmethod
-    def pairplot(data, **kwargs):
         raise NotImplementedError()
 
     @staticmethod

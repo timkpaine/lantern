@@ -238,7 +238,7 @@ class MatplotlibPlotMap(BPM):
             plt.title(kwargs.get('title'))
 
         if kwargs.get('raw', False):
-            return plt
+            return _MF
         return plt.show()
 
     @staticmethod
@@ -389,12 +389,13 @@ class MatplotlibPlotMap(BPM):
         scatter.pop('categories', 'categories')  # FIXME
         scatter.pop('text', '')  # FIXME
         kwargs.pop('colorscale', '')  # FIXME
-        kwargs.pop('color', '')  # FIXME
+        color = kwargs.pop('color', '')  # FIXME
 
         return data.plot(kind='scatter',
                          x=x,
                          y=y,
                          s=size,
+                         c=color,
                          marker=markers,
                          **kwargs)
 
