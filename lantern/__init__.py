@@ -9,5 +9,11 @@ __all__ = ['plot', 'grids', 'data', 'extensions']
 
 def _jupyter_server_extension_paths():
     return [{
-        "module": "lantern.extensions.hideinput.extension"
-    }]
+        "name": "Lantern - HideInput",
+        "module": "lantern.extensions.hideinput.extension",
+
+    }, {
+        "name": "Lantern - Host",
+        "module": "lantern.extensions.host.extension"
+    }
+    ]
