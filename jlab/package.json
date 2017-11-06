@@ -1,5 +1,5 @@
 {
-  "name": "lantern_extension_hideinput",
+  "name": "lantern_extension",
   "version": "0.0.1",
   "description": "A JupyterLab extension.",
   "author": "Tim Paine",

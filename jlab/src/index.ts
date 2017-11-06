@@ -55,6 +55,7 @@ function activate(app: JupyterLab,  mainMenu: IMainMenu, palette: ICommandPalett
   // Add an application command
   const export_pdf = 'lantern:export-pdf';
   const export_html = 'lantern:export-html';
+  const publish = 'lantern:publish';
 
   // const export_html = 'lantern:export-html';
   commands.addCommand(export_pdf, {
@@ -119,22 +120,54 @@ function activate(app: JupyterLab,  mainMenu: IMainMenu, palette: ICommandPalett
     isEnabled: hasWidget
   });
 
+  commands.addCommand(publish, {
+    label: 'Publish - no code',
+    execute: args => {
+      const current = getCurrent(args);
+
+      if (!current) {
+        return;
+      }
+
+      const notebookPath = URLExt.encodeParts(current.context.path);
+      const url = URLExt.join(
+        services.serverSettings.baseUrl,
+        'publish',
+        notebookPath
+      );
+      const child = window.open('', '_blank');
+      const { context } = current;
+
+      if (context.model.dirty && !context.model.readOnly) {
+        return context.save().then(() => { child.location.assign(url); });
+      }
+
+      return new Promise<void>((resolve) => {
+        child.location.assign(url);
+        resolve(undefined);
+      });
+    },
+    isEnabled: hasWidget
+  });
+
   let menu = new Menu({ commands });
   let menu2 = new Menu({ commands });
   let menu3 = new Menu({ commands });
+
   menu.title.label = 'Lantern';
   menu2.title.label = 'Export to ...';
-  menu3.title.label = 'No Code';
+  menu3.title.label = 'Publish';
 
-  menu3.addItem({command: export_pdf});
-  menu3.addItem({command: export_html});
-  menu3.addItem({type: 'separator'});
-  menu2.addItem({type: 'submenu', submenu:menu3});
+  menu2.addItem({command: export_pdf});
+  menu2.addItem({command: export_html});
+  menu3.addItem({command: publish});
   menu.addItem({type: 'submenu', submenu:menu2});
+  menu.addItem({type: 'submenu', submenu:menu3});
   mainMenu.addMenu(menu);
   // Add the command to the palette.
   palette.addItem({command: export_pdf, category: 'Lantern'});
-  palette.addItem({command: export_pdf, category: 'Lantern'});
+  palette.addItem({command: export_html, category: 'Lantern'});
+  palette.addItem({command: publish, category: 'Lantern'});
 };
 
 

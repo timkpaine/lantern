@@ -13,7 +13,7 @@ def _jupyter_server_extension_paths():
         "module": "lantern.extensions.hideinput.extension",
 
     }, {
-        "name": "Lantern - Host",
-        "module": "lantern.extensions.host.extension"
+        "name": "Lantern - Publish",
+        "module": "lantern.extensions.publish.extension"
     }
     ]

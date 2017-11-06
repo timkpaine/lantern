@@ -23,7 +23,7 @@ serverextension: install ## enable serverextension
 	jupyter serverextension enable --py lantern
 
 labextension: install ## enable labextension
-	jupyter labextension install jlab/hideinput
+	jupyter labextension install jlab
 
 install:  ## install to site-packages
 	python3 setup.py install
