@@ -32,6 +32,7 @@ Abstracts away the nuances of individual charting libraries by providing a singl
 The same.
 
 ## Jupyter Integration
+### Export
 Single-command code-less exporting for report generation.
 ```python
     import lantern.extensions
@@ -40,6 +41,11 @@ Single-command code-less exporting for report generation.
 ```
 Or install the plugins to use directly from JupyterLab
 ![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/export.png)
+
+### Publish
+Publish a notebook as a read-only view.
+![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/publish.png)
+
 
 ## Dummy datasets
 - Lines
