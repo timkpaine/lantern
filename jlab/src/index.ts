@@ -152,7 +152,13 @@ function activate(app: JupyterLab,  mainMenu: IMainMenu, palette: ICommandPalett
       };
       request.open('POST', url, true);
       request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-      request.send(context.model);
+
+      let outputs = current.notebook.node.querySelectorAll('.jp-OutputArea-output, .jp-RenderedMarkdown');
+      let to_send = '';
+      for(let i = 0; i<outputs.length; i++){
+        to_send += outputs[i].outerHTML;
+      }
+      request.send(to_send);
       return new Promise<void>((resolve, reject) => {
         resolve(undefined);
       });

@@ -11,7 +11,7 @@ class PublishHandler(IPythonHandler):
 
     def post(self, path):
         name = path.rsplit('/', 1)[-1]
-        notebook = self.request.body
+        notebook = self.request.body.decode('utf8')
         self.hosting[name] = notebook
 
     def get(self, path):
@@ -19,7 +19,9 @@ class PublishHandler(IPythonHandler):
         if name not in self.hosting:
             self.write('Notebook not currently being published')
         else:
-            self.write(self.render_template('publish.html', notebook=self.hosting[name], notebook_name=name))
+            to_render = str(self.hosting[name])
+            to_render = to_render.replace('\\n', '')
+            self.write(self.render_template('publish.html', notebook=to_render, notebook_name=name))
 
     def get_template(self, name):
         t = os.path.join(os.path.dirname(__file__), 'templates')
@@ -31,3 +33,4 @@ def load_jupyter_server_extension(nb_server_app):
     host_pattern = '.*$'
     route_pattern = url_path_join(web_app.settings['base_url'], r'/publish%s' % path_regex)
     web_app.add_handlers(host_pattern, [(route_pattern, PublishHandler, {'hosting': {}})])
+    print('Installing lantern publish endpoints')
