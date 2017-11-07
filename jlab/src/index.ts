@@ -135,15 +135,25 @@ function activate(app: JupyterLab,  mainMenu: IMainMenu, palette: ICommandPalett
         'publish',
         notebookPath
       );
-      const child = window.open('', '_blank');
       const { context } = current;
 
-      if (context.model.dirty && !context.model.readOnly) {
-        return context.save().then(() => { child.location.assign(url); });
-      }
 
-      return new Promise<void>((resolve) => {
-        child.location.assign(url);
+      let request = new XMLHttpRequest();
+      request.onreadystatechange = () => {
+          if (request.readyState === 4){
+            const child = window.open('', '_blank');
+
+            if (context.model.dirty && !context.model.readOnly) {
+              return context.save().then(() => { child.location.assign(url); });
+            }
+
+            child.location.assign(url);
+          }
+      };
+      request.open('POST', url, true);
+      request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+      request.send(context.model);
+      return new Promise<void>((resolve, reject) => {
         resolve(undefined);
       });
     },

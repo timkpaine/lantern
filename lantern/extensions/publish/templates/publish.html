@@ -1,5 +1,20 @@
-{% extends "notebook.html" %}
-{% block header %}
-{% endblock header %}
-{% block input_group -%}
-{% endblock input_group %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{{notebook_name}}</title>
+  <link rel="shortcut icon" type="image/x-icon" href="/static/base/images/favicon.ico">
+</head>
+<body>
+<script type="text/javascript">
+    var notebook = {{notebook}};
+    alert(notebook);
+    // setTimeout(function(){
+    //     lab.restored.then(function(){
+    //         lab.shell._topPanel.close();
+    //         lab.shell._leftHandler._sideBar.close();
+    //     });
+    // }, 4000);
+</script>
+</body>
+</html>
