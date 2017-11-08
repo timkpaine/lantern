@@ -18,6 +18,7 @@ def export_html(nbpath):
 
 
 class HTMLHideCodeExporter(HTMLExporter):
+    # exclude_input = True
     def _file_extension_default(self):
         return '.html'
 

@@ -12,15 +12,60 @@
     </div>
     <style type="text/css">
     body{
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         background-color:#bdbdbd;
     }
     div.notebook-container {
         background-color: white;
         padding: 10px;
+        overflow: scroll;
     }
     a.jp-InternalAnchorLink{
         display: none;
     }
+
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+      color: black;
+      font-size: 12px;
+      table-layout: fixed;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    thead {
+      display: table-header-group;
+      vertical-align: middle;
+      border-color: inherit;
+      border-bottom: 1px solid #bdbdbd;
+      vertical-align: bottom;
+    }
+
+    tbody {
+      display: table-row-group;
+      vertical-align: middle;
+      border-color: inherit;
+      margin:2px;
+    }
+
+    tr th, tr td {
+      border:none;
+    }
+
+    tbody tr:nth-child(odd) {
+
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: rgb(245, 245, 245)
+    }
+
+    tbody tr:hover{
+      background-color: #E1F5FE;
+    }
+
+
     </style>
 </body>
 </html>
