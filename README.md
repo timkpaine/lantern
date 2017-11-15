@@ -12,8 +12,9 @@ An orchestration layer for plots and tables, dummy datasets, research, reports, 
 [![BCH compliance](https://bettercodehub.com/edge/badge/timkpaine/lantern?branch=master)](https://bettercodehub.com/)
 [![PyPI](https://img.shields.io/pypi/v/pylantern.svg)]()
 [![PyPI](https://img.shields.io/pypi/l/pylantern.svg)]()
-[![Beerpay](https://beerpay.io/timkpaine/lantern/badge.svg?style=flat)](https://beerpay.io/timkpaine/lantern)
 [![Site](https://img.shields.io/badge/Site--grey.svg?colorB=FFFFFF)](http://paine.nyc/lantern)
+
+<!-- [![Beerpay](https://beerpay.io/timkpaine/lantern/badge.svg?style=flat)](https://beerpay.io/timkpaine/lantern) -->
 
 ## Plotting
 Abstracts away the nuances of individual charting libraries by providing a single `plot` command with library specific kwarg introspection.
