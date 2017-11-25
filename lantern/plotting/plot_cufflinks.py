@@ -181,6 +181,8 @@ class CufflinksPlotMap(BPM):
         size = scatter.pop('size', data.columns[0])
         text = scatter.pop('text', data.columns[0])
         categories = scatter.pop('categories', data.columns[0])
+
+        import pdb; pdb.set_trace()
         return data.iplot(kind='bubble',
                           x=x,
                           y=y,

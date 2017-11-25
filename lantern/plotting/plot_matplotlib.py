@@ -326,16 +326,20 @@ class MatplotlibPlotMap(BPM):
 
     @staticmethod
     def horizontalbar(data, **kwargs):
+        ax = MatplotlibPlotMap._newAx(x=True, y=kwargs.get('y', 'left') == 'right', y_side=kwargs.pop('y', 'left'), color=kwargs.get('colors'))
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
         return data.plot(kind='barh',
                          stacked=False,
+                         ax=ax,
                          **kwargs)
 
     @staticmethod
     def horizontalstackedbar(data, **kwargs):
+        ax = MatplotlibPlotMap._newAx(x=True, y=kwargs.get('y', 'left') == 'right', y_side=kwargs.pop('y', 'left'), color=kwargs.get('colors'))
         kwargs = MatplotlibPlotMap._wrapper(**kwargs)
         return data.plot(kind='barh',
                          stacked=True,
+                         ax=ax,
                          **kwargs)
 
     @staticmethod
