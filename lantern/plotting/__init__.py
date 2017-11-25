@@ -104,7 +104,7 @@ def getTheme():
     return _pm[BACKEND].getTheme()
 
 
-def plot(data, type=None, raw=False, colors=None, **kwargs):
+def plot(data, type='line', raw=False, colors=None, **kwargs):
     '''Lantern plot
 
     Abstracts away the details of the underlying plotting libraries, exposing a generic and easy to use "plot" command.
