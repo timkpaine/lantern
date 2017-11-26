@@ -1,6 +1,7 @@
 from enum import Enum
 from .plottypes import lookup
 from .plotutils import _conf, _parseScatter, _parseScatterPie
+from ..utils import in_ipynb
 
 
 class Backend(Enum):
@@ -19,7 +20,8 @@ class Backend(Enum):
     MATPLOTLIB = 'matplotlib'
     SEABORN = 'seaborn'
 
-BACKEND = None
+_BACKEND = None
+_PLOT = None
 _pm = {}
 
 
@@ -31,7 +33,7 @@ try:
     _cpm()  # ensure all methods are implemented
     _pm[Backend.CUFFLINKS] = _cpm
     _pm[Backend.PLOTLY] = _cpm
-    BACKEND = Backend.CUFFLINKS
+    _BACKEND = Backend.CUFFLINKS
 except ImportError:
     pass
 
@@ -39,7 +41,7 @@ try:
     from .plot_bokeh import BokehPlotMap as _bpm
     _bpm()  # ensure all methods are implemented
     _pm[Backend.BOKEH] = _bpm
-    BACKEND = Backend.BOKEH
+    _BACKEND = Backend.BOKEH
 except ImportError:
     pass
 
@@ -48,13 +50,13 @@ try:
     _mpm()  # ensure all methods are implemented
     _pm[Backend.MATPLOTLIB] = _mpm
     _pm[Backend.SEABORN] = _mpm
-    BACKEND = Backend.MATPLOTLIB
+    _BACKEND = Backend.MATPLOTLIB
 except ImportError:
     pass
 # **************************************** #
 
 # At least one backend must be available
-if BACKEND is None:
+if _BACKEND is None:
     raise Exception('No backend available! Please install at least one \
         of {matplotlib, bokeh, plotly, cufflinks}')
 
@@ -70,38 +72,154 @@ def setBackend(backend):
     Raises:
         Exception -- if backend is not recognized or not installed on the machine
     '''
-    global BACKEND
+    global _BACKEND
     if isinstance(backend, str):
         if backend.upper() not in Backend.__members__:
             raise Exception('Backend not recognized - %s' % backend)
         elif Backend.__members__[backend.upper()] not in _pm.keys():
             raise Exception('Backend %s could not be loaded, did you install all dependencies?' % backend.upper())
         else:
-            BACKEND = Backend.__members__[backend.upper()]
+            _BACKEND = Backend.__members__[backend.upper()]
     else:
         if Backend.__members__[backend] not in _pm.keys():
             raise Exception('Backend %s could not be loaded, did you install all dependencies?' % backend.value)
-        BACKEND = backend
+        _BACKEND = backend
 
 
 def getBackend():
     '''return the active backend'''
-    return BACKEND
+    return _BACKEND
 
 
 def themes():
     '''return available themes for the active backend'''
-    return _pm[BACKEND].themes()
+    return _pm[_BACKEND].themes()
 
 
 def setTheme(theme):
     '''set theme for the active backend'''
-    _pm[BACKEND].setTheme(theme)
+    _pm[_BACKEND].setTheme(theme)
 
 
 def getTheme():
     '''get theme for the active backend'''
-    return _pm[BACKEND].getTheme()
+    return _pm[_BACKEND].getTheme()
+
+
+class Plot(object):
+    def __init__(self):
+        self.fig = []
+        self.x_dict = {}
+        self.y_dict = {}
+        self.raw = False
+        self.kwargs = {}
+        getattr(_pm[_BACKEND], 'setup')()
+
+    def plot(self, data, type='line', colors=None, **kwargs):
+        # if _BACKEND != Backend.MATPLOTLIB or isinstance(type, list) or (isinstance(type, str) and lookup(type) != lookup('pairplot')):  # FIXME
+        #     getattr(_pm[_BACKEND], 'setup')()
+
+        # assemble figure as collection of subplots
+        fig = []
+        if type is None:
+            type = 'line'
+
+        # some plot types may utilize multiple types. skip these if so
+        skip = set()
+
+        x_dict = kwargs.pop('x', {})
+        y_dict = kwargs.pop('y', {})
+
+        for i, col in enumerate(data.columns):
+            # if in skip, it has already been plotted or used
+            if col in skip:
+                continue
+            typ, color, x_dir, y_dir = _conf(type, colors, x_dict, y_dict, i, col)
+            # skip
+            if typ == lookup('none'):
+                continue
+
+            # require ALL columns to plot
+            if typ in [lookup('heatmap'), lookup('ohlc'), lookup('ohlcv'), lookup('histogram'), lookup('pairplot')]:
+                return getattr(_pm[_BACKEND], typ.value)(data, type=typ, colors=colors, **kwargs)
+
+            # require more than 1 column
+            if typ in [lookup('pie'), lookup('bubble'), lookup('scatter'), lookup('bar'), lookup('stackedbar'), lookup('horizontalbar'), lookup('horizontalstackedbar'), lookup('box'), lookup('lmplot'), lookup('jointplot'), lookup('hexbin')]:
+                select = [col]
+                skip.add(col)
+
+                # hexbin
+                if typ == lookup('hexbin'):
+                    scatter = _parseScatter(kwargs.pop('scatter', {}), col)
+                    x = scatter.get('x', col)
+                    y = scatter.get('y', col)
+                    select += [x] if x and x in data.columns else []
+                    select += [y] if y and y in data.columns else []
+                    skip.add(x)
+                    skip.add(y)
+
+                # pie specific options
+                if typ == lookup('pie'):
+                    scatter = _parseScatterPie(kwargs.pop('scatter', {}), col)
+                    labels = scatter.get('labels', col)
+                    values = scatter.get('values', col)
+                    select += [labels] if labels and labels in data.columns else []
+                    select += [values] if values and values in data.columns else []
+                    skip.add(labels)
+                    skip.add(values)
+
+                # bubble specific options
+                # scatter specific options
+                if typ in [lookup('bubble'), lookup('scatter'), lookup('bubble3d'), lookup('scatter3d'), lookup('lmplot'), lookup('jointplot')]:
+                    scatter = _parseScatter(kwargs.pop('scatter', {}), col)
+                    x = scatter.get('x', col)
+                    y = scatter.get('y', col)
+                    size = scatter.get('size', col)
+                    text = scatter.get('text', col)
+                    categories = scatter.get('categories', col)
+
+                    select += [x] if x and x in data.columns else []
+                    select += [y] if y and y in data.columns else []
+                    select += [size] if size and size in data.columns else []
+                    select += [text] if text and text in data.columns else []
+                    select += [categories] if categories and categories in data.columns else []
+                    skip.add(x)
+                    skip.add(y)
+                    skip.add(size)
+                    skip.add(text)
+                    skip.add(categories)
+
+                # 3d plotters
+                if typ in [lookup('bubble3d'), lookup('scatter3d')]:
+                    z = scatter.get('z', col)
+                    select += [z] if z and z in data.columns else []
+                    skip.add(z)
+
+                # plot all at the same time
+                if typ in [lookup('bar'), lookup('horizontalbar'), lookup('stackedbar'), lookup('horizontalstackedbar'), lookup('box')]:
+                    cols_tmp = [col]
+                    colors_tmp = []
+                    # plot all bars at once
+                    for j, col_t in enumerate(data.columns):
+                        typ2, color, _, _ = _conf(type, colors, {}, {}, j, col_t)
+                        if typ == typ2:
+                            colors_tmp.append(color)
+                            cols_tmp.append(col_t)
+                            skip.add(col_t)
+                    fig.append(getattr(_pm[_BACKEND], typ.value)(data[list(set(cols_tmp))], type=typ, raw=True, colors=colors_tmp, x=x_dir, y=y_dir, **kwargs))
+                else:
+                    fig.append(getattr(_pm[_BACKEND], typ.value)(data[list(set(select))], type=typ, raw=True, colors=(colors or color), scatter=scatter, x=x_dir, y=y_dir, **kwargs))
+            else:
+                fig.append(getattr(_pm[_BACKEND], typ.value)(data[col], type=typ, raw=True, colors=color, x=x_dir, y=y_dir, **kwargs))
+
+        # Stash for later
+        self.fig = self.fig + fig
+
+    def show(self):
+        return _pm[_BACKEND].plot(self.fig, **self.kwargs)
+
+    def _repr_html_(self):
+        return self.show()
 
 
 def plot(data, type='line', raw=False, colors=None, **kwargs):
@@ -120,99 +238,15 @@ def plot(data, type='line', raw=False, colors=None, **kwargs):
     Returns:
        Either the rendered plot, or the raw plot object
     '''
-    if BACKEND != Backend.MATPLOTLIB or isinstance(type, list) or (isinstance (type, str) and lookup(type) != lookup('pairplot')):  # FIXME
-        getattr(_pm[BACKEND], 'setup')()
+    global _PLOT
+    if _PLOT is None:
+        _PLOT = Plot()
+    _PLOT.plot(data, type=type, raw=raw, colors=colors, **kwargs)
+    return _PLOT
 
-    # assemble figure as collection of subplots
-    fig = []
-    if type is None:
-        type = 'line'
 
-    # some plot types may utilize multiple types. skip these if so
-    skip = set()
-
-    x_dict = kwargs.pop('x', {})
-    y_dict = kwargs.pop('y', {})
-
-    for i, col in enumerate(data.columns):
-        # if in skip, it has already been plotted or used
-        if col in skip:
-            continue
-        typ, color, x_dir, y_dir = _conf(type, colors, x_dict, y_dict, i, col)
-        # skip
-        if typ == lookup('none'):
-            continue
-
-        # require ALL columns to plot
-        if typ in [lookup('heatmap'), lookup('ohlc'), lookup('ohlcv'), lookup('histogram'), lookup('pairplot')]:
-            return getattr(_pm[BACKEND], typ.value)(data, type=typ, colors=colors, **kwargs)
-
-        # require more than 1 column
-        if typ in [lookup('pie'), lookup('bubble'), lookup('scatter'), lookup('bar'), lookup('stackedbar'), lookup('horizontalbar'), lookup('horizontalstackedbar'), lookup('box'), lookup('lmplot'), lookup('jointplot'), lookup('hexbin')]:
-            select = [col]
-            skip.add(col)
-
-            # hexbin
-            if typ == lookup('hexbin'):
-                scatter = _parseScatter(kwargs.pop('scatter', {}), col)
-                x = scatter.get('x', col)
-                y = scatter.get('y', col)
-                select += [x] if x and x in data.columns else []
-                select += [y] if y and y in data.columns else []
-                skip.add(x)
-                skip.add(y)
-
-            # pie specific options
-            if typ == lookup('pie'):
-                scatter = _parseScatterPie(kwargs.pop('scatter', {}), col)
-                labels = scatter.get('labels', col)
-                values = scatter.get('values', col)
-                select += [labels] if labels and labels in data.columns else []
-                select += [values] if values and values in data.columns else []
-                skip.add(labels)
-                skip.add(values)
-
-            # bubble specific options
-            # scatter specific options
-            if typ in [lookup('bubble'), lookup('scatter'), lookup('bubble3d'), lookup('scatter3d'), lookup('lmplot'), lookup('jointplot')]:
-                scatter = _parseScatter(kwargs.pop('scatter', {}), col)
-                x = scatter.get('x', col)
-                y = scatter.get('y', col)
-                size = scatter.get('size', col)
-                text = scatter.get('text', col)
-                categories = scatter.get('categories', col)
-
-                select += [x] if x and x in data.columns else []
-                select += [y] if y and y in data.columns else []
-                select += [size] if size and size in data.columns else []
-                select += [text] if text and text in data.columns else []
-                select += [categories] if categories and categories in data.columns else []
-                skip.add(x)
-                skip.add(y)
-                skip.add(size)
-                skip.add(text)
-                skip.add(categories)
-
-            # 3d plotters
-            if typ in [lookup('bubble3d'), lookup('scatter3d')]:
-                z = scatter.get('z', col)
-                select += [z] if z and z in data.columns else []
-                skip.add(z)
-
-            # plot all at the same time
-            if typ in [lookup('bar'), lookup('horizontalbar'), lookup('stackedbar'), lookup('horizontalstackedbar'), lookup('box')]:
-                cols_tmp = [col]
-                colors_tmp = []
-                # plot all bars at once
-                for j, col_t in enumerate(data.columns):
-                    typ2, color, _, _ = _conf(type, colors, {}, {}, j, col_t)
-                    if typ == typ2:
-                        colors_tmp.append(color)
-                        cols_tmp.append(col_t)
-                        skip.add(col_t)
-                fig.append(getattr(_pm[BACKEND], typ.value)(data[list(set(cols_tmp))], type=typ, raw=True, colors=colors_tmp, x=x_dir, y=y_dir, **kwargs))
-            else:
-                fig.append(getattr(_pm[BACKEND], typ.value)(data[list(set(select))], type=typ, raw=True, colors=(colors or color), scatter=scatter, x=x_dir, y=y_dir, **kwargs))
-        else:
-            fig.append(getattr(_pm[BACKEND], typ.value)(data[col], type=typ, raw=True, colors=color, x=x_dir, y=y_dir, **kwargs))
-    return _pm[BACKEND].plot(fig, x=x_dict, y=y_dict, raw=raw, **kwargs)
+def show():
+    global _PLOT
+    x = _PLOT
+    _PLOT = None
+    return x.show()
