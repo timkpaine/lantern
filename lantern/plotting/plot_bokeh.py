@@ -25,4 +25,5 @@ class BokehPlot(BasePlot):
         return self.figure
 
     def line(self, data, **kwargs):
-        self.figure.line(x=data.index, y=data.values, **kwargs)
+        for col in data:
+            self.figure.line(x=data.index, y=data[col].values, **kwargs)
