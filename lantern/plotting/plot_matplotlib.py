@@ -88,7 +88,7 @@ class MatplotlibPlot(BasePlot):
         ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
         data.plot(ax=ax, **kwargs)
 
-    def show(self, **kwargs):
+    def show(self, title='', xlabel='', ylabel='', legend=True, grid=True, **kwargs):
         lines = []
         labels = []
         plt.legend([])
@@ -111,14 +111,19 @@ class MatplotlibPlot(BasePlot):
             line, label = m.get_legend_handles_labels()
             lines += line
             labels += label
-        self.axes[-1].legend(lines, labels, loc='center left', bbox_to_anchor=(1 + .05*len(self.axes_by_side['right']), 0.5), fancybox=True)
-        self.figure.canvas.draw()
-        plt.draw()
+        if legend:
+            self.axes[-1].legend(lines, labels, loc='center left', bbox_to_anchor=(1 + .05*len(self.axes_by_side['right']), 0.5), fancybox=True)
 
-        if 'xlabel' in kwargs:
-            self.axes[0].set_xlabel(kwargs.get('xlabel'))
-        if 'ylabel' in kwargs:
-            self.axes[0].set_ylabel(kwargs.get('ylabel'))
-        if 'title' in kwargs:
-            plt.title(kwargs.get('title'))
-        # return self.figure
+        if xlabel:
+            self.axes[-1].set_xlabel(xlabel)
+        if ylabel:
+            self.axes[-1].set_ylabel(ylabel)
+        if title:
+            plt.title(title)
+
+        if grid:
+            self.axes[-1].grid(which='both')
+            self.axes[-1].grid(which='minor', alpha=0.2)
+            self.axes[-1].grid(which='major', alpha=0.5)
+        # self.figure.canvas.draw()
+        # plt.draw()

@@ -19,13 +19,8 @@ class CufflinksPlot(BasePlot):
     def __init__(self, theme=None):
         self.figures = []
 
-    def show(self, **kwargs):
+    def show(self, title='', xlabel='', ylabel='', legend=True, grid=True, **kwargs):
         # get before wrapper strips
-        title = kwargs.get('title', '')
-        xlabel = kwargs.get('xlabel', '')
-        ylabel = kwargs.get('ylabel', '')
-        legend = kwargs.get('legend', True)
-
         other_args = {}
 
         tdata = []
@@ -46,8 +41,9 @@ class CufflinksPlot(BasePlot):
                 titlefont=dict(
                     family='Courier New, monospace',
                     size=18,
-                    color='#7f7f7f'
-                )
+                    color='#7f7f7f',
+                ),
+                showgrid=grid,
             )
         if xlabel:
             other_args['xaxis'] = dict(
@@ -55,8 +51,9 @@ class CufflinksPlot(BasePlot):
                 titlefont=dict(
                     family='Courier New, monospace',
                     size=18,
-                    color='#7f7f7f'
-                )
+                    color='#7f7f7f',
+                ),
+                showgrid=grid,
             )
 
         other_args['showlegend'] = legend
