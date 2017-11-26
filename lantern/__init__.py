@@ -1,6 +1,6 @@
 
 from .utils import in_ipynb
-from .plotting import plot, show, setBackend, getBackend, Backend, setTheme, themes, getTheme
+from .plotting import plot, setBackend, getBackend, Backend, setTheme, themes, getTheme
 from .data import *
 from .grids import grid
 
