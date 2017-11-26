@@ -19,7 +19,7 @@ class CufflinksPlot(BasePlot):
     def __init__(self, theme=None):
         self.figures = []
 
-    def show(self, title='', xlabel='', ylabel='', legend=True, grid=True, **kwargs):
+    def show(self, title='', xlabel='', ylabel='', xaxis=True, yaxis=True, xticks=True, yticks=True, legend=True, grid=True, **kwargs):
         # get before wrapper strips
         other_args = {}
 
@@ -44,7 +44,10 @@ class CufflinksPlot(BasePlot):
                     color='#7f7f7f',
                 ),
                 showgrid=grid,
+                showline=yaxis,
+                showticklabels=yticks,
             )
+
         if xlabel:
             other_args['xaxis'] = dict(
                 title=xlabel,
@@ -54,6 +57,8 @@ class CufflinksPlot(BasePlot):
                     color='#7f7f7f',
                 ),
                 showgrid=grid,
+                showline=xaxis,
+                showticklabels=xticks,
             )
 
         other_args['showlegend'] = legend

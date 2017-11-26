@@ -17,7 +17,7 @@ class BokehPlot(BasePlot):
                              x_axis_type='datetime')  # TODO remove
         self.legend = []
 
-    def show(self, title='', xlabel='', ylabel='', legend=True, grid=True, **kwargs):
+    def show(self, title='', xlabel='', ylabel='', xaxis=True, yaxis=True, xticks=True, yticks=True, legend=True, grid=True, **kwargs):
         # self.figure.add_tools(*[HoverTool(
         #     tooltips=[('x', '@x{%F}'), ('y', '@y')],
         #     formatters={'x': 'datetime'},
@@ -40,6 +40,14 @@ class BokehPlot(BasePlot):
         if not grid:
             self.figure.xgrid.grid_line_color = None
             self.figure.ygrid.grid_line_color = None
+
+        # FIXME
+        # if not yaxis:
+        #     for ax in self.figure.yaxis:
+        #         ax.axis_line_color = 'fff'
+        # if not xaxis:
+        #     for ax in self.figure.xaxis:
+        #         ax.axis_line_color = 'fff'
 
         show(self.figure)
         return self.figure

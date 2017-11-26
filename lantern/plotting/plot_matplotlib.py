@@ -88,7 +88,7 @@ class MatplotlibPlot(BasePlot):
         ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
         data.plot(ax=ax, **kwargs)
 
-    def show(self, title='', xlabel='', ylabel='', legend=True, grid=True, **kwargs):
+    def show(self, title='', xlabel='', ylabel='', xaxis=True, yaxis=True, xticks=True, yticks=True, legend=True, grid=True, **kwargs):
         lines = []
         labels = []
         plt.legend([])
@@ -120,6 +120,14 @@ class MatplotlibPlot(BasePlot):
             self.axes[-1].set_ylabel(ylabel)
         if title:
             plt.title(title)
+
+        self.axes[-1].spines['left'].set_visible(yaxis)
+        self.axes[-1].spines['bottom'].set_visible(xaxis)
+
+        if not yticks:
+            self.axes[-1].yaxis.set_ticks([])
+        if not xticks:
+            self.axes[-1].xaxis.set_ticks([])
 
         if grid:
             self.axes[-1].grid(which='both')
