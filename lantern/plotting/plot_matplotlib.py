@@ -92,6 +92,8 @@ class MatplotlibPlot(BasePlot):
         lines = []
         labels = []
         plt.legend([])
+        plt.axhline(0, color='black')
+
         for ax in self.axes:
             # no top spines if no right
             if len(self.axes_by_side['right']) == 0:

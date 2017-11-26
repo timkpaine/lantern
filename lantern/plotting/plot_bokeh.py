@@ -1,5 +1,5 @@
 from bokeh.plotting import figure, show, output_notebook
-from bokeh.models import Legend
+from bokeh.models import Legend, Span
 # from bokeh.models import HoverTool
 from ..utils import in_ipynb
 from .plotobj import BasePlot
@@ -24,6 +24,11 @@ class BokehPlot(BasePlot):
         #     mode='vline'
         # ) for _ in data])
 
+        self.figure.outline_line_color = None
+        # vline = Span(location=0, dimension='height', line_color='red', line_width=3)
+        hline = Span(location=0, dimension='width', line_color='black', line_width=1)
+        self.figure.renderers.append(hline)
+
         if xlabel:
             self.figure.xaxis.axis_label = kwargs.get('xlabel')
         if ylabel:
@@ -42,12 +47,15 @@ class BokehPlot(BasePlot):
             self.figure.ygrid.grid_line_color = None
 
         # FIXME
-        # if not yaxis:
-        #     for ax in self.figure.yaxis:
-        #         ax.axis_line_color = 'fff'
-        # if not xaxis:
-        #     for ax in self.figure.xaxis:
-        #         ax.axis_line_color = 'fff'
+        if not yaxis:
+            for ax in self.figure.yaxis:
+                ax.axis_line_color = 'white'
+        if not xaxis:
+            for ax in self.figure.xaxis:
+                ax.axis_line_color = 'white'
+
+        # Turn off labels:
+        # self.figure.xaxis.major_label_text_font_size = '0pt'
 
         show(self.figure)
         return self.figure
