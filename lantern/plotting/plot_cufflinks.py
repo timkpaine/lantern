@@ -2,7 +2,7 @@ import cufflinks as cf
 import plotly.graph_objs as go
 from plotly.offline import init_notebook_mode, iplot
 from .plotobj import BasePlot
-from .plotutils import _r
+from .plotutils import get_color
 from ..utils import in_ipynb
 
 
@@ -19,6 +19,7 @@ if in_ipynb():
 class CufflinksPlot(BasePlot):
     def __init__(self, theme=None):
         self.figures = []
+        self.bars = []
 
     def show(self, title='', xlabel='', ylabel='', xaxis=True, yaxis=True, xticks=True, yticks=True, legend=True, grid=True, **kwargs):
         # get before wrapper strips
@@ -76,30 +77,26 @@ class CufflinksPlot(BasePlot):
 
     def area(self, data, color=None, y_axis='left', stacked=False, **kwargs):
         for i, col in enumerate(data):
-            if isinstance(color, list):
-                c = (color[i:i+1] or [_r()])[0]
-            elif isinstance(color, dict):
-                c = color.get(col, _r())
-            elif isinstance(color, str) and color:
-                c = color
-            else:
-                c = _r()
+            c = get_color(i, col, color)
             self.figures.append(data[[col]].iplot(fill=True,
                                 asFigure=True,
                                 filename='cufflinks/filled-area',
                                 color=c,
                                 **kwargs))
 
+    def bar(self, data, color=None, y_axis='left', stacked=False, **kwargs):
+        for i, col in enumerate(data):
+            c = get_color(i, col, color)
+            self.figures.append(data[[col]].iplot(kind='bar',
+                                asFigure=True,
+                                bargap=.1,
+                                color=c,
+                                filename='cufflinks/categorical-bar-chart',
+                                **kwargs))
+
     def line(self, data, color=None, y_axis='left', **kwargs):
         for i, col in enumerate(data):
-            if isinstance(color, list):
-                c = (color[i:i+1] or [_r()])[0]
-            elif isinstance(color, dict):
-                c = color.get(col, _r())
-            elif isinstance(color, str) and color:
-                c = color
-            else:
-                c = _r()
+            c = get_color(i, col, color)
             self.figures.append(data[[col]].iplot(kind='scatter',
                                 asFigure=True,
                                 filename='cufflinks/cf-simple-line',

@@ -8,6 +8,18 @@ def _r():
     return '#%02X%02X%02X' % (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
 
+def get_color(i, col, color):
+    if isinstance(color, list):
+        c = (color[i:i+1] or [_r()])[0]
+    elif isinstance(color, dict):
+        c = color.get(col, _r())
+    elif isinstance(color, str) and color:
+        c = color
+    else:
+        c = _r()
+    return c
+
+
 def _conf(type, colors, x, y, i, col):
     '''select type and color from their options, allow strings for some'''
     if isinstance(type, str):

@@ -10,9 +10,13 @@ class BasePlot(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def line(self, data, color=None, y_axis='left', **kwargs):
+    def area(self, data, color=None, y_axis='left', stacked=False, **kwargs):
         pass
 
     @abstractmethod
-    def area(self, data, color=None, y_axis='left', **kwargs):
+    def bar(self, data, color=None, y_axis='left', stacked=False, **kwargs):
+        pass
+
+    @abstractmethod
+    def line(self, data, color=None, y_axis='left', **kwargs):
         pass

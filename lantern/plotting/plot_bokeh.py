@@ -4,7 +4,7 @@ from bokeh.models import Legend, Span
 # from bokeh.models import HoverTool
 from ..utils import in_ipynb
 from .plotobj import BasePlot
-from .plotutils import _r
+from .plotutils import get_color
 
 
 if in_ipynb():
@@ -71,26 +71,19 @@ class BokehPlot(BasePlot):
         data2.iloc[0], data2.iloc[1] = y, x
 
         for i, col in enumerate(data):
-            if isinstance(color, list):
-                c = (color[i:i+1] or [_r()])[0]
-            elif isinstance(color, dict):
-                c = color.get(col, _r())
-            elif isinstance(color, str) and color:
-                c = color
-            else:
-                c = _r()
+            c = get_color(i, col, color)
             l = self.figure.patch(x=data2.index, y=data2[col].values, legend=col, fill_alpha=.2, color=c, **kwargs)
+            self.legend.append((col, [l]))
+
+    def bar(self, data, color=None, y_axis='left', stacked=False, **kwargs):
+        c = []
+        for i, col in enumerate(data):
+            c.append(get_color(i, col, color))
+            l = self.figure.vbar(x=data.index, top=data[col].values, width=.9, color=c, **kwargs)
             self.legend.append((col, [l]))
 
     def line(self, data, color=None, y_axis='left', **kwargs):
         for i, col in enumerate(data):
-            if isinstance(color, list):
-                c = (color[i:i+1] or [_r()])[0]
-            elif isinstance(color, dict):
-                c = color.get(col, _r())
-            elif isinstance(color, str) and color:
-                c = color
-            else:
-                c = _r()
+            c = get_color(i, col, color)
             l = self.figure.line(x=data.index, y=data[col].values, legend=col, color=c, **kwargs)
             self.legend.append((col, [l]))

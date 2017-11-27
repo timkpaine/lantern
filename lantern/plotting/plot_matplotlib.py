@@ -1,7 +1,8 @@
 from .plotobj import BasePlot
-from .plotutils import align_yaxis_np
+from .plotutils import align_yaxis_np, get_color
 from ..utils import in_ipynb
 import matplotlib.pyplot as plt
+import pandas as pd
 
 if in_ipynb():
     # auto-run the matplotlib inline magic
@@ -25,6 +26,7 @@ class MatplotlibPlot(BasePlot):
         self.ax.legend_ = None
         self.ax.get_xaxis().set_label_position("bottom")
         self.ax.autoscale(True)
+        self.bars = []
 
     def _newAx(self, x=False, y=False, y_side='left', color='black'):
         # axis managemens
@@ -75,6 +77,7 @@ class MatplotlibPlot(BasePlot):
         self.axes.append(ax)
 
     def show(self, title='', xlabel='', ylabel='', xaxis=True, yaxis=True, xticks=True, yticks=True, legend=True, grid=True, **kwargs):
+        self._bar()
         lines = []
         labels = []
         plt.legend([])
@@ -126,7 +129,31 @@ class MatplotlibPlot(BasePlot):
 
     def area(self, data, color=None, y_axis='left', stacked=False, **kwargs):
         ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
-        return data.plot(kind='area', ax=ax, stacked=stacked, **kwargs)
+        data.plot(kind='area', ax=ax, stacked=stacked, **kwargs)
+
+    def bar(self, data, color=None, y_axis='left', stacked=False, **kwargs):
+        for i, col in enumerate(data):
+            self.bars.append((data[[col]], get_color(i, col, color), y_axis, stacked, kwargs))
+
+    def _bar(self):
+        data = []
+        colors = []
+        y_axises = []
+        stackedes = []
+        kwargses = []
+        for d in self.bars:
+            data.append(d[0])
+            colors.append(d[1])
+            y_axises.append(d[2])
+            stackedes.append(d[3])
+            kwargses.append(d[4])
+        df = data[0]
+        df = df.join(data[1:])
+        y_axis = 'left'
+        color = colors
+        ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
+        print(df)
+        df.plot(kind='bar', ax=ax, stacked=stackedes[-1], **kwargses[-1])
 
     def line(self, data, color=None, y_axis='left', **kwargs):
         ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
