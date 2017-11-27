@@ -1,3 +1,4 @@
+import copy
 from bokeh.plotting import figure, show, output_notebook
 from bokeh.models import Legend, Span
 # from bokeh.models import HoverTool
@@ -60,7 +61,19 @@ class BokehPlot(BasePlot):
         show(self.figure)
         return self.figure
 
-    def line(self, data, **kwargs):
+    def area(self, data, color=None, y_axis='left', stacked=False, **kwargs):
+        data2 = data.append(data.iloc[-1]*0)
+        data2 = data2.append(data2.iloc[0]*0)
+        data2 = data2.sort_index()
+        data2 = data2.sort_index()
+        x, y = copy.deepcopy(data2.iloc[0]), copy.deepcopy(data2.iloc[1])
+        data2.iloc[0], data2.iloc[1] = y, x
+
+        for col in data:
+            l = self.figure.patch(x=data2.index, y=data2[col].values, legend=col, fill_alpha=.2, **kwargs)
+            self.legend.append((col, [l]))
+
+    def line(self, data, color=None, y_axis='left', **kwargs):
         for col in data:
             l = self.figure.line(x=data.index, y=data[col].values, legend=col, **kwargs)
             self.legend.append((col, [l]))

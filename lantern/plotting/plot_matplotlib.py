@@ -74,10 +74,6 @@ class MatplotlibPlot(BasePlot):
         ax.autoscale(True)
         self.axes.append(ax)
 
-    def line(self, data, color=None, y_axis='left', **kwargs):
-        ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
-        data.plot(ax=ax, **kwargs)
-
     def show(self, title='', xlabel='', ylabel='', xaxis=True, yaxis=True, xticks=True, yticks=True, legend=True, grid=True, **kwargs):
         lines = []
         labels = []
@@ -127,3 +123,11 @@ class MatplotlibPlot(BasePlot):
             self.axes[-1].grid(which='major', alpha=0.5)
         # self.figure.canvas.draw()
         # plt.draw()
+
+    def area(self, data, color=None, y_axis='left', stacked=False, **kwargs):
+        ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
+        return data.plot(kind='area', ax=ax, stacked=stacked, **kwargs)
+
+    def line(self, data, color=None, y_axis='left', **kwargs):
+        ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
+        data.plot(ax=ax, **kwargs)

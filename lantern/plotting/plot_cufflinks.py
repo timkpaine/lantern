@@ -73,7 +73,13 @@ class CufflinksPlot(BasePlot):
         fig = go.Figure(data=tdata, layout=other_args)
         return iplot(fig)
 
-    def line(self, data, **kwargs):
+    def area(self, data, color=None, y_axis='left', stacked=False, **kwargs):
+        self.figures.append(data.iplot(fill=True,
+                            asFigure=True,
+                            filename='cufflinks/filled-area',
+                            **kwargs))
+
+    def line(self, data, color=None, y_axis='left', **kwargs):
         self.figures.append(data.iplot(kind='scatter',
                             asFigure=True,
                             filename='cufflinks/cf-simple-line',

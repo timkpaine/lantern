@@ -6,9 +6,13 @@ class BasePlot(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def line(self, data, **kwargs):
+    def show(self, title='', xlabel='', ylabel='', xaxis=True, yaxis=True, xticks=True, yticks=True, legend=True, grid=True, **kwargs):
         pass
 
     @abstractmethod
-    def show(self, title='', xlabel='', ylabel='', xaxis=True, yaxis=True, xticks=True, yticks=True, legend=True, grid=True, **kwargs):
+    def line(self, data, color=None, y_axis='left', **kwargs):
+        pass
+
+    @abstractmethod
+    def area(self, data, color=None, y_axis='left', **kwargs):
         pass
