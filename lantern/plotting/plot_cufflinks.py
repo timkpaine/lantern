@@ -1,8 +1,9 @@
-from ..utils import in_ipynb
 import cufflinks as cf
-from plotly.offline import init_notebook_mode, iplot
 import plotly.graph_objs as go
+from plotly.offline import init_notebook_mode, iplot
 from .plotobj import BasePlot
+from .plotutils import _r
+from ..utils import in_ipynb
 
 
 if in_ipynb():
@@ -74,13 +75,33 @@ class CufflinksPlot(BasePlot):
         return iplot(fig)
 
     def area(self, data, color=None, y_axis='left', stacked=False, **kwargs):
-        self.figures.append(data.iplot(fill=True,
-                            asFigure=True,
-                            filename='cufflinks/filled-area',
-                            **kwargs))
+        for i, col in enumerate(data):
+            if isinstance(color, list):
+                c = (color[i:i+1] or [_r()])[0]
+            elif isinstance(color, dict):
+                c = color.get(col, _r())
+            elif isinstance(color, str) and color:
+                c = color
+            else:
+                c = _r()
+            self.figures.append(data[[col]].iplot(fill=True,
+                                asFigure=True,
+                                filename='cufflinks/filled-area',
+                                color=c,
+                                **kwargs))
 
     def line(self, data, color=None, y_axis='left', **kwargs):
-        self.figures.append(data.iplot(kind='scatter',
-                            asFigure=True,
-                            filename='cufflinks/cf-simple-line',
-                            **kwargs))
+        for i, col in enumerate(data):
+            if isinstance(color, list):
+                c = (color[i:i+1] or [_r()])[0]
+            elif isinstance(color, dict):
+                c = color.get(col, _r())
+            elif isinstance(color, str) and color:
+                c = color
+            else:
+                c = _r()
+            self.figures.append(data[[col]].iplot(kind='scatter',
+                                asFigure=True,
+                                filename='cufflinks/cf-simple-line',
+                                color=c,
+                                **kwargs))

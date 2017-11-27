@@ -4,6 +4,7 @@ from bokeh.models import Legend, Span
 # from bokeh.models import HoverTool
 from ..utils import in_ipynb
 from .plotobj import BasePlot
+from .plotutils import _r
 
 
 if in_ipynb():
@@ -69,11 +70,27 @@ class BokehPlot(BasePlot):
         x, y = copy.deepcopy(data2.iloc[0]), copy.deepcopy(data2.iloc[1])
         data2.iloc[0], data2.iloc[1] = y, x
 
-        for col in data:
-            l = self.figure.patch(x=data2.index, y=data2[col].values, legend=col, fill_alpha=.2, **kwargs)
+        for i, col in enumerate(data):
+            if isinstance(color, list):
+                c = (color[i:i+1] or [_r()])[0]
+            elif isinstance(color, dict):
+                c = color.get(col, _r())
+            elif isinstance(color, str) and color:
+                c = color
+            else:
+                c = _r()
+            l = self.figure.patch(x=data2.index, y=data2[col].values, legend=col, fill_alpha=.2, color=c, **kwargs)
             self.legend.append((col, [l]))
 
     def line(self, data, color=None, y_axis='left', **kwargs):
-        for col in data:
-            l = self.figure.line(x=data.index, y=data[col].values, legend=col, **kwargs)
+        for i, col in enumerate(data):
+            if isinstance(color, list):
+                c = (color[i:i+1] or [_r()])[0]
+            elif isinstance(color, dict):
+                c = color.get(col, _r())
+            elif isinstance(color, str) and color:
+                c = color
+            else:
+                c = _r()
+            l = self.figure.line(x=data.index, y=data[col].values, legend=col, color=c, **kwargs)
             self.legend.append((col, [l]))
