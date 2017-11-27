@@ -24,16 +24,6 @@ class MatplotlibPlot(BasePlot):
         self.axes_by_side['bottom'].append(self.ax)
         self.ax.legend_ = None
         self.ax.get_xaxis().set_label_position("bottom")
-        self.ax.tick_params(axis='both',
-                            which='both',
-                            bottom=True,
-                            top=False,
-                            left=True,
-                            right=False,
-                            labelbottom=False,
-                            labeltop=False,
-                            labelleft=True,
-                            labelright=False)
         self.ax.autoscale(True)
 
     def _newAx(self, x=False, y=False, y_side='left', color='black'):
