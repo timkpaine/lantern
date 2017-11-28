@@ -1,7 +1,6 @@
-from ..plotting import plot
+# from ..plotting import plot
 from .data_cufflinks import getCFData
-from .other import getTsData, getTicker
-from .data_sklearn import getSKData
+# from .data_sklearn import getSKData
 
 
 class Style(object):
@@ -12,8 +11,8 @@ class Style(object):
         self.sampler = sampler
         self.plotter = plotter
 
-    def show(self):
-        return plot(self.source(**self.sampler), **self.plotter)
+    # def show(self):
+    #     return plot(self.source(**self.sampler), **self.plotter)
 
     def __eq__(self, other):
         return self.type.lower() == other.lower()

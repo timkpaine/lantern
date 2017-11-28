@@ -25,19 +25,33 @@ class TestConfig:
             from bokeh.plotting import output_notebook
             output_notebook()
 
-            from lantern.plotting import setBackend
-            from lantern import area
+            import lantern as l
             mock1.return_value = True
-            setBackend('bokeh')
-            area.show()
+            p = l.plot('bokeh')
+            df = l.bar.sample()
+            p.area(df)
+            p.show()
+
+    def test_bar(self):
+        with patch('lantern.plotting.plot_bokeh.in_ipynb', create=True) as mock1:
+            from bokeh.plotting import output_notebook
+            output_notebook()
+
+            import lantern as l
+            mock1.return_value = True
+            p = l.plot('bokeh')
+            df = l.bar.sample()
+            p.bar(df)
+            p.show()
 
     def test_line(self):
         with patch('lantern.plotting.plot_bokeh.in_ipynb', create=True) as mock1:
             from bokeh.plotting import output_notebook
             output_notebook()
 
-            from lantern.plotting import setBackend
-            from lantern import line
+            import lantern as l
             mock1.return_value = True
-            setBackend('bokeh')
-            line.show()
+            p = l.plot('bokeh')
+            df = l.bar.sample()
+            p.line(df)
+            p.show()

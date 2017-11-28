@@ -15,35 +15,35 @@ if in_ipynb():
 
 class MatplotlibPlot(BasePlot):
     def __init__(self, theme=None):
-        self.figure, self.ax = plt.subplots(figsize=(12, 5))
-        self.axes = [self.ax]
-        self.axes_by_side = {'left': [],
-                             'right': [],
-                             'top': [],
-                             'bottom': []}
-        self.axes_by_side['left'].append(self.ax)
-        self.axes_by_side['bottom'].append(self.ax)
-        self.ax.legend_ = None
-        self.ax.get_xaxis().set_label_position("bottom")
-        self.ax.autoscale(True)
-        self.bars = []
+        self._figure, self._ax = plt.subplots(figsize=(12, 5))
+        self._axes = [self._ax]
+        self._axes_by_side = {'left': [],
+                              'right': [],
+                              'top': [],
+                              'bottom': []}
+        self._axes_by_side['left'].append(self._ax)
+        self._axes_by_side['bottom'].append(self._ax)
+        self._ax.legend_ = None
+        self._ax.get_xaxis().set_label_position("bottom")
+        self._ax.autoscale(True)
+        self._bars = []
 
     def _newAx(self, x=False, y=False, y_side='left', color='black'):
         # axis managemens
         if not x and not y:
-            return self.ax
+            return self._ax
         if x and y:
-            ax = self.ax.twiny()
-            self.axes.append(ax)  # stash and delete superfluous axis later
+            ax = self._ax.twiny()
+            self._axes.append(ax)  # stash and delete superfluous axis later
             ax = ax.twinx()
-            self.axes_by_side[y_side].append(ax)
-            self.axes_by_side['bottom'].append(ax)
+            self._axes_by_side[y_side].append(ax)
+            self._axes_by_side['bottom'].append(ax)
         elif x:
-            ax = self.ax.twiny()
-            self.axes_by_side['bottom'].append(ax)
+            ax = self._ax.twiny()
+            self._axes_by_side['bottom'].append(ax)
         elif y:
-            ax = self.ax.twinx()
-            self.axes_by_side[y_side].append(ax)
+            ax = self._ax.twinx()
+            self._axes_by_side[y_side].append(ax)
 
         # set positioning
         ax.get_xaxis().set_label_position("bottom")
@@ -59,8 +59,8 @@ class MatplotlibPlot(BasePlot):
                        labelright=(y_side == 'right') and y)
 
         # pad axes
-        xpad = 30*(len(self.axes_by_side['bottom'])-1)
-        ypad = 30*(len(self.axes_by_side[y_side])-1)
+        xpad = 30*(len(self._axes_by_side['bottom'])-1)
+        ypad = 30*(len(self._axes_by_side[y_side])-1)
         ax.tick_params(axis='x', pad=xpad+2)
         ax.tick_params(axis='y', pad=ypad+2)
 
@@ -74,7 +74,7 @@ class MatplotlibPlot(BasePlot):
 
         # autoscale
         ax.autoscale(True)
-        self.axes.append(ax)
+        self._axes.append(ax)
 
     def show(self, title='', xlabel='', ylabel='', xaxis=True, yaxis=True, xticks=True, yticks=True, legend=True, grid=True, **kwargs):
         self._bar()
@@ -83,9 +83,9 @@ class MatplotlibPlot(BasePlot):
         plt.legend([])
         plt.axhline(0, color='black')
 
-        for ax in self.axes:
+        for ax in self._axes:
             # no top spines if no right
-            if len(self.axes_by_side['right']) == 0:
+            if len(self._axes_by_side['right']) == 0:
                 ax.spines['top'].set_visible(False)
                 ax.spines['right'].set_visible(False)
 
@@ -94,36 +94,36 @@ class MatplotlibPlot(BasePlot):
                 ax.relim()
                 ax.autoscale_view()
             else:
-                self.figure.delaxes(ax)
+                self._figure.delaxes(ax)
 
-        align_yaxis_np(self.axes)
+        align_yaxis_np(self._axes)
 
-        for m in self.axes:
+        for m in self._axes:
             line, label = m.get_legend_handles_labels()
             lines += line
             labels += label
         if legend:
-            self.axes[-1].legend(lines, labels, loc='center left', bbox_to_anchor=(1 + .05*len(self.axes_by_side['right']), 0.5), fancybox=True)
+            self._axes[-1].legend(lines, labels, loc='center left', bbox_to_anchor=(1 + .05*len(self._axes_by_side['right']), 0.5), fancybox=True)
 
         if xlabel:
-            self.axes[-1].set_xlabel(xlabel)
+            self._axes[-1].set_xlabel(xlabel)
         if ylabel:
-            self.axes[-1].set_ylabel(ylabel)
+            self._axes[-1].set_ylabel(ylabel)
         if title:
             plt.title(title)
 
-        self.axes[-1].spines['left'].set_visible(yaxis)
-        self.axes[-1].spines['bottom'].set_visible(xaxis)
+        self._axes[-1].spines['left'].set_visible(yaxis)
+        self._axes[-1].spines['bottom'].set_visible(xaxis)
 
         if not yticks:
-            self.axes[-1].yaxis.set_ticks([])
+            self._axes[-1].yaxis.set_ticks([])
         if not xticks:
-            self.axes[-1].xaxis.set_ticks([])
+            self._axes[-1].xaxis.set_ticks([])
 
         if grid:
-            self.axes[-1].grid(which='both')
-            self.axes[-1].grid(which='minor', alpha=0.2)
-            self.axes[-1].grid(which='major', alpha=0.5)
+            self._axes[-1].grid(which='both')
+            self._axes[-1].grid(which='minor', alpha=0.2)
+            self._axes[-1].grid(which='major', alpha=0.5)
         # self.figure.canvas.draw()
         # plt.draw()
 
@@ -133,15 +133,17 @@ class MatplotlibPlot(BasePlot):
 
     def bar(self, data, color=None, y_axis='left', stacked=False, **kwargs):
         for i, col in enumerate(data):
-            self.bars.append((data[[col]], get_color(i, col, color), y_axis, stacked, kwargs))
+            self._bars.append((data[[col]], get_color(i, col, color), y_axis, stacked, kwargs))
 
     def _bar(self):
+        if not self._bars:
+            return
         data = []
         colors = []
         y_axises = []
         stackedes = []
         kwargses = []
-        for d in self.bars:
+        for d in self._bars:
             data.append(d[0])
             colors.append(d[1])
             y_axises.append(d[2])
