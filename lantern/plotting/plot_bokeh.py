@@ -1,4 +1,5 @@
 import copy
+import pandas as pd
 from bokeh.plotting import figure, show, output_notebook
 from bokeh.models import Legend, Span
 # from bokeh.models import HoverTool
@@ -75,15 +76,32 @@ class BokehPlot(BasePlot):
             l = self.figure.patch(x=data2.index, y=data2[col].values, legend=col, fill_alpha=.2, color=c, **kwargs)
             self.legend.append((col, [l]))
 
+            # for stacked: https://bokeh.pydata.org/en/latest/docs/gallery/brewer.html
+            # p.patches([x2] * areas.shape[1], [areas[c].values for c in areas], color=colors, alpha=0.8, line_color=None)
+
+    def _stacked(df):
+        df_top = df.cumsum(axis=1)
+        df_bottom = df_top.shift(axis=1).fillna({'y0': 0})[::-1]
+        df_stack = pd.concat([df_bottom, df_top], ignore_index=True)
+        return df_stack
+
     def bar(self, data, color=None, y_axis='left', stacked=False, **kwargs):
+        # stacked bar: https://bokeh.pydata.org/en/latest/docs/gallery/bar_stacked.html
+        # stacked bar: https://bokeh.pydata.org/en/latest/docs/gallery/bar_stacked_split.html
         c = []
         for i, col in enumerate(data):
             c.append(get_color(i, col, color))
             l = self.figure.vbar(x=data.index, top=data[col].values, width=.9, color=c, **kwargs)
             self.legend.append((col, [l]))
 
+    # def candlestick(self, data):
+    #    # https://bokeh.pydata.org/en/latest/docs/gallery/candlestick.html
+
     def line(self, data, color=None, y_axis='left', **kwargs):
         for i, col in enumerate(data):
             c = get_color(i, col, color)
             l = self.figure.line(x=data.index, y=data[col].values, legend=col, color=c, **kwargs)
             self.legend.append((col, [l]))
+
+    def scatter(self, data, color=None, y_axis='left', **kwargs):
+        raise NotImplementedError()

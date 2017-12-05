@@ -26,7 +26,7 @@ class TestConfig:
             cufflinks.go_offline()
             import lantern as l
             mock1.return_value = True
-            p = l.plot('cufflinks')
+            p = l.figure('cufflinks')
             df = l.bar.sample()
             p.area(df)
             p.show()
@@ -37,7 +37,7 @@ class TestConfig:
             cufflinks.go_offline()
             import lantern as l
             mock1.return_value = True
-            p = l.plot('cufflinks')
+            p = l.figure('cufflinks')
             df = l.bar.sample()
             p.bar(df)
             p.show()
@@ -48,7 +48,7 @@ class TestConfig:
             cufflinks.go_offline()
             import lantern as l
             mock1.return_value = True
-            p = l.plot('cufflinks')
+            p = l.figure('cufflinks')
             df = l.bar.sample()
             p.line(df)
             p.show()

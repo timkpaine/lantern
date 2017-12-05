@@ -102,3 +102,6 @@ class CufflinksPlot(BasePlot):
                                 filename='cufflinks/cf-simple-line',
                                 color=c,
                                 **kwargs))
+
+    def scatter(self, data, color=None, y_axis='left', **kwargs):
+        raise NotImplementedError()

@@ -27,7 +27,7 @@ class TestConfig:
 
             import lantern as l
             mock1.return_value = True
-            p = l.plot('bokeh')
+            p = l.figure('bokeh')
             df = l.bar.sample()
             p.area(df)
             p.show()
@@ -39,7 +39,7 @@ class TestConfig:
 
             import lantern as l
             mock1.return_value = True
-            p = l.plot('bokeh')
+            p = l.figure('bokeh')
             df = l.bar.sample()
             p.bar(df)
             p.show()
@@ -51,7 +51,7 @@ class TestConfig:
 
             import lantern as l
             mock1.return_value = True
-            p = l.plot('bokeh')
+            p = l.figure('bokeh')
             df = l.bar.sample()
             p.line(df)
             p.show()

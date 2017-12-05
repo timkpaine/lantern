@@ -160,3 +160,6 @@ class MatplotlibPlot(BasePlot):
     def line(self, data, color=None, y_axis='left', **kwargs):
         ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
         data.plot(ax=ax, **kwargs)
+
+    def scatter(self, data, color=None, y_axis='left', **kwargs):
+        raise NotImplementedError()

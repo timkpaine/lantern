@@ -27,7 +27,7 @@ class TestConfig:
         with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
             import lantern as l
             mock1.return_value = True
-            p = l.plot('cufflinks')
+            p = l.figure('cufflinks')
             df = l.bar.sample()
             p.area(df)
             p.show()
@@ -36,7 +36,7 @@ class TestConfig:
         with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
             import lantern as l
             mock1.return_value = True
-            p = l.plot('matplotlib')
+            p = l.figure('matplotlib')
             df = l.bar.sample()
             p.bar(df)
             p.show()
@@ -45,7 +45,7 @@ class TestConfig:
         with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
             import lantern as l
             mock1.return_value = True
-            p = l.plot('matplotlib')
+            p = l.figure('matplotlib')
             df = l.bar.sample()
             p.line(df)
             p.show()

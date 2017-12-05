@@ -20,3 +20,7 @@ class BasePlot(metaclass=ABCMeta):
     @abstractmethod
     def line(self, data, color=None, y_axis='left', **kwargs):
         pass
+
+    @abstractmethod
+    def scatter(self, data, color=None, y_axis='left', **kwargs):
+        pass

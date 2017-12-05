@@ -14,7 +14,11 @@ def backend_to_plot_obj(backend, theme=None):
         return BokehPlot(theme)
 
 
-def plot(backend, theme=None):
+def figure(backend='matplotlib', theme=None):
     if backend not in _BACKENDS:
         raise Exception('Must pick backend in %s' % _BACKENDS)
     return backend_to_plot_obj(backend, theme)
+
+
+def plot(data, kind='line', backend='matplotlib', theme=None, **kwargs):
+    f = figure(backend, theme)

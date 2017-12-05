@@ -1,10 +1,10 @@
 
 from .utils import in_ipynb
-from .plotting import plot
+from .plotting import plot, figure
 from .data import *
 from .grids import grid
 
-__all__ = ['plot', 'grids', 'data', 'extensions']
+__all__ = ['plot', 'figure', 'grids', 'data', 'extensions']
 
 
 def _jupyter_server_extension_paths():
