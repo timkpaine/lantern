@@ -28,6 +28,19 @@ labextension: install ## enable labextension
 install:  ## install to site-packages
 	python3 setup.py install
 
+preinstall:  ## install dependencies
+	python3 -m pip install -r requirements.txt
+
+postinstall:  ## install other requisite labextensions
+	jupyter labextension install @jupyter-widgets/jupyterlab-manager
+	jupyter labextension install @jupyterlab/plotly-extension
+	jupyter labextension install jupyterlab_bokeh
+	jupyter labextension install bqplot
+	jupyter labextension install qgrid-jupyterlab@1.0.0-beta.9
+
+
+
+
 # Thanks to Francoise at marmelab.com for this
 .DEFAULT_GOAL := help
 help:

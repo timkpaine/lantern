@@ -5,6 +5,7 @@ matplotlib
 numpy
 pandas
 plotly
+qgrid==1.0.0b9
 seaborn
 scipy
 sklearn

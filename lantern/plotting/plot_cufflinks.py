@@ -9,7 +9,7 @@ from ..utils import in_ipynb
 if in_ipynb():
     init_notebook_mode(connected=True)
     cf.go_offline()
-    print('Cufflinks loaded')
+    print('Cufflinks loaded')  # plotly grid message prints cufflinks
 
 # _HSPAN_NONE = {'x0': 0, 'x1': 0, 'color': 'rgba(30,30,30,0.0)', 'fill': False, 'opacity': 1.0}
 # _VSPAN_NONE = {'y0': 0, 'y1': 0, 'color': 'rgba(30,30,30,0.0)', 'fill': False, 'opacity': 1.0}

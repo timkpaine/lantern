@@ -5,10 +5,10 @@ import plotly.figure_factory as ff
 
 if in_ipynb():
     init_notebook_mode(connected=True)
+    print('Plot.ly loaded')  # cufflinks plot message prints cufflinks
 
 
-def grid(data, indexed=True):
-
+def plotly_grid(data, indexed=True):
     if indexed:
         return iplot(ff.create_table(data), filename='index_table_pd')
     else:

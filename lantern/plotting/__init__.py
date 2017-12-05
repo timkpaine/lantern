@@ -5,7 +5,7 @@ from .plot_bokeh import BokehPlot
 _BACKENDS = ['cufflinks', 'plotly', 'bokeh', 'highcharts', 'matplotlib', 'seaborn']
 
 
-def backend_to_plot_obj(backend, theme=None):
+def _backend_to_plot_obj(backend, theme=None):
     if backend == 'matplotlib' or backend == 'seaborn':
         return MatplotlibPlot(theme)
     if backend == 'cufflinks' or backend == 'plotly':
@@ -17,7 +17,7 @@ def backend_to_plot_obj(backend, theme=None):
 def figure(backend='matplotlib', theme=None):
     if backend not in _BACKENDS:
         raise Exception('Must pick backend in %s' % _BACKENDS)
-    return backend_to_plot_obj(backend, theme)
+    return _backend_to_plot_obj(backend, theme)
 
 
 def plot(data, kind='line', backend='matplotlib', theme=None, **kwargs):

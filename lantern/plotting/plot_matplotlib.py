@@ -1,8 +1,11 @@
+import matplotlib.pyplot as plt
 from .plotobj import BasePlot
 from .plotutils import align_yaxis_np, get_color
 from ..utils import in_ipynb
-import matplotlib.pyplot as plt
-import pandas as pd
+
+if in_ipynb():
+    print('Matplotlib loaded')
+
 
 if in_ipynb():
     # auto-run the matplotlib inline magic
