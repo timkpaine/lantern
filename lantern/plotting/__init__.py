@@ -22,3 +22,11 @@ def figure(backend='matplotlib', theme=None):
 
 def plot(data, kind='line', backend='matplotlib', theme=None, **kwargs):
     f = figure(backend, theme)
+
+    # TODO
+    if isinstance(kind, str):
+        pass
+    elif isinstance(kind, list):
+        pass
+    elif isinstance(kind, dict):
+        pass
