@@ -18,18 +18,23 @@ An orchestration layer for plots and tables, dummy datasets, research, reports, 
 
 ## Install
 To install the base package from pip:
+
 `pip install pylantern`
 
 To Install from source (recommended because i don't know how to package the npm parts):
+
 `make install && make serverextension && make labextension`
+
 Or run the corresponding commands directly
 
 Lantern relies on JupyterLab extensions:
+
 `jupyter labextension install @jupyter-widgets/jupyterlab-manager`
 `jupyter labextension install @jupyterlab/plotly-extension`
 `jupyter labextension install jupyterlab_bokeh`
 
 The following two are for work in-progress on master:
+
 `jupyter labextension install bqplot`
 `jupyter labextension install qgrid`
 
