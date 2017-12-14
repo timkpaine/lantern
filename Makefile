@@ -36,9 +36,7 @@ postinstall:  ## install other requisite labextensions
 	jupyter labextension install @jupyterlab/plotly-extension
 	jupyter labextension install jupyterlab_bokeh
 	jupyter labextension install bqplot
-	jupyter labextension install qgrid-jupyterlab@1.0.0-beta.9
-
-
+	jupyter labextension install qgrid@1.0.0-beta.10
 
 
 # Thanks to Francoise at marmelab.com for this
