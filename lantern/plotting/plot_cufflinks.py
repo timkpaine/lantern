@@ -103,5 +103,18 @@ class CufflinksPlot(BasePlot):
                                 color=c,
                                 **kwargs))
 
-    def scatter(self, data, color=None, y_axis='left', **kwargs):
-        raise NotImplementedError()
+    def scatter(self, data, color=None, x=None, y=None,  y_axis='left', **kwargs):
+        if not x:
+            x = data.columns[0]
+        if not y:
+            y = data.columns[1] if len(data.columns) > 1 else data.columns[0]
+        for i, col in enumerate(data):
+            c = get_color(i, col, color)
+            self.figures.append(data[[col]].iplot(kind='scatter',
+                                asFigure=True,
+                                x=x,
+                                y=y,
+                                categories='categories',
+                                filename='cufflinks/cf-scatter',
+                                color=c,
+                                **kwargs))
