@@ -83,9 +83,14 @@ class MatplotlibPlot(BasePlot):
         self._bar()
         lines = []
         labels = []
-        plt.legend([])
-        plt.axhline(0, color='black')
+        # plt.legend([])
+        # leg = set(ax.legend for ax in self._axes)
 
+        # FIXME these rescale the axis
+        # plt.axhline(0, color='black')
+        # plt.axvline(0, color='black')
+
+        to_delete = []
         for ax in self._axes:
             # no top spines if no right
             if len(self._axes_by_side['right']) == 0:
@@ -96,8 +101,13 @@ class MatplotlibPlot(BasePlot):
                 ax.legend_ = None
                 ax.relim()
                 ax.autoscale_view()
+
             else:
+                print(ax)
                 self._figure.delaxes(ax)
+                to_delete.append(ax)
+        for ax in to_delete:
+            self._axes.remove(ax)
 
         align_yaxis_np(self._axes)
 
@@ -105,8 +115,9 @@ class MatplotlibPlot(BasePlot):
             line, label = m.get_legend_handles_labels()
             lines += line
             labels += label
+
         if legend:
-            self._axes[-1].legend(lines, labels, loc='center left', bbox_to_anchor=(1 + .05*len(self._axes_by_side['right']), 0.5), fancybox=True)
+            self._axes[-1].legend(lines, labels, loc='center left', bbox_to_anchor=(1 + .05*min(len(self._axes_by_side['right']), 1), 0.5), fancybox=True)
 
         if xlabel:
             self._axes[-1].set_xlabel(xlabel)
@@ -127,8 +138,8 @@ class MatplotlibPlot(BasePlot):
             self._axes[-1].grid(which='both')
             self._axes[-1].grid(which='minor', alpha=0.2)
             self._axes[-1].grid(which='major', alpha=0.5)
-        # self.figure.canvas.draw()
-        # plt.draw()
+        self._figure.canvas.draw()
+        plt.draw()
 
     def area(self, data, color=None, y_axis='left', stacked=False, **kwargs):
         ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
@@ -157,12 +168,16 @@ class MatplotlibPlot(BasePlot):
         y_axis = 'left'
         color = colors
         ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
-        print(df)
         df.plot(kind='bar', ax=ax, stacked=stackedes[-1], **kwargses[-1])
 
     def line(self, data, color=None, y_axis='left', **kwargs):
         ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
         data.plot(ax=ax, **kwargs)
 
-    def scatter(self, data, color=None, y_axis='left', **kwargs):
-        raise NotImplementedError()
+    def scatter(self, data, color=None, x=None, y=None,  y_axis='left', **kwargs):
+        if not x:
+            x = data.columns[0]
+        if not y:
+            y = data.columns[1] if len(data.columns) > 1 else data.columns[0]
+        # ax = self._newAx(x=True, y=True, y_side=y_axis, color=color)
+        plt.plot(data[x], data[y], marker='.', linewidth=0, label='%s vs %s' % (x, y))
