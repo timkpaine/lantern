@@ -5,9 +5,6 @@ from ..utils import in_ipynb
 
 if in_ipynb():
     print('Matplotlib loaded')
-
-
-if in_ipynb():
     # auto-run the matplotlib inline magic
     from IPython import get_ipython
     ipython = get_ipython()
@@ -181,3 +178,7 @@ class MatplotlibPlot(BasePlot):
             y = data.columns[1] if len(data.columns) > 1 else data.columns[0]
         # ax = self._newAx(x=True, y=True, y_side=y_axis, color=color)
         plt.plot(data[x], data[y], marker='.', linewidth=0, label='%s vs %s' % (x, y))
+
+    def step(self, data, color=None, y_axis='left', **kwargs):
+        ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
+        data.plot(ax=ax, drawstyle='steps', **kwargs)
