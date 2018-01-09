@@ -105,3 +105,6 @@ class BokehPlot(BasePlot):
 
     def scatter(self, data, color=None, y_axis='left', **kwargs):
         raise NotImplementedError()
+
+    def step(self, data, color=None, y_axis='left', **kwargs):
+        raise NotImplementedError()

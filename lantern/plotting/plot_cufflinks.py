@@ -118,3 +118,13 @@ class CufflinksPlot(BasePlot):
                                 filename='cufflinks/cf-scatter',
                                 color=c,
                                 **kwargs))
+
+    def step(self, data, color=None, y_axis='left', **kwargs):
+        for i, col in enumerate(data):
+            c = get_color(i, col, color)
+            self.figures.append(data[[col]].iplot(kind='scatter',
+                                asFigure=True,
+                                interpolation='hv',
+                                filename='cufflinks/cf-simple-line',
+                                color=c,
+                                **kwargs))
