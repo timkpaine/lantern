@@ -58,3 +58,12 @@ class TestConfig:
             df = l.bar.sample()
             p.scatter(df)
             p.show()
+
+    def test_step(self):
+        with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
+            import lantern as l
+            mock1.return_value = True
+            p = l.figure('matplotlib')
+            df = l.bar.sample()
+            p.step(df)
+            p.show()

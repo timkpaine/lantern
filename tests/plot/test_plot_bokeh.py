@@ -55,3 +55,27 @@ class TestConfig:
             df = l.bar.sample()
             p.line(df)
             p.show()
+
+    # def test_scatter(self):
+    #     with patch('lantern.plotting.plot_bokeh.in_ipynb', create=True) as mock1:
+    #         from bokeh.plotting import output_notebook
+    #         output_notebook()
+
+    #         import lantern as l
+    #         mock1.return_value = True
+    #         p = l.figure('bokeh')
+    #         df = l.bar.sample()
+    #         p.scatter(df)
+    #         p.show()
+
+    # def test_step(self):
+    #     with patch('lantern.plotting.plot_bokeh.in_ipynb', create=True) as mock1:
+    #         from bokeh.plotting import output_notebook
+    #         output_notebook()
+
+    #         import lantern as l
+    #         mock1.return_value = True
+    #         p = l.figure('bokeh')
+    #         df = l.bar.sample()
+    #         p.step(df)
+    #         p.show()
