@@ -172,12 +172,13 @@ class MatplotlibPlot(BasePlot):
         data.plot(ax=ax, **kwargs)
 
     def scatter(self, data, color=None, x=None, y=None,  y_axis='left', **kwargs):
-        if not x:
+        for i, col in enumerate(data):
+            if i == 0:
+                continue  # don't scatter against self
             x = data.columns[0]
-        if not y:
-            y = data.columns[1] if len(data.columns) > 1 else data.columns[0]
-        # ax = self._newAx(x=True, y=True, y_side=y_axis, color=color)
-        plt.plot(data[x], data[y], marker='.', linewidth=0, label='%s vs %s' % (x, y))
+            y = data.columns[i]
+            c = get_color(i, col, color)
+            plt.plot(data[x], data[y], marker='.', linewidth=0, color=c, label='%s vs %s' % (x, y))
 
     def step(self, data, color=None, y_axis='left', **kwargs):
         ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)

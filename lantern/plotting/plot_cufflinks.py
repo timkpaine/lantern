@@ -104,21 +104,20 @@ class CufflinksPlot(BasePlot):
                                 **kwargs))
 
     def scatter(self, data, color=None, x=None, y=None,  y_axis='left', **kwargs):
-        if not x:
+        # Scatter all
+        for i, col in enumerate(data):
+            if i == 0:
+                continue  # don't scatter against self
             x = data.columns[0]
-        if not y:
-            y = data.columns[1] if len(data.columns) > 1 else data.columns[0]
-        # for i, col in enumerate(data):
-        c = get_color(0, y, color)
-        self.figures.append(data[[x, y]].iplot(kind='scatter',
-                            mode='markers',
-                            x=x,
-                            y=y,
-                            filename='cufflinks/simple-scatter',
-                            color=c,
-                            name='%s vs %s' % (x, y),
-                            asFigure=True,
-                            **kwargs))
+            y = data.columns[i]
+            c = get_color(i, col, color)
+            self.figures.append(go.Figure(data=[go.Scatter(
+                x=data[x],
+                y=data[y],
+                mode='markers',
+                marker={'color': c},
+                name='%s vs %s' % (x, y),
+                **kwargs)]))
 
     def step(self, data, color=None, y_axis='left', **kwargs):
         for i, col in enumerate(data):
