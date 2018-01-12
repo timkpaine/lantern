@@ -47,14 +47,14 @@ jupyter labextension install qgrid
 Abstracts away the nuances of individual charting libraries by providing a single `plot` command with library specific kwarg introspection.
 
 <!-- ### Dummy data -->
-<!-- ![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/preview.gif) -->
+<!-- ![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/img/preview.gif) -->
 
 ### Plot command
-<!-- ![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/preview2.gif) -->
+<!-- ![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/img/preview2.gif) -->
 
 <!-- ## Advanced Plotting -->
-![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/plot2.png)
-![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/plot1.png)
+![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/img/plot2.png)
+![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/img/plot1.png)
 
 ## Grids
 The same.
@@ -68,11 +68,11 @@ Single-command code-less exporting for report generation.
     lantern.extensions.export_html('my_notebook.ipynb') # my_notebook.html
 ```
 Or install the plugins to use directly from JupyterLab
-![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/export.png)
+![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/img/export.png)
 
 ### Publish
 Publish a notebook as a read-only view.
-![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/publish.png)
+![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/img/publish.png)
 
 
 ## Dummy datasets
