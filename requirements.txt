@@ -1,5 +1,5 @@
 bokeh
-cufflinks
+-e git+git://github.com/timkpaine/cufflinks.git#egg=cufflinks
 jupyterlab
 matplotlib
 numpy
