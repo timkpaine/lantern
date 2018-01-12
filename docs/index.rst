@@ -3,8 +3,12 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to lantern's documentation!
+lantern
 ===================================
+An orchestration layer for plots and tables, dummy datasets, research, reports, and anything else a data scientist might need.
+
+|version| |build-status| |issues| |waffle| |codecov| |gitter| |bch| |pypiv| |pypil| |docs| |site|
+
 
 .. toctree::
    :maxdepth: 2
@@ -18,3 +22,64 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+
+.. |version| image:: https://img.shields.io/badge/version-0.0.10-lightgrey.svg
+    :alt: Version
+    :scale: 100%
+    :target: https://img.shields.io/badge/version-0.0.10-lightgrey.svg
+
+.. |build-status| image:: https://travis-ci.org/timkpaine/lantern.svg?branch=master
+    :alt: Build Status
+    :scale: 100%
+    :target: https://travis-ci.org/timkpaine/lantern
+
+.. |docs| image:: https://img.shields.io/readthedocs/pylantern.svg
+    :alt: Docs
+    :scale: 100%
+    :target: https://img.shields.io/readthedocs/pylantern.svg
+
+.. |issues| image:: https://img.shields.io/github/issues/timkpaine/lantern.svg
+    :alt: Issues
+    :scale: 100%
+    :target: https://img.shields.io/github/issues/timkpaine/lantern.svg
+
+.. |waffle| image:: https://badge.waffle.io/timkpaine/lantern.svg?label=ready&title=Ready
+    :alt: Waffle
+    :scale: 100%
+    :target: http://waffle.io/timkpaine/lantern
+
+.. |codecov| image:: https://codecov.io/gh/timkpaine/lantern/branch/master/graph/badge.svg
+    :alt: Codecov
+    :scale: 100%
+    :target: https://codecov.io/gh/timkpaine/lantern
+
+.. |gitter| image:: https://img.shields.io/gitter/room/nwjs/nw.js.svg
+    :alt: Gitter
+    :scale: 100%
+    :target: https://gitter.im/pylantern/Lobby
+
+.. |bch| image:: https://bettercodehub.com/edge/badge/timkpaine/lantern?branch=master
+    :alt: BCH
+    :scale: 100%
+    :target: https://bettercodehub.com/
+
+.. |pypiv| image:: https://img.shields.io/pypi/v/pylantern.svg
+    :alt: Version
+    :scale: 100%
+    :target: https://img.shields.io/pypi/v/pylantern.svg
+
+.. |pypil| image:: https://img.shields.io/pypi/l/pylantern.svg
+    :alt: License
+    :scale: 100%
+    :target: https://img.shields.io/pypi/l/pylantern.svg
+
+.. |docs| image:: https://img.shields.io/readthedocs/pylantern.svg
+    :alt: Docs
+    :scale: 100%
+    :target: https://img.shields.io/readthedocs/pylantern.svg
+
+.. |site| image:: https://img.shields.io/badge/Site--grey.svg?colorB=FFFFFF
+    :alt: Site
+    :scale: 100%
+    :target: http://paine.nyc/lantern)

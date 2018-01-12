@@ -12,6 +12,7 @@ An orchestration layer for plots and tables, dummy datasets, research, reports, 
 [![BCH compliance](https://bettercodehub.com/edge/badge/timkpaine/lantern?branch=master)](https://bettercodehub.com/)
 [![PyPI](https://img.shields.io/pypi/v/pylantern.svg)]()
 [![PyPI](https://img.shields.io/pypi/l/pylantern.svg)]()
+[![Docs](https://img.shields.io/readthedocs/pylantern.svg)]()
 [![Site](https://img.shields.io/badge/Site--grey.svg?colorB=FFFFFF)](http://paine.nyc/lantern)
 
 <!-- [![Beerpay](https://beerpay.io/timkpaine/lantern/badge.svg?style=flat)](https://beerpay.io/timkpaine/lantern) -->
