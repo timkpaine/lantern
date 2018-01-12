@@ -38,6 +38,8 @@ postinstall:  ## install other requisite labextensions
 	jupyter labextension install bqplot
 	jupyter labextension install qgrid@1.0.0-beta.10
 
+docs:  ## make documentation
+	make -C ./docs html
 
 # Thanks to Francoise at marmelab.com for this
 .DEFAULT_GOAL := help
@@ -47,4 +49,4 @@ help:
 print-%:
 	@echo '$*=$($*)'
 
-.PHONY: clean run test tests help annotate annotate_l
+.PHONY: clean run test tests help annotate annotate_l docs
