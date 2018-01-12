@@ -104,7 +104,20 @@ class BokehPlot(BasePlot):
             self.legend.append((col, [l]))
 
     def scatter(self, data, color=None, y_axis='left', **kwargs):
-        raise NotImplementedError()
+        for i, col in enumerate(data):
+            if i == 0:
+                continue  # don't scatter against self
+            x = data.columns[0]
+            y = data.columns[i]
+            c = get_color(i, col, color)
+            l = self.figure.scatter(x=data[x],
+                                    y=data[y],
+                                    legend='%s vs %s' % (x, y),
+                                    fill_color=c,
+                                    fill_alpha=0.6,
+                                    line_color=None,
+                                    **kwargs)
+            self.legend.append(('%s vs %s' % (x, y), [l]))
 
     def step(self, data, color=None, y_axis='left', **kwargs):
         raise NotImplementedError()
