@@ -14,14 +14,13 @@ An orchestration layer for plots and tables, dummy datasets, research, reports, 
    :maxdepth: 2
    :caption: Contents:
 
+   installation
+   quickstart
+   plot
+   rstref
 
-
-Indices and tables
+Introduction
 ==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 
 
 .. |version| image:: https://img.shields.io/badge/version-0.0.10-lightgrey.svg
