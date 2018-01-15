@@ -29,7 +29,7 @@ To Install from source:
 
 To install the JupyterLab extension:
 
-`npm install pylantern`
+`jupyter labextension install pylantern`
 
 or from source:
 
