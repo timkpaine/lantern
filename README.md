@@ -60,4 +60,4 @@ jupyter labextension install qgrid
 
 
 ## Getting Started
-![Read the docs!](http://pylantern.readthedocs.io/en/latest/index.html)
+[Read the docs!](http://pylantern.readthedocs.io/en/latest/index.html)
