@@ -19,9 +19,6 @@ An orchestration layer for plots and tables, dummy datasets, research, reports, 
    plot
    rstref
 
-Introduction
-==================
-
 
 .. |version| image:: https://img.shields.io/badge/version-0.0.10-lightgrey.svg
     :alt: Version
