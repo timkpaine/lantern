@@ -49,13 +49,13 @@ Lantern relies on JupyterLab extensions:
 jupyter labextension install @jupyter-widgets/jupyterlab-manager
 jupyter labextension install @jupyterlab/plotly-extension
 jupyter labextension install jupyterlab_bokeh
+jupyter labextension install qgrid
 ```
 
-The following two are for work in-progress on master:
+The following are for work in-progress on master:
 
 ```
 jupyter labextension install bqplot
-jupyter labextension install qgrid
 ```
 
 
