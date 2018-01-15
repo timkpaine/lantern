@@ -17,7 +17,10 @@ An orchestration layer for plots and tables, dummy datasets, research, reports, 
    installation
    quickstart
    plot
-   rstref
+   table
+   export
+   publish
+   live
 
 
 .. |version| image:: https://img.shields.io/badge/version-0.0.10-lightgrey.svg
@@ -29,11 +32,6 @@ An orchestration layer for plots and tables, dummy datasets, research, reports, 
     :alt: Build Status
     :scale: 100%
     :target: https://travis-ci.org/timkpaine/lantern
-
-.. |docs| image:: https://img.shields.io/readthedocs/pylantern.svg
-    :alt: Docs
-    :scale: 100%
-    :target: https://img.shields.io/readthedocs/pylantern.svg
 
 .. |issues| image:: https://img.shields.io/github/issues/timkpaine/lantern.svg
     :alt: Issues
