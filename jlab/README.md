@@ -1,4 +1,4 @@
-# lantern
+# pylantern
 
 A JupyterLab extension.
 
@@ -10,7 +10,7 @@ A JupyterLab extension.
 ## Installation
 
 ```bash
-jupyter labextension install lantern/jlab
+jupyter labextension install pylantern
 ```
 
 ## Development
