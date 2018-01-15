@@ -22,9 +22,24 @@ To install the base package from pip:
 
 `pip install pylantern`
 
-To Install from source (recommended because i don't know how to package the npm parts):
+To Install from source:
 
-`make install && make serverextension && make labextension`
+`make install`
+
+
+To install the JupyterLab extension:
+
+`npm install pylantern`
+
+or from source:
+
+`make labextension`
+
+To enable the Jupyter server extension:
+
+`jupyter serverextension enable --py lantern`
+
+
 
 Or run the corresponding commands directly
 
