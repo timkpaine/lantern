@@ -127,14 +127,18 @@ class MatplotlibPlot(BasePlot):
         self._axes[-1].spines['bottom'].set_visible(xaxis)
 
         if not yticks:
-            self._axes[-1].yaxis.set_ticks([])
+            for ax in self._axes:
+                ax.yaxis.set_ticks([])
         if not xticks:
-            self._axes[-1].xaxis.set_ticks([])
+            # FIXME this doesnt work
+            for ax in self._axes:
+                ax.xaxis.set_ticks([])
 
         if grid:
             self._axes[-1].grid(which='both')
             self._axes[-1].grid(which='minor', alpha=0.2)
             self._axes[-1].grid(which='major', alpha=0.5)
+
         self._figure.canvas.draw()
         plt.draw()
 

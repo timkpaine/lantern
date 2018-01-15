@@ -1,6 +1,7 @@
 ===============
 Getting started
 ===============
+.. WARNING:: Lantern is under active beta development, so interfaces and functionality may change
 
 Overview
 ===============
@@ -18,8 +19,8 @@ Plotting libraries
 ===================
 Lantern utilizes the following plotting libraries:
 
-- `Matplotlib <https://matplotlib.org>`_
-- `Plotly <https://plot.ly>`_
+- `Matplotlib <https://matplotlib.org>`_ / `Seaborn <https://seaborn.pydata.org>`_
+- `Plotly <https://plot.ly>`_ / `Cufflinks <https://github.com/santosjorge/cufflinks>`_
 - `Bokeh <https://bokeh.pydata.org/en/latest/>`_
 
 
@@ -33,6 +34,7 @@ Lantern utilizes the following table libraries:
 
 Live Data
 ==========
+.. NOTE:: Lantern-live development is not yet public
 Lantern can help you consume, disect, produce, and publish live data and views. 
 
 
