@@ -9,14 +9,14 @@ function requestData() {
         url: '/live-data',
         success: function(point) {
             var series = chart.series[0],
-                shift = series.data.length > 20; // shift if the series is
+                shift = series.data.length > 200; // shift if the series is
                                                  // longer than 20
 
             // add the point
             chart.series[0].addPoint(point, true, shift);
 
             // call it again after one second
-            setTimeout(requestData, 1000);
+            setTimeout(requestData, 100);
         },
         cache: false
     });
@@ -26,7 +26,7 @@ $(document).ready(function() {
     chart = new Highcharts.Chart({
         chart: {
             renderTo: 'data-container',
-            defaultSeriesType: 'spline',
+            defaultSeriesType: 'line',
             events: {
                 load: requestData
             }

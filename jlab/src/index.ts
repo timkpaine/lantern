@@ -19,8 +19,13 @@ import {
 } from '@jupyterlab/coreutils';
 
 import {
-  ICommandPalette, IMainMenu
+  ICommandPalette
 } from '@jupyterlab/apputils';
+
+import {
+  IMainMenu
+} from '@jupyterlab/mainmenu';
+
 
 import '../style/index.css';
 

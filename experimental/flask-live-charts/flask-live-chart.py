@@ -10,10 +10,14 @@ app = Flask(__name__)
 def hello_world():
     return render_template('index.html', data='test')
 
+walk = 1
 @app.route('/live-data')
 def live_data():
+    global walk
+    neg = -1 if random() > .55 else 1
+    walk += neg * random() * 10
     # Create a PHP array and echo it as JSON
-    data = [time() * 1000, random() * 100]
+    data = [time() * 1000, walk]
     response = make_response(json.dumps(data))
     response.content_type = 'application/json'
     return response
