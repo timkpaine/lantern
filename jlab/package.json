@@ -1,6 +1,6 @@
 {
   "name": "pylantern",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A JupyterLab extension.",
   "author": "Tim Paine",
   "main": "lib/index.js",
