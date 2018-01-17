@@ -16,7 +16,7 @@ function requestData() {
             chart.series[0].addPoint(point, true, shift);
 
             // call it again after one second
-            setTimeout(requestData, 100);
+            setTimeout(requestData, 250);
         },
         cache: false
     });
