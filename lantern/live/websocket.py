@@ -7,7 +7,7 @@ from .base import Streaming
 
 class WebSocket(Streaming):
     def __init__(self, addr):
-        websocket.enableTrace(True)
+        # websocket.enableTrace(True)
 
         def on_message(ws, message):
             self.on_data(message)
