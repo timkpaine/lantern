@@ -1,9 +1,9 @@
-import ujson
+import logging
 import queue
+import socket
 import tornado
 import tornado.web
-import logging
-import socket
+import ujson
 from contextlib import closing
 
 
@@ -12,6 +12,10 @@ def find_free_port():
     with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as s:
         s.bind(('', 0))
         return s.getsockname()[1]
+
+
+def fqdn(port, rank):
+    return 'http://' + socket.getfqdn() + ':' + str(port) + '/lantern/live/' + str(rank)
 
 
 def queue_get_all(q):
@@ -36,6 +40,11 @@ class Handler(tornado.web.RequestHandler):
     def initialize(self, queue=None):
         self._queue = queue
 
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Headers", "x-requested-with")
+        self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+
     def get(self):
         x = queue_get_all(self._queue)
-        self.write(ujson.dumps(len(x)))
+        self.write(ujson.dumps(x))

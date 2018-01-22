@@ -1,7 +1,5 @@
 import ujson
 import websocket
-import time
-import threading
 from .base import Streaming
 
 
@@ -19,25 +17,18 @@ class WebSocket(Streaming):
             print("### closed ###")
 
         def on_open(ws):
-            def run(*args):
-                req = ujson.dumps({
-                    "type": "subscribe",
-                    "product_id": "ETH-USD"
-                })
-                ws.send(req)
+            req = ujson.dumps({
+                "type": "subscribe",
+                "product_id": "ETH-USD"
+            })
+            ws.send(req)
 
-                req = ujson.dumps({
-                    "type": "heartbeat",
-                    "on": True
-                })
+            req = ujson.dumps({
+                "type": "heartbeat",
+                "on": True
+            })
 
-                ws.send(req)
-                time.sleep(10)
-                ws.close()
-                print("thread terminating...")
-
-            t = threading.Thread(target=run)
-            t.start()
+            ws.send(req)
 
         self.ws = websocket.WebSocketApp(addr,
                                          on_message=on_message,
