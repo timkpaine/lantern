@@ -1,10 +1,8 @@
-import logging
+import os.path
 import queue
 import socket
-import tornado
-import tornado.web
-import ujson
 from contextlib import closing
+from future.moves.urllib.parse import urlsplit
 
 
 def find_free_port():
@@ -14,8 +12,20 @@ def find_free_port():
         return s.getsockname()[1]
 
 
-def fqdn(port, rank):
-    return 'http://' + socket.getfqdn() + ':' + str(port) + '/lantern/live/' + str(rank)
+def generate_sections_of_url(url):
+    path = urlsplit(url).path
+    sections = []
+    temp = ""
+    while path != '/':
+        temp = os.path.split(path)
+        path = temp[0]
+        sections.append(temp[1])
+    sections.reverse()
+    return sections
+
+
+def fqdn(type, port, rank):
+    return type + '://' + socket.getfqdn() + ':' + str(port) + '/lantern/live/api/v1/' + str(rank)
 
 
 def queue_get_all(q):
@@ -26,25 +36,3 @@ def queue_get_all(q):
         except queue.Empty:
             break
     return items
-
-
-def add_to_tornado(app, queue, id):
-    path = r"/lantern/live/" + str(id)
-    logging.info('\nadding handler %s on %s\n' % (id, path))
-    app.add_handlers(r".*", [(path,
-                              Handler,
-                              {'queue': queue})])
-
-
-class Handler(tornado.web.RequestHandler):
-    def initialize(self, queue=None):
-        self._queue = queue
-
-    def set_default_headers(self):
-        self.set_header("Access-Control-Allow-Origin", "*")
-        self.set_header("Access-Control-Allow-Headers", "x-requested-with")
-        self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
-
-    def get(self):
-        x = queue_get_all(self._queue)
-        self.write(ujson.dumps(x))
