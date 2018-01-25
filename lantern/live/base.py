@@ -55,5 +55,5 @@ def run(streamer):
     t2 = threading.Thread(target=streamer.run)
     t2.start()
 
-    ll = LanternLive(q, t2, 'comm://' + _LANTERN_LIVE_RANK-1)
+    ll = LanternLive(q, t2, 'comm://' + str(_LANTERN_LIVE_RANK-1))
     return ll

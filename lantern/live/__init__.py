@@ -1,2 +1,2 @@
-from .base import run, runWS
+from .base import run
 from .sources.websocket import WebSocketSource
