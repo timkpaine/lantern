@@ -1,5 +1,2 @@
-from .base import run
-
-
-def plot(datasource):
-    return run(datasource)
+from .base import run, runWS
+from .sources.websocket import WebSocketSource

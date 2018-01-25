@@ -2,7 +2,7 @@ import websocket
 from ..base import Streaming
 
 
-class WebSocket(Streaming):
+class WebSocketSource(Streaming):
     def __init__(self, addr, on_open=None, on_close=None, on_error=None):
         def on_message(ws, message):
             self.on_data(message)

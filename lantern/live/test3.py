@@ -1,6 +1,6 @@
 import logging
 import ujson
-from .sources.websocket import WebSocket
+from .sources.websocket import WebSocketSource
 from .base import runWS
 
 
@@ -21,6 +21,6 @@ if __name__ == '__main__':
 
         ws.send(req)
 
-    s = WebSocket("wss://ws-feed.gdax.com", on_open=foo)
+    s = WebSocketSource("wss://ws-feed.gdax.com", on_open=foo)
     x = runWS(s)
     print(x)
