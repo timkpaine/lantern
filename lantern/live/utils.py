@@ -35,4 +35,4 @@ def queue_get_all(q):
             items.append(q.get_nowait())
         except queue.Empty:
             break
-    return items
+    return ','.join(items)

@@ -8,12 +8,10 @@ class CommHandler(object):
     def __init__(self, q, target_name, channel):
         self.closed = False
         self.q = q
-        self.target_name = target_name
         self.channel = channel
+        self.target_name = target_name + '-' + channel
 
-        self.comm = Comm(target_name=target_name,
-                         metadata={'channel': channel},
-                         )
+        self.comm = Comm(target_name=self.target_name)
 
         def foo(comm, msg):
             print(comm)
@@ -25,12 +23,14 @@ class CommHandler(object):
         self.comm.on_close(close)
 
     def run(self):
+        # TODO wait until JS ready
         self.comm.open('')
         while not self.closed:
-            message = queue_get_all(self.q)
-            if message:
+            message = '[' + queue_get_all(self.q) + ']'
+
+            if message != '[]':
                 self.comm.send(data=message)
-            time.sleep(1)
+            time.sleep(5)
 
 
 def runComm(q, target_name, channel):
