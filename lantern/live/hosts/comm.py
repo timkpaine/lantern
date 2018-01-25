@@ -1,5 +1,7 @@
 import logging
+import time
 from ipykernel.comm import Comm
+from ..utils import queue_get_all
 
 
 class CommHandler(object):
@@ -9,7 +11,13 @@ class CommHandler(object):
         self.target_name = target_name
         self.channel = channel
 
-        self.comm = Comm(target_name="lanternlive@"+channel)
+        self.comm = Comm(target_name=target_name,
+                         metadata={'channel': channel},
+                         )
+
+        def foo(comm, msg):
+            print(comm)
+            print(msg)
 
         def close():
             self.closed = True
@@ -17,9 +25,12 @@ class CommHandler(object):
         self.comm.on_close(close)
 
     def run(self):
+        self.comm.open('')
         while not self.closed:
-            message = self.q.get()
-            self.comm.send(data=message)
+            message = queue_get_all(self.q)
+            if message:
+                self.comm.send(data=message)
+            time.sleep(1)
 
 
 def runComm(q, target_name, channel):
