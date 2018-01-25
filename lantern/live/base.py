@@ -1,4 +1,8 @@
+import os
+import os.path
 import threading
+import ujson
+from IPython import get_ipython
 from abc import abstractmethod, ABCMeta
 from .hosts.comm import runComm
 from queue import Queue
@@ -43,6 +47,11 @@ def run(streamer):
     def qput(message):
         q.put(message)
 
+    # TODO add secret
+    p = os.path.abspath(get_ipython().kernel.session.config['IPKernelApp']['connection_file'])
+    sessionid = p.split(os.sep)[-1].replace('kernel-', '').replace('.json', '')
+    # FIXME i think theres a race condition here between python and javascript
+
     # start comm sender thread
     t1 = threading.Thread(target=runComm, args=(q, 'lanternlive', str(_LANTERN_LIVE_RANK)))
     _LANTERN_LIVE_RANK += 1
@@ -53,5 +62,5 @@ def run(streamer):
     t2 = threading.Thread(target=streamer.run)
     t2.start()
 
-    ll = LanternLive(q, t2, 'comm://' + str(_LANTERN_LIVE_RANK-1))
+    ll = LanternLive(q, t2, 'comm://' + sessionid + '/lanternlive@' + str(_LANTERN_LIVE_RANK-1))
     return ll

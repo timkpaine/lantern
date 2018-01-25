@@ -9,7 +9,7 @@ class CommHandler(object):
         self.target_name = target_name
         self.channel = channel
 
-        self.comm = Comm(target_name="lanternlive")
+        self.comm = Comm(target_name="lanternlive@"+channel)
 
         def close():
             self.closed = True
