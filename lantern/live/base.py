@@ -1,9 +1,7 @@
 import threading
-import logging
 from abc import abstractmethod, ABCMeta
 from .hosts.comm import runComm
 from queue import Queue
-from lantern import in_ipynb
 
 _LANTERN_LIVE_RANK = 0
 
