@@ -26,7 +26,6 @@ class CommHandler(object):
         # TODO wait until JS ready
         while not self.opened:
             time.sleep(5)
-            logging.critical('sleeping')
 
         while self.opened:
             message = '[' + queue_get_all(self.q) + ']'
@@ -37,6 +36,6 @@ class CommHandler(object):
 
 
 def runComm(q, channel):
-    logging.info('adding handler %s.%s' % ('lantern.live.', channel))
+    logging.info('adding handler %s%s' % ('lantern.live.', channel))
     comm = CommHandler(q, channel)
     comm.run()
