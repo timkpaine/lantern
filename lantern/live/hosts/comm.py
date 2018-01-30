@@ -1,31 +1,34 @@
 import logging
 import time
-from ipykernel.comm import Comm
+from IPython import get_ipython
 from ..utils import queue_get_all
 
 
 class CommHandler(object):
-    def __init__(self, q, target_name, channel):
+    def __init__(self, q, channel):
         self.closed = False
         self.q = q
         self.channel = channel
-        self.target_name = target_name + '-' + channel
+        self.target_name = 'lantern.live'
+        self.opened = False
 
-        self.comm = Comm(target_name=self.target_name)
+        def on_close(msg):
+            self.opensed = False
 
-        def foo(comm, msg):
-            print(comm)
-            print(msg)
+        def handle_open(comm, msg):
+            self.opened = True
+            comm.on_close = on_close
+            self.comm = comm
 
-        def close():
-            self.closed = True
-
-        self.comm.on_close(close)
+        get_ipython().kernel.comm_manager.register_target('lantern.live', handle_open)
 
     def run(self):
         # TODO wait until JS ready
-        self.comm.open('')
-        while not self.closed:
+        while not self.opened:
+            time.sleep(5)
+            logging.critical('sleeping')
+
+        while self.opened:
             message = '[' + queue_get_all(self.q) + ']'
 
             if message != '[]':
@@ -33,7 +36,7 @@ class CommHandler(object):
             time.sleep(5)
 
 
-def runComm(q, target_name, channel):
-    logging.info('adding handler %s on %s' % (target_name, channel))
-    comm = CommHandler(q, target_name, channel)
+def runComm(q, channel):
+    logging.info('adding handler %s on %s' % ('lantern.live', channel))
+    comm = CommHandler(q, channel)
     comm.run()

@@ -51,7 +51,7 @@ def run(streamer):
     sessionid = p.split(os.sep)[-1].replace('kernel-', '').replace('.json', '')
 
     # start comm sender thread
-    t1 = threading.Thread(target=runComm, args=(q, 'lanternlive', str(_LANTERN_LIVE_RANK)))
+    t1 = threading.Thread(target=runComm, args=(q, str(_LANTERN_LIVE_RANK)))
     _LANTERN_LIVE_RANK += 1
     t1.start()
 
@@ -60,5 +60,5 @@ def run(streamer):
     t2 = threading.Thread(target=streamer.run)
     t2.start()
 
-    ll = LanternLive(q, t2, 'comm://' + sessionid + '/lanternlive-' + str(_LANTERN_LIVE_RANK-1))
+    ll = LanternLive(q, t2, 'comm://' + sessionid + '/' + str(_LANTERN_LIVE_RANK-1))
     return ll
