@@ -28,9 +28,10 @@ class CommHandler(object):
             time.sleep(5)
 
         while self.opened:
-            message = '[' + queue_get_all(self.q) + ']'
+            # message = '[' + queue_get_all(self.q) + ']'
+            message = queue_get_all(self.q)
 
-            if message != '[]':
+            if message != '[]' and message != '':
                 self.comm.send(data=message)
             time.sleep(1)
 
