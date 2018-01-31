@@ -1,6 +1,4 @@
 # Lantern
-(analytics was too general a name..)
-
 An orchestration layer for plots and tables, dummy datasets, research, reports, and anything else a data scientist might need.
 
 [![Version](https://img.shields.io/badge/version-0.0.12-lightgrey.svg)](https://img.shields.io/badge/version-0.0.12-lightgrey.svg)
