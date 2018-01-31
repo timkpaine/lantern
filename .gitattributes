@@ -1,3 +1,3 @@
-notebooks/* linguist-documentation
-examples/* linguist-documentation
-docs/* linguist-documentation
+notebooks/* linguist-vendored
+examples/* linguist-vendored
+docs/* linguist-vendored
