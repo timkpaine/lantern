@@ -3,6 +3,8 @@ from .utils import in_ipynb
 from .plotting import plot, figure
 from .data import *
 from .grids import grid
+from .live import *
+
 
 __all__ = ['plot', 'figure', 'grids', 'data', 'extensions']
 
