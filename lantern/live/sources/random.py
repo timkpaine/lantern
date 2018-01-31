@@ -1,6 +1,7 @@
 import lantern as l
 import datetime
 import time
+from builtins import range
 from ..base import Streaming
 
 
@@ -10,8 +11,9 @@ class RandomSource(Streaming):
             df = l.ohlcv.sample().iloc[1:5]
             df['key'] = ['A', 'B', 'C', 'D']
             df.index = [df.index[0], df.index[0], df.index[0], df.index[0]]
-            self.on_data(df.to_json(orient='records'))
-            time.sleep(1)
+            for i in range(len(df)):
+                self.on_data(df.iloc[i].to_json())
+            time.sleep(.1)
 
 
 class RandomSource2(Streaming):
@@ -23,5 +25,7 @@ class RandomSource2(Streaming):
             df.index = [df.index[0], df.index[0], df.index[0], df.index[0]]
             df.index += datetime.timedelta(days=i)
             i += 1
-            self.on_data(df.reset_index().to_json(orient='records'))
+            df = df.reset_index()
+            for i in range(len(df)):
+                self.on_data(df.iloc[i].to_json())
             time.sleep(1)
