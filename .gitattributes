@@ -1,4 +1,2 @@
 examples/* linguist-vendored
-examples/bokeh.ipynb linguist-vendored=true
-examples/live.ipynb linguist-vendored=true
 docs/* linguist-vendored
