@@ -4,6 +4,7 @@ jupyterlab
 matplotlib
 numpy
 pandas
+perspective-python
 plotly
 qgrid==1.0.1b0
 seaborn

@@ -53,6 +53,7 @@ jupyter labextension install qgrid
 The following are for work in-progress on master:
 
 ```
+jupyter labextension install @jpmorganchase/perspective-jupyterlab
 jupyter labextension install bqplot
 ```
 
