@@ -37,3 +37,22 @@ To install the JupyterLab extensions:
 
     jupyter labextension install pylantern
 
+
+Other Requirements
+==================
+Lantern relies on a handful of JupyterLab extensions to operate:
+
+.. code:: bash
+
+    jupyter labextension install @jupyter-widgets/jupyterlab-manager
+    jupyter labextension install @jupyterlab/plotly-extension
+    jupyter labextension install jupyterlab_bokeh
+    jupyter labextension install qgrid
+
+
+The following are for work in-progress on master:
+
+.. code:: bash
+
+    jupyter labextension install @jpmorganchase/perspective-jupyterlab
+    jupyter labextension install bqplot
