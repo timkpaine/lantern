@@ -5,6 +5,7 @@ from IPython import get_ipython
 from abc import abstractmethod, ABCMeta
 from .hosts.comm import runComm
 from queue import Queue
+from future.utils import with_metaclass
 
 _LANTERN_LIVE_RANK = 0
 
@@ -30,7 +31,7 @@ class LanternLive(object):
         # self._thread.join()
 
 
-class Streaming(metaclass=ABCMeta):
+class Streaming(with_metaclass(ABCMeta)):
     @abstractmethod
     def run(self):
         pass
