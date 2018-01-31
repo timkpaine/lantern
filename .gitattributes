@@ -1,4 +1,3 @@
-*.ipynb linguist-language=Python
 examples/* linguist-documentation
 docs/* linguist-documentation
 tests/notebooks/* linguist-documentation
