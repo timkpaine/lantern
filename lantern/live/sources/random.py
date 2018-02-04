@@ -18,13 +18,13 @@ class RandomSource(Streaming):
 
 class RandomSource2(Streaming):
     def run(self):
-        i = 0
+        step = 0
         while True:
             df = l.ohlcv.sample().iloc[1:5]
             df['key'] = ['A', 'B', 'C', 'D']
             df.index = [df.index[0], df.index[0], df.index[0], df.index[0]]
-            df.index += datetime.timedelta(days=i)
-            i += 1
+            df.index += datetime.timedelta(days=step)
+            step += 1
             df = df.reset_index()
             for i in range(len(df)):
                 self.on_data(df.iloc[i].to_json())
