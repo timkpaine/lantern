@@ -4,17 +4,23 @@ pipeline {
             stage('PreBuild') {
                 parallel {
                     stage('Pipdeps') {
-                        sh 'pip install -r requirements.txt'
+                        steps{
+                            sh 'pip install -r requirements.txt'
+                        }
                     }
                     stage('Otherdeps'){
-                        sh 'export DISPLAY=:99.0'
-                        sh '/etc/init.d/xvfb start'
-                        sh 'sleep 3'
+                        steps{
+                            sh 'export DISPLAY=:99.0'
+                            sh '/etc/init.d/xvfb start'
+                            sh 'sleep 3'
+                        }
                     }
                 }
             }
             stage('Build') {
-                sh 'make build'
+                steps {
+                    sh 'make build'
+                }
                 post {
                     success {
                         echo 'Build succeeded.'
