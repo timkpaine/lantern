@@ -1,5 +1,6 @@
 bokeh
 -e git+git://github.com/timkpaine/cufflinks.git#egg=cufflinks
+future
 jupyterlab
 matplotlib
 numpy
@@ -10,3 +11,4 @@ qgrid==1.0.1b0
 seaborn
 scipy
 sklearn
+websocket
