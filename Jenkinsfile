@@ -9,7 +9,7 @@ pipeline {
                     }
                     phase2: {
                         sh 'export DISPLAY=:99.0'
-                        sh -e '/etc/init.d/xvfb start'
+                        sh '/etc/init.d/xvfb start'
                         sh 'sleep 3'
                     }
                 }
