@@ -7,8 +7,7 @@ pipeline {
                         steps {
                             sh 'python3 -m virtualenv venv'
                             sh 'chmod a+x venv/bin/activate'
-                            sh 'venv/bin/activate'
-                            sh 'pip install -r requirements.txt'
+                            sh '. venv/bin/activate && pip install -r requirements.txt'
                         }
                     }
                     stage('Otherdeps'){
@@ -22,7 +21,7 @@ pipeline {
             }
             stage('Build') {
                 steps {
-                    sh 'make build'
+                    sh '. venv/bin/activate && make build'
                 }
                 post {
                     success {
