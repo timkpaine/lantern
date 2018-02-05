@@ -13,4 +13,5 @@ qgrid==1.0.1b0
 seaborn
 scipy
 sklearn
+sphinx
 websocket

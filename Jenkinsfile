@@ -55,7 +55,7 @@ pipeline {
             }
             stage('Cleanup') {
                 steps {
-                    sh 'make clean'
+                    sh '. venv/bin/activate && make clean'
                 }
             }
         }
