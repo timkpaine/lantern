@@ -2,13 +2,19 @@ pipeline {
     agent any
         stages {
             stage('PreBuild') {
-                steps {
-                    parallel {
-                        phase1: { sh 'pip install -r requirements.txt' }
-                        phase2: { sh 'export DISPLAY=:99.0'; sh '/etc/init.d/xvfb start'; sh 'sleep 3'; }
+                parallel {
+                    stage('Pipdeps') {
+                        sh 'pip install -r requirements.txt'
                     }
-                sh 'make build'
+                    stage('Otherdeps'){
+                        sh 'export DISPLAY=:99.0'
+                        sh '/etc/init.d/xvfb start'
+                        sh 'sleep 3'
+                    }
                 }
+            }
+            stage('Build') {
+                sh 'make build'
                 post {
                     success {
                         echo 'Build succeeded.'
