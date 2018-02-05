@@ -64,6 +64,8 @@ Area
 
 Bar
 ----
+.. NOTE:: Not yet available when using Bokeh backend. 
+
 .. method:: bar(self, data, color=None, y_axis='left', stacked=False, **kwargs):
 .. code:: python3
 
@@ -76,6 +78,8 @@ Bar
 
 Histogram
 ---------
+.. NOTE:: Not yet available when using Bokeh backend. 
+
 .. method:: hist(self, data, color=None, y_axis='left', stacked=False, **kwargs):
 .. code:: python3
 
