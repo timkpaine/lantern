@@ -1,10 +1,23 @@
 pipeline {
     agent any
         stages {
-            stage('Build') {
+            stage('PreBuild') {
                 steps {
-                    sh 'make build'
+                parallel {
+                    'stream1': {
+                        sh 'sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules'
+                        sh 'git submodule update --init --recursive'
+                    }
+                    'stream2': {
+                        sh 'pip install -r requirements.txt'
+                    }
+                    'stream3': {
+                        sh 'export DISPLAY=:99.0'
+                        sh -e '/etc/init.d/xvfb start'
+                        sh 'sleep 3'
+                    }
                 }
+                sh 'make build'
                 post {
                     success {
                         echo 'Build succeeded.'
