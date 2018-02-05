@@ -3,6 +3,7 @@ bokeh
 future
 jupyterlab
 matplotlib
+mock
 nose
 numpy
 pandas
