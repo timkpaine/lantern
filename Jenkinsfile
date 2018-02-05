@@ -4,14 +4,8 @@ pipeline {
             stage('PreBuild') {
                 steps {
                     parallel {
-                        phase1: {
-                            sh 'pip install -r requirements.txt'
-                        }
-                        phase2: {
-                            sh 'export DISPLAY=:99.0'
-                            sh '/etc/init.d/xvfb start'
-                            sh 'sleep 3'
-                        }
+                        phase1: { sh 'pip install -r requirements.txt' }
+                        phase2: { sh 'export DISPLAY=:99.0'; sh '/etc/init.d/xvfb start'; sh 'sleep 3'; }
                     }
                 sh 'make build'
                 }
