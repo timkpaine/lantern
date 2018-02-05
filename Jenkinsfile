@@ -6,6 +6,7 @@ pipeline {
                     stage('Pipdeps') {
                         steps {
                             sh 'python3 -m virtualenv venv'
+                            sh 'chmod a+x venv/bin/activate'
                             sh 'venv/bin/activate'
                             sh 'pip install -r requirements.txt'
                         }
