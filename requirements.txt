@@ -3,6 +3,7 @@ bokeh
 future
 jupyterlab
 matplotlib
+nose
 numpy
 pandas
 perspective-python
