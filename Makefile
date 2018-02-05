@@ -1,6 +1,9 @@
 run:  ## clean and make target, run target
 	python3 -m lantern 
 
+build:  ## Build the repository
+	python3 setup.py build 
+
 tests: ## Clean and Make unit tests
 	python3 -m nose -v tests --with-coverage --cover-erase --cover-package=`find lantern -name "*.py" | sed "s=\./==g" | sed "s=/=.=g" | sed "s/.py//g" | tr '\n' ',' | rev | cut -c2- | rev`
 	
@@ -50,4 +53,4 @@ help:
 print-%:
 	@echo '$*=$($*)'
 
-.PHONY: clean run test tests help annotate annotate_l docs
+.PHONY: clean build run test tests help annotate annotate_l docs
