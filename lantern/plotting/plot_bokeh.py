@@ -94,6 +94,9 @@ class BokehPlot(BasePlot):
             l = self.figure.vbar(x=data.index, top=data[col].values, width=.9, color=c, **kwargs)
             self.legend.append((col, [l]))
 
+    def hist(self, data, color=None, y_axis='left', stacked=False, **kwargs):
+        raise NotImplementedError()
+
     # def candlestick(self, data):
     #    # https://bokeh.pydata.org/en/latest/docs/gallery/candlestick.html
 

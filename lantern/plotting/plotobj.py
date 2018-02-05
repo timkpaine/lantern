@@ -19,6 +19,10 @@ class BasePlot(with_metaclass(ABCMeta)):
         pass
 
     @abstractmethod
+    def hist(self, data, color=None, y_axis='left', stacked=False, **kwargs):
+        pass
+
+    @abstractmethod
     def line(self, data, color=None, y_axis='left', **kwargs):
         pass
 

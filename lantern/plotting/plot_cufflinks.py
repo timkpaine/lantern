@@ -94,6 +94,23 @@ class CufflinksPlot(BasePlot):
                                 filename='cufflinks/categorical-bar-chart',
                                 **kwargs))
 
+    def hist(self, data, color=None, y_axis='left', stacked=False, **kwargs):
+        for i, col in enumerate(data):
+            c = get_color(i, col, color)
+            '''barmode (overlay | group | stack)
+                bins (int)
+                histnorm ('' | 'percent' | 'probability' | 'density' | 'probability density')
+                histfunc ('count' | 'sum' | 'avg' | 'min' | 'max')
+            '''
+
+            self.figures.append(data[[col]].iplot(kind='histogram',
+                                asFigure=True,
+                                bargap=.1,
+                                color=c,
+                                barmode='stack' if stacked else 'overlay',
+                                filename='cufflinks/basic-histogram',
+                                **kwargs))
+
     def line(self, data, color=None, y_axis='left', **kwargs):
         for i, col in enumerate(data):
             c = get_color(i, col, color)

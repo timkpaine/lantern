@@ -171,6 +171,10 @@ class MatplotlibPlot(BasePlot):
         ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
         df.plot(kind='bar', ax=ax, stacked=stackedes[-1], **kwargses[-1])
 
+    def hist(self, data, color=None, y_axis='left', stacked=False, **kwargs):
+        ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
+        data.plot(kind='hist', stacked=stacked, ax=ax, alpha=0.5, **kwargs)
+
     def line(self, data, color=None, y_axis='left', **kwargs):
         ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
         data.plot(ax=ax, **kwargs)
