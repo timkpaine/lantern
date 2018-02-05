@@ -34,7 +34,7 @@ pipeline {
             }
             stage('Test') {
                 steps {
-                    sh '. venv/bin/activate && DISPLAY=:99.0 && make test'
+                    sh '. venv/bin/activate && export DISPLAY=:99.0 && make test'
                 }
             }
             stage('Deploy') {
