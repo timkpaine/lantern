@@ -62,18 +62,6 @@ Area
     :scale: 100%
     :alt: area.png
 
-Step
------
-.. method:: step(self, data, color=None, y_axis='left', **kwargs):
-.. code:: python3
-
-    f.step(df)
-    f.show()
-
-.. image:: ./img/plot/step.png
-    :scale: 100%
-    :alt: step.png
-
 Bar
 ----
 .. method:: bar(self, data, color=None, y_axis='left', stacked=False, **kwargs):
@@ -86,6 +74,18 @@ Bar
     :scale: 100%
     :alt: bar.png
 
+Histogram
+---------
+.. method:: hist(self, data, color=None, y_axis='left', stacked=False, **kwargs):
+.. code:: python3
+
+    f.hist(df)
+    f.show()
+
+.. image:: ./img/plot/hist.png
+    :scale: 100%
+    :alt: hist.png
+
 Scatter
 --------
 .. method:: scatter(self, data, color=None, x=None, y=None,  y_axis='left', **kwargs):
@@ -93,6 +93,23 @@ Scatter
 
     f.scatter(df)
     f.show()
+
+.. image:: ./img/plot/scatter.png
+    :scale: 100%
+    :alt: scatter.png
+
+
+Step
+-----
+.. method:: step(self, data, color=None, y_axis='left', **kwargs):
+.. code:: python3
+
+    f.step(df)
+    f.show()
+
+.. image:: ./img/plot/step.png
+    :scale: 100%
+    :alt: step.png
 
 
 Mixed-type Plots
