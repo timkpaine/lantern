@@ -105,6 +105,8 @@ Scatter
 
 Step
 -----
+.. NOTE:: Not yet available when using Bokeh backend. 
+
 .. method:: step(self, data, color=None, y_axis='left', **kwargs):
 .. code:: python3
 
