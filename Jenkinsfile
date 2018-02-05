@@ -4,14 +4,14 @@ pipeline {
             stage('PreBuild') {
                 steps {
                 parallel {
-                    'stream1': {
+                    phase1: {
                         sh 'sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules'
                         sh 'git submodule update --init --recursive'
                     }
-                    'stream2': {
+                    phase2: {
                         sh 'pip install -r requirements.txt'
                     }
-                    'stream3': {
+                    phase3: {
                         sh 'export DISPLAY=:99.0'
                         sh -e '/etc/init.d/xvfb start'
                         sh 'sleep 3'
