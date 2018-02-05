@@ -3,7 +3,7 @@ An orchestration layer for plots and tables, dummy datasets, research, reports, 
 
 [![Version](https://img.shields.io/badge/version-0.0.13-lightgrey.svg)](https://img.shields.io/badge/version-0.0.13-lightgrey.svg)
 [![Build Status](https://travis-ci.org/timkpaine/lantern.svg?branch=master)](https://travis-ci.org/timkpaine/lantern)
-[![Build Status](http://jenkins.paine.nyc/buildStatus/icon?job=lantern/master)](http://jenkins.paine.nyc/job/lantern/job/master/)
+[![Build Status](http://jenkins.paine.nyc/buildStatus/icon?job=lantern/master)](http://jenkins.paine.nyc/job/lantern/master)
 [![GitHub issues](https://img.shields.io/github/issues/timkpaine/lantern.svg)]()
 [![Waffle.io](https://badge.waffle.io/timkpaine/lantern.svg?label=ready&title=Ready)](http://waffle.io/timkpaine/lantern)
 [![codecov](https://codecov.io/gh/timkpaine/lantern/branch/master/graph/badge.svg)](https://codecov.io/gh/timkpaine/lantern)
