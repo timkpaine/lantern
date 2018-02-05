@@ -4,8 +4,10 @@ pipeline {
             stage('PreBuild') {
                 parallel {
                     stage('Pipdeps') {
-                        steps{
-                            sh 'sudo pip install -r requirements.txt'
+                        steps {
+                            sh 'python3 -m virtualenv venv'
+                            sh '. venv/bin/activate'
+                            sh 'pip install -r requirements.txt'
                         }
                     }
                     stage('Otherdeps'){
