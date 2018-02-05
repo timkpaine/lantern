@@ -6,7 +6,7 @@ pipeline {
                 parallel {
                     phase1: {
                         sh 'pip install -r requirements.txt'
-                    },
+                    }
                     phase2: {
                         sh 'export DISPLAY=:99.0'
                         sh -e '/etc/init.d/xvfb start'
