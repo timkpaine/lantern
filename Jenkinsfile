@@ -11,7 +11,7 @@ pipeline {
                     stage('Otherdeps'){
                         steps{
                             sh 'export DISPLAY=:99.0'
-                            sh 'xvfb-run start'
+                            sh 'Xvfb start'
                             sh 'sleep 3'
                         }
                     }
