@@ -3,8 +3,6 @@ bokeh
 future
 jupyterlab
 matplotlib
-mock
-nose
 numpy
 pandas
 perspective-python
@@ -13,5 +11,4 @@ qgrid==1.0.1b0
 seaborn
 scipy
 sklearn
-sphinx
 websocket
