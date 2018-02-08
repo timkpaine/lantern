@@ -26,7 +26,10 @@ class MatplotlibPlot(BasePlot):
         self._ax.legend_ = None
         self._ax.get_xaxis().set_label_position("bottom")
         self._ax.autoscale(True)
+
+        # require all data to be present before plotting
         self._bars = []
+        self._hists = []
 
     def _newAx(self, x=False, y=False, y_side='left', color='black'):
         # axis managemens
@@ -77,7 +80,10 @@ class MatplotlibPlot(BasePlot):
         self._axes.append(ax)
 
     def show(self, title='', xlabel='', ylabel='', xaxis=True, yaxis=True, xticks=True, yticks=True, legend=True, grid=True, **kwargs):
+        # require all data to be present before plotting
         self._bar()
+        self._hist()
+
         lines = []
         labels = []
         # plt.legend([])
@@ -171,9 +177,30 @@ class MatplotlibPlot(BasePlot):
         ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
         df.plot(kind='bar', ax=ax, stacked=stackedes[-1], **kwargses[-1])
 
-    def hist(self, data, color=None, y_axis='left', stacked=False, **kwargs):
+    def _hist(self):
+        if not self._hists:
+            return
+        data = []
+        colors = []
+        y_axises = []
+        stackedes = []
+        kwargses = []
+        for d in self._hists:
+            data.append(d[0])
+            colors.append(d[1])
+            y_axises.append(d[2])
+            stackedes.append(d[3])
+            kwargses.append(d[4])
+        df = data[0]
+        df = df.join(data[1:])
+        y_axis = 'left'
+        color = colors
         ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
-        data.plot(kind='hist', stacked=stacked, ax=ax, alpha=0.5, **kwargs)
+        df.plot(kind='hist', alpha=.5, ax=ax, stacked=stackedes[-1], **kwargses[-1])
+
+    def hist(self, data, color=None, y_axis='left', stacked=False, **kwargs):
+        for i, col in enumerate(data):
+            self._hists.append((data[[col]], get_color(i, col, color), y_axis, stacked, kwargs))
 
     def line(self, data, color=None, y_axis='left', **kwargs):
         ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)

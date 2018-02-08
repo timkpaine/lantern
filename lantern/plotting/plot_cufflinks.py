@@ -108,7 +108,7 @@ class CufflinksPlot(BasePlot):
                                 bargap=.1,
                                 color=c,
                                 barmode='stack' if stacked else 'overlay',
-                                filename='cufflinks/basic-histogram',
+                                filename='cufflinks/multiple-histograms',
                                 **kwargs))
 
     def line(self, data, color=None, y_axis='left', **kwargs):
