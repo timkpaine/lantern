@@ -20,7 +20,7 @@ class CommHandler(object):
             comm.on_close = on_close
             self.comm = comm
 
-        get_ipython().kernel.comm_manager.register_target('lantern.live.' + str(channel), handle_open)
+        get_ipython().kernel.comm_manager.register_target(self.target_name + '/' + str(channel), handle_open)
 
     def run(self):
         # TODO wait until JS ready
@@ -37,6 +37,6 @@ class CommHandler(object):
 
 
 def runComm(q, channel):
-    logging.info('adding handler %s%s' % ('lantern.live.', channel))
+    # print('adding handler %s%s' % ('lantern.live/', channel))
     comm = CommHandler(q, channel)
     comm.run()
