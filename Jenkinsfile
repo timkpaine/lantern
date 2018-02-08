@@ -8,7 +8,7 @@ pipeline {
                             sh 'python3 -m virtualenv venv'
                             sh 'chmod a+x venv/bin/activate'
                             sh '. venv/bin/activate && pip install -r requirements.txt'
-                            sh '. venv/bin/activate && pip install -r codecov nose mock sphinx'
+                            sh '. venv/bin/activate && pip install codecov nose mock sphinx'
                         }
                     }
                     stage('Otherdeps'){
