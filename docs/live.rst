@@ -17,3 +17,11 @@ Live Charts
 .. image:: ./img/live/line.gif
     :scale: 100%
     :alt: line.gif
+
+Perspective
+============
+Lantern relies on Perspective to do live pivoting and configuration. 
+
+.. image:: ./img/live/line2.gif
+    :scale: 100%
+    :alt: line2.gif

@@ -24,6 +24,7 @@ class RandomSource2(Streaming):
             df['key'] = ['A', 'B', 'C', 'D']
             df.index = [df.index[0], df.index[0], df.index[0], df.index[0]]
             df.index += datetime.timedelta(days=step)
+            df.index = df.index.astype(str)
             step += 1
             df = df.reset_index()
             for i in range(len(df)):
