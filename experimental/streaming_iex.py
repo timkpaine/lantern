@@ -1,7 +1,8 @@
 import io
 import requests
 import pandas as pd
-from bokeh.models import ColumnDataSource, HoverTool, ResizeTool, SaveTool
+import pyEX
+from bokeh.models import ColumnDataSource, HoverTool
 from bokeh.models.widgets import TextInput, Button
 from bokeh.plotting import figure, curdoc
 from bokeh.layouts import row, widgetbox
@@ -13,19 +14,9 @@ data = ColumnDataSource(dict(time=[], display_time=[], price=[]))
 
 
 def get_last_price(symbol):
-    payload = {
-        "format": "csv",
-        "symbols": symbol
-    }
-    endpoint = "tops/last"
+    # endpoint = "tops/last"
+    return pd.DataFrame([pyEX.delayedQuote(symbol)])
 
-    raw = requests.get(base + endpoint, params=payload)
-    raw = io.BytesIO(raw.content)
-    prices_df = pd.read_csv(raw, sep=",")
-    prices_df["time"] = pd.to_datetime(prices_df["time"], unit="ms")
-    prices_df["display_time"] = prices_df["time"].dt.strftime("%m-%d-%Y %H:%M:%S.%f")
-
-    return prices_df
 
 def update_ticker():
     global TICKER
@@ -35,11 +26,12 @@ def update_ticker():
 
     return
 
+
 def update_price():
     new_price = get_last_price(symbol=TICKER)
-    data.stream(dict(time=new_price["time"],
-                     display_time=new_price["display_time"],
-                     price=new_price["price"]), 10000)
+    data.stream(dict(time=new_price["delayedPriceTime"],
+                     display_time=new_price["processedTime"],
+                     price=new_price["delayedPrice"]), 10000)
     return
 
 
@@ -51,7 +43,7 @@ hover = HoverTool(tooltips=[
 price_plot = figure(plot_width=800,
                     plot_height=400,
                     x_axis_type='datetime',
-                    tools=[hover, ResizeTool(), SaveTool()],
+                    tools=[hover],
                     title="Real-Time Price Plot")
 
 price_plot.line(source=data, x='time', y='price')
