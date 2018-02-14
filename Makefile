@@ -45,6 +45,9 @@ postinstall:  ## install other requisite labextensions
 docs:  ## make documentation
 	make -C ./docs html
 
+dist:  ## dist to pypi
+	python3 setup.py sdist upload -r pypi
+
 # Thanks to Francoise at marmelab.com for this
 .DEFAULT_GOAL := help
 help:
