@@ -12,3 +12,4 @@ seaborn
 scipy
 sklearn
 websocket
+ujson
