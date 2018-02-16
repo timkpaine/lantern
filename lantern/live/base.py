@@ -11,10 +11,16 @@ _LANTERN_LIVE_RANK = 0
 
 
 class LanternLive(object):
-    def __init__(self, queue, live_thread, path):
-        self._thread = live_thread
+    def __init__(self, queue, path, live_thread=None):
         self._path = path
         self._queue = queue
+        self._thread = live_thread
+
+        # if not a Streaming
+        if not self._thread:
+            def on_data(data):
+                self._queue.put(data)
+        self.on_data = on_data
 
     def load(self, data):
         self._queue.put(data)
@@ -37,10 +43,10 @@ class Streaming(with_metaclass(ABCMeta)):
         pass
 
     def on_data(self, data):
-        getattr(self, 'callback')(data)
+        getattr(self, '_qput')(data)
 
 
-def run(streamer):
+def run(streamer=None):
     global _LANTERN_LIVE_RANK
     q = Queue()
 
@@ -57,9 +63,14 @@ def run(streamer):
     t1.start()
 
     # start streamer thread
-    streamer.callback = qput
-    t2 = threading.Thread(target=streamer.run)
-    t2.start()
+    if isinstance(streamer, Streaming):
+        # if implements the streaming API
+        streamer._qput = qput
+        t2 = threading.Thread(target=streamer.run)
+        t2.start()
+    else:
+        # else you want a callback
+        t2 = None
 
-    ll = LanternLive(q, t2, 'comm://' + sessionid + '/' + 'lantern.live/' + str(_LANTERN_LIVE_RANK-1))
+    ll = LanternLive(q, 'comm://' + sessionid + '/' + 'lantern.live/' + str(_LANTERN_LIVE_RANK-1), t2)
     return ll
