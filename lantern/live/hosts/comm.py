@@ -25,7 +25,7 @@ class CommHandler(object):
     def run(self):
         # TODO wait until JS ready
         while not self.opened:
-            time.sleep(5)
+            time.sleep(1)
 
         while self.opened:
             # message = '[' + queue_get_all(self.q) + ']'
