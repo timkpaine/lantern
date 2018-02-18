@@ -26,4 +26,3 @@ class TestConfig:
             mock1.return_value = True
             df = l.bar.sample()
             l.grid(df, 'plotly')
-            # l.grid(df, 'plotly', indexed=False) # FIXME failing
