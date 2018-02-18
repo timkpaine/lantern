@@ -1,9 +1,11 @@
+from IPython import get_ipython
+
+
 def in_ipynb():
-    try:
-        cfg = get_ipython().config
-        if cfg['IPKernelApp']['parent_appname']:
+    ip = get_ipython()
+    if ip:
+        cfg = ip.config
+        if cfg.get('IPKernelApp', {'parent_appname': False}).get('parent_appname', False):
             return True
-        else:
-            return False
-    except NameError:
         return False
+    return False
