@@ -21,8 +21,8 @@ class TestConfig:
         # teardown_class() after any methods in this class
 
     def test_grid(self):
+        import lantern as l
         with patch('lantern.grids.grid_plotly.in_ipynb', create=True) as mock1:
-            import lantern as l
             mock1.return_value = True
             df = l.bar.sample()
             l.grid(df, 'plotly')
