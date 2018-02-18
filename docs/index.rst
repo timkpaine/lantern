@@ -23,10 +23,10 @@ An orchestration layer for plots and tables, dummy datasets, research, reports, 
    live
 
 
-.. |version| image:: https://img.shields.io/badge/version-0.0.15-lightgrey.svg
+.. |version| image:: https://img.shields.io/badge/version-0.0.16-lightgrey.svg
     :alt: Version
     :scale: 100%
-    :target: https://img.shields.io/badge/version-0.0.15-lightgrey.svg
+    :target: https://img.shields.io/badge/version-0.0.16-lightgrey.svg
 
 .. |build-status| image:: https://travis-ci.org/timkpaine/lantern.svg?branch=master
     :alt: Build Status
