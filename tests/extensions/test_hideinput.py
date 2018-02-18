@@ -38,6 +38,6 @@ class TestConfig:
 
     def test_export(self):
         with patch('nbconvert.nbconvertapp.NbConvertApp'):
-            from lantern.extensions.hideinput.extension import export_pdf, export_html
+            from lantern.extensions.hideinput.exporters import export_pdf, export_html
             export_html(MagicMock())
             export_pdf(MagicMock())
