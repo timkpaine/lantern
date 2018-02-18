@@ -20,7 +20,7 @@ class LanternLive(object):
         if not self._thread:
             def on_data(data):
                 self._queue.put(data)
-        self.on_data = on_data
+            self.on_data = on_data
 
     def load(self, data):
         self._queue.put(data)
