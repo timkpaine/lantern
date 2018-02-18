@@ -22,7 +22,7 @@ class TestConfig:
 
     def test_grid(self):
         import lantern as l
-        with patch('lantern.grids.grid_plotly.in_ipynb', create=True) as mock1:
+        with patch('lantern.in_ipynb') as mock1:
             mock1.return_value = True
             df = l.bar.sample()
             l.grid(df, 'plotly')
