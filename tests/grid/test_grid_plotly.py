@@ -1,5 +1,3 @@
-from mock import patch
-
 
 class TestConfig:
     def setup(self):
@@ -22,7 +20,5 @@ class TestConfig:
 
     def test_grid(self):
         import lantern as l
-        with patch('lantern.in_ipynb') as mock1:
-            mock1.return_value = True
-            df = l.bar.sample()
-            l.grid(df, 'plotly')
+        df = l.bar.sample()
+        l.grid(df, 'plotly')

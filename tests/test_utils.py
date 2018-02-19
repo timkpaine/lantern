@@ -23,14 +23,14 @@ class TestConfig:
     def test_ip1(self):
         with patch('lantern.utils.get_ipython') as m:
             m.return_value = None
-            from lantern import in_ipynb
+            from lantern.utils import in_ipynb
             assert in_ipynb() == False
 
     def test_ip2(self):
 
         with patch('lantern.utils.get_ipython') as m:
             m.return_value = MagicMock()
-            from lantern import in_ipynb
+            from lantern.utils import in_ipynb
             m.return_value.config = {'IPKernelApp': {'parent_appname': False}}
             assert in_ipynb() == False
 
@@ -40,5 +40,5 @@ class TestConfig:
             m.return_value = MagicMock()
             m.return_value.config = {'IPKernelApp': {'parent_appname': True}}
 
-            from lantern import in_ipynb
+            from lantern.utils import in_ipynb
             assert in_ipynb() == True

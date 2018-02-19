@@ -19,6 +19,8 @@ class TestConfig:
         # teardown_class() after any methods in this class
 
     def test_grid(self):
-        import lantern as l
-        df = l.bar.sample()
-        l.grid(df, 'psp')
+        import queue
+        from lantern.live.utils import queue_get_all
+        q = queue.Queue()
+        q.put('test')
+        assert queue_get_all(q) == '[test]'

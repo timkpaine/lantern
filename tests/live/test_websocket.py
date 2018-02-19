@@ -1,3 +1,5 @@
+from mock import MagicMock, patch
+
 
 class TestConfig:
     def setup(self):
@@ -19,6 +21,9 @@ class TestConfig:
         # teardown_class() after any methods in this class
 
     def test_grid(self):
-        import lantern as l
-        df = l.bar.sample()
-        l.grid(df, 'psp')
+        with patch('time.sleep') as m:
+            from lantern.live.sources.websocket import WebSocketSource
+            w = WebSocketSource('test')
+            w.ws.on_error('test', 'test')
+            w.ws.on_close('test')
+            w.ws.on_open('test')
