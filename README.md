@@ -1,17 +1,15 @@
 # Lantern
 An orchestration layer for plots and tables, dummy datasets, research, reports, and anything else a data scientist might need.
 
-[![Version](https://img.shields.io/badge/version-0.0.16-lightgrey.svg)](https://img.shields.io/badge/version-0.0.16-lightgrey.svg)
 [![Build Status](https://travis-ci.org/timkpaine/lantern.svg?branch=master)](https://travis-ci.org/timkpaine/lantern)
 [![GitHub issues](https://img.shields.io/github/issues/timkpaine/lantern.svg)]()
 [![Waffle.io](https://badge.waffle.io/timkpaine/lantern.svg?label=ready&title=Ready)](http://waffle.io/timkpaine/lantern)
 [![codecov](https://codecov.io/gh/timkpaine/lantern/branch/master/graph/badge.svg)](https://codecov.io/gh/timkpaine/lantern)
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/pylantern/Lobby)
 [![BCH compliance](https://bettercodehub.com/edge/badge/timkpaine/lantern?branch=master)](https://bettercodehub.com/)
-[![PyPI](https://img.shields.io/pypi/v/pylantern.svg)]()
-[![PyPI](https://img.shields.io/pypi/l/pylantern.svg)]()
+[![PyPI](https://img.shields.io/pypi/v/pylantern.svg)](https://pypi.python.org/pypi/pylantern)
+[![PyPI](https://img.shields.io/pypi/l/pylantern.svg)](https://pypi.python.org/pypi/pylantern)
 [![Docs](https://img.shields.io/readthedocs/pylantern.svg)](https://pylantern.readthedocs.io)
-[![Site](https://img.shields.io/badge/Site--grey.svg?colorB=FFFFFF)](http://paine.nyc/lantern)
 
 <!-- [![Beerpay](https://beerpay.io/timkpaine/lantern/badge.svg?style=flat)](https://beerpay.io/timkpaine/lantern) -->
 

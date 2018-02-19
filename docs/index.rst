@@ -7,7 +7,7 @@ lantern
 ===================================
 An orchestration layer for plots and tables, dummy datasets, research, reports, and anything else a data scientist might need.
 
-|version| |build-status| |issues| |waffle| |codecov| |gitter| |bch| |pypiv| |pypil| |docs| |site|
+|build-status| |issues| |waffle| |codecov| |gitter| |bch| |pypiv| |pypil| |docs|
 
 
 .. toctree::
@@ -22,11 +22,6 @@ An orchestration layer for plots and tables, dummy datasets, research, reports, 
    publish
    live
 
-
-.. |version| image:: https://img.shields.io/badge/version-0.0.16-lightgrey.svg
-    :alt: Version
-    :scale: 100%
-    :target: https://img.shields.io/badge/version-0.0.16-lightgrey.svg
 
 .. |build-status| image:: https://travis-ci.org/timkpaine/lantern.svg?branch=master
     :alt: Build Status
@@ -61,19 +56,14 @@ An orchestration layer for plots and tables, dummy datasets, research, reports, 
 .. |pypiv| image:: https://img.shields.io/pypi/v/pylantern.svg
     :alt: Version
     :scale: 100%
-    :target: https://img.shields.io/pypi/v/pylantern.svg
+    :target: https://pypi.python.org/pypi/pylantern
 
 .. |pypil| image:: https://img.shields.io/pypi/l/pylantern.svg
     :alt: License
     :scale: 100%
-    :target: https://img.shields.io/pypi/l/pylantern.svg
+    :target: https://pypi.python.org/pypi/pylantern
 
 .. |docs| image:: https://img.shields.io/readthedocs/pylantern.svg
     :alt: Docs
     :scale: 100%
-    :target: https://img.shields.io/readthedocs/pylantern.svg
-
-.. |site| image:: https://img.shields.io/badge/Site--grey.svg?colorB=FFFFFF
-    :alt: Site
-    :scale: 100%
-    :target: http://paine.nyc/lantern)
+    :target: http://pylantern.readthedocs.io/en/latest/
