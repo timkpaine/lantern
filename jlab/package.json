@@ -1,6 +1,6 @@
 {
   "name": "pylantern",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A JupyterLab extension.",
   "author": "Tim Paine",
   "main": "lib/index.js",
@@ -33,6 +33,6 @@
   "devDependencies": {
     "@types/core-js": "^0.9.44",
     "rimraf": "^2.6.1",
-    "typescript": "~2.4.0"
+    "typescript": "~2.6.2"
   }
 }
