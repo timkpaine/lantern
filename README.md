@@ -46,12 +46,12 @@ jupyter labextension install @jupyter-widgets/jupyterlab-manager
 jupyter labextension install @jupyterlab/plotly-extension
 jupyter labextension install jupyterlab_bokeh
 jupyter labextension install qgrid
+jupyter labextension install @jpmorganchase/perspective-jupyterlab
 ```
 
 The following are for work in-progress on master:
 
 ```
-jupyter labextension install @jpmorganchase/perspective-jupyterlab
 jupyter labextension install bqplot
 ```
 

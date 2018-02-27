@@ -1,6 +1,10 @@
 from IPython import get_ipython
 
 
+class LanternException(Exception):
+    pass
+
+
 def in_ipynb():
     ip = get_ipython()
     if ip:

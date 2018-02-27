@@ -1,6 +1,8 @@
 from .plot_matplotlib import MatplotlibPlot
 from .plot_cufflinks import CufflinksPlot
 from .plot_bokeh import BokehPlot
+from ..utils import LanternException
+
 
 _BACKENDS = ['cufflinks', 'plotly', 'bokeh', 'highcharts', 'matplotlib', 'seaborn']
 
@@ -39,6 +41,19 @@ def plot(data, kind='line', backend='matplotlib', theme=None, **kwargs):
         getattr(f, kind)(data, **kwargs)
         return f.show(**show_args)
     elif isinstance(kind, list):
-        pass
+        # TODO handle color, scatter, etc
+        if len(kind) != len(data.columns):
+            raise LanternException('Must specify type for each column')
+        for i, k in enumerate(kind):
+            getattr(f, k)(data[[data.columns[i]]], **kwargs)
+        return f.show(**show_args)
+
     elif isinstance(kind, dict):
-        pass
+        # TODO handle color, scatter, etc
+        if len(kind) != len(data.columns):
+            raise LanternException('Must specify type for each column')
+        for k, v in kind.items():
+            if k not in data.columns:
+                raise LanternException('Unrecognized column: %s' % str(k))
+            getattr(f, v)(data[[k]], **kwargs)
+        return f.show(**show_args)

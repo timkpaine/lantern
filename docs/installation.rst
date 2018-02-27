@@ -48,11 +48,11 @@ Lantern relies on a handful of JupyterLab extensions to operate:
     jupyter labextension install @jupyterlab/plotly-extension
     jupyter labextension install jupyterlab_bokeh
     jupyter labextension install qgrid
+    jupyter labextension install @jpmorganchase/perspective-jupyterlab
 
 
 The following are for work in-progress on master:
 
 .. code:: bash
 
-    jupyter labextension install @jpmorganchase/perspective-jupyterlab
     jupyter labextension install bqplot
