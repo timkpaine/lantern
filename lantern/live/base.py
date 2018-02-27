@@ -46,7 +46,7 @@ class Streaming(with_metaclass(ABCMeta)):
         getattr(self, '_qput')(data)
 
 
-def run(streamer=None):
+def run(streamer=None, sleep=1):
     global _LANTERN_LIVE_RANK
     q = Queue()
 
@@ -58,7 +58,7 @@ def run(streamer=None):
     sessionid = p.split(os.sep)[-1].replace('kernel-', '').replace('.json', '')
 
     # start comm sender thread
-    t1 = threading.Thread(target=runComm, args=(q, str(_LANTERN_LIVE_RANK)))
+    t1 = threading.Thread(target=runComm, args=(q, str(_LANTERN_LIVE_RANK), sleep))
     _LANTERN_LIVE_RANK += 1
     t1.start()
 

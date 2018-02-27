@@ -5,12 +5,13 @@ from ..utils import queue_get_all
 
 
 class CommHandler(object):
-    def __init__(self, q, channel):
+    def __init__(self, q, channel, sleep=1):
         self.closed = False
         self.q = q
         self.channel = channel
         self.target_name = 'lantern.live'
         self.opened = False
+        self.sleep = sleep
 
         def on_close(msg):
             self.opensed = False
@@ -25,7 +26,7 @@ class CommHandler(object):
     def run(self):
         # TODO wait until JS ready
         while not self.opened:
-            time.sleep(1)
+            time.sleep(self.sleep)
 
         while self.opened:
             # message = '[' + queue_get_all(self.q) + ']'
@@ -33,10 +34,10 @@ class CommHandler(object):
 
             if message != '[]' and message != '':
                 self.comm.send(data=message)
-            time.sleep(1)
+            time.sleep(self.sleep)
 
 
-def runComm(q, channel):
+def runComm(q, channel, sleep=1):
     # print('adding handler %s%s' % ('lantern.live/', channel))
-    comm = CommHandler(q, channel)
+    comm = CommHandler(q, channel, sleep)
     comm.run()
