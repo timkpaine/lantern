@@ -1,13 +1,16 @@
+import os
 import os.path
 from jinja2 import FileSystemLoader
 from notebook.utils import url_path_join
 from notebook.base.handlers import IPythonHandler, path_regex
+from ..utils import ENV_VARS
 
 
 class PublishHandler(IPythonHandler):
     '''Just a default handler'''
     def initialize(self, hosting):
         self.hosting = hosting
+        self.folder = os.environ.get(ENV_VARS['publish'], '')
 
     def post(self, path):
         name = path.rsplit('/', 1)[-1]
@@ -16,15 +19,18 @@ class PublishHandler(IPythonHandler):
 
     def get(self, path):
         name = path.rsplit('/', 1)[-1]
+
+        template = 'publish.html' if not self.folder else os.path.basename(self.folder)
+
         if name not in self.hosting:
             self.write('Notebook not currently being published')
         else:
             to_render = str(self.hosting[name])
             to_render = to_render.replace('\\n', '')
-            self.write(self.render_template('publish.html', notebook=to_render, notebook_name=name))
+            self.write(self.render_template(template, notebook=to_render, notebook_name=name))
 
     def get_template(self, name):
-        t = os.path.join(os.path.dirname(__file__), 'templates')
+        t = os.path.join(os.path.dirname(__file__), 'templates') if not self.folder else os.path.dirname(self.folder)
         return FileSystemLoader(t).load(self.settings['jinja2_env'], name)
 
 
