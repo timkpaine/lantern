@@ -10,7 +10,6 @@ from .plotutils import get_color
 
 if in_ipynb():
     output_notebook()
-_BF = None
 
 
 class BokehPlot(BasePlot):
