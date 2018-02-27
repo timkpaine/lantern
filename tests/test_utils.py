@@ -31,14 +31,14 @@ class TestConfig:
         with patch('lantern.utils.get_ipython') as m:
             m.return_value = MagicMock()
             from lantern.utils import in_ipynb
-            m.return_value.config = {'IPKernelApp': {'parent_appname': False}}
+            m.return_value.config = {'IPKernelApp': False}
             assert in_ipynb() == False
 
     def test_ip3(self):
 
         with patch('lantern.utils.get_ipython') as m:
             m.return_value = MagicMock()
-            m.return_value.config = {'IPKernelApp': {'parent_appname': True}}
+            m.return_value.config = {'IPKernelApp': True}
 
             from lantern.utils import in_ipynb
             assert in_ipynb() == True
