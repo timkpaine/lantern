@@ -11,16 +11,14 @@ _LANTERN_LIVE_RANK = 0
 
 
 class LanternLive(object):
-    def __init__(self, queue, path, live_thread=None):
+    def __init__(self, queue, path, live_thread=None, qput=None):
         self._path = path
         self._queue = queue
         self._thread = live_thread
 
         # if not a Streaming
         if not self._thread:
-            def on_data(data):
-                self._queue.put(data)
-            self.on_data = on_data
+            self.on_data = qput
 
     def load(self, data):
         self._queue.put(data)
@@ -63,14 +61,38 @@ def run(streamer=None, sleep=1):
     t1.start()
 
     # start streamer thread
-    if isinstance(streamer, Streaming):
-        # if implements the streaming API
-        streamer._qput = qput
-        t2 = threading.Thread(target=streamer.run)
-        t2.start()
-    else:
-        # else you want a callback
-        t2 = None
+    streamer._qput = qput
+    t2 = threading.Thread(target=streamer.run)
+    t2.start()
 
-    ll = LanternLive(q, 'comm://' + sessionid + '/' + 'lantern.live/' + str(_LANTERN_LIVE_RANK-1), t2)
+    ll = LanternLive(q, 'comm://' + sessionid + '/' + 'lantern.live/' + str(_LANTERN_LIVE_RANK-1), t2, qput)
     return ll
+
+
+def pipeline(foos, foo_callbacks, foo_args=None, foo_kwargs=None, sleep=1):
+    foo_args = foo_args or []
+    foo_kwargs = foo_kwargs or []
+
+    global _LANTERN_LIVE_RANK
+    q = Queue()
+
+    def qput(message):
+        q.put(message)
+
+    # TODO add secret
+    p = os.path.abspath(get_ipython().kernel.session.config['IPKernelApp']['connection_file'])
+    sessionid = p.split(os.sep)[-1].replace('kernel-', '').replace('.json', '')
+
+    # start comm sender thread
+    t1 = threading.Thread(target=runComm, args=(q, str(_LANTERN_LIVE_RANK), sleep))
+    _LANTERN_LIVE_RANK += 1
+    t1.start()
+
+    # start streamer thread
+
+    ll = LanternLive(q, 'comm://' + sessionid + '/' + 'lantern.live/' + str(_LANTERN_LIVE_RANK-1), None, qput)
+    return ll
+
+
+
+

@@ -1,7 +1,6 @@
-import logging
 import time
 from IPython import get_ipython
-from ..utils import queue_get_all
+from ..utils import queue_get_all, messages_to_json
 
 
 class CommHandler(object):
@@ -29,11 +28,10 @@ class CommHandler(object):
             time.sleep(self.sleep)
 
         while self.opened:
-            # message = '[' + queue_get_all(self.q) + ']'
-            message = queue_get_all(self.q)
-
-            if message != '[]' and message != '':
-                self.comm.send(data=message)
+            messages = queue_get_all(self.q)
+            if messages:
+                print(messages_to_json(messages))
+                self.comm.send(data=messages_to_json(messages))
             time.sleep(self.sleep)
 
 
