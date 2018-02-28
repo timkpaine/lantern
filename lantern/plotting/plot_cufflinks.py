@@ -7,7 +7,7 @@ from ..utils import in_ipynb
 
 
 if in_ipynb():
-    cf.go_offline()
+    # cf.go_offline()
     print('Cufflinks loaded')  # plotly grid message prints cufflinks
 
 # _HSPAN_NONE = {'x0': 0, 'x1': 0, 'color': 'rgba(30,30,30,0.0)', 'fill': False, 'opacity': 1.0}

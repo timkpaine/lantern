@@ -4,7 +4,6 @@ import plotly.figure_factory as ff
 
 
 if in_ipynb():
-    init_notebook_mode(connected=True)
     print('Plot.ly loaded')  # cufflinks plot message prints cufflinks
 
 
