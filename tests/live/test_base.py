@@ -23,8 +23,7 @@ class TestConfig:
     def test_ll(self):
         from lantern.live import LanternLive
         live = LanternLive(MagicMock(), 'test', MagicMock())
-        str(live)
-        live.path()
+        assert live.path() == 'test'
 
     def test_ll2(self):
         with patch('lantern.live.base.get_ipython') as m:
@@ -34,4 +33,14 @@ class TestConfig:
             m.return_value.kernel.session.config = {'IPKernelApp': {'connection_file': '/'}}
 
             from lantern.live import run
-            run()
+            run(MagicMock())
+
+    def test_ll3(self):
+        with patch('lantern.live.base.get_ipython') as m:
+            m.return_value = MagicMock()
+            m.return_value.kernel = MagicMock()
+            m.return_value.kernel.session = MagicMock()
+            m.return_value.kernel.session.config = {'IPKernelApp': {'connection_file': '/'}}
+
+            from lantern.live import pipeline
+            pipeline(MagicMock(), [], [])

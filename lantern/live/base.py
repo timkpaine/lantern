@@ -44,7 +44,7 @@ class Streaming(with_metaclass(ABCMeta)):
         getattr(self, '_qput')(data)
 
 
-def run(streamer=None, sleep=1):
+def run(streamer, sleep=1):
     global _LANTERN_LIVE_RANK
     q = Queue()
 
@@ -92,7 +92,3 @@ def pipeline(foos, foo_callbacks, foo_args=None, foo_kwargs=None, sleep=1):
 
     ll = LanternLive(q, 'comm://' + sessionid + '/' + 'lantern.live/' + str(_LANTERN_LIVE_RANK-1), None, qput)
     return ll
-
-
-
-

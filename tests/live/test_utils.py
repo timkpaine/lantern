@@ -23,4 +23,10 @@ class TestConfig:
         from lantern.live.utils import queue_get_all
         q = queue.Queue()
         q.put('test')
-        assert queue_get_all(q) == '[test]'
+        assert queue_get_all(q) == ["test"]
+
+    def test_messages_to_json(self):
+        from lantern.live.utils import messages_to_json
+        print(messages_to_json(['test']))
+        assert messages_to_json(['test']) == '[test]'
+        assert messages_to_json([{'test': 1}]) == '[{"test":1}]'
