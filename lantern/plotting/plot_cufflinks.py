@@ -7,7 +7,6 @@ from ..utils import in_ipynb
 
 
 if in_ipynb():
-    init_notebook_mode(connected=True)
     cf.go_offline()
     print('Cufflinks loaded')  # plotly grid message prints cufflinks
 
