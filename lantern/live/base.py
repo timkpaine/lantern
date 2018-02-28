@@ -1,11 +1,9 @@
-import os
-import os.path
 import threading
-from IPython import get_ipython
+from copy import deepcopy
 from abc import abstractmethod, ABCMeta
-from .hosts.comm import runComm
-from queue import Queue
 from future.utils import with_metaclass
+from .hosts.comm import runComm
+from .utils import _q_me, _get_session, _start_sender_thread
 
 _LANTERN_LIVE_RANK = 0
 
@@ -15,6 +13,7 @@ class LanternLive(object):
         self._path = path
         self._queue = queue
         self._thread = live_thread
+        self._pipeline = None
 
         # if not a Streaming
         if not self._thread:
@@ -25,6 +24,12 @@ class LanternLive(object):
 
     def path(self):
         return self._path
+
+    def _setBaseFoo(self, l):
+        self._pipeline = l
+
+    def pipeline(self):
+        return self._pipeline()
 
     def __repr__(self):
         return self._path
@@ -46,19 +51,14 @@ class Streaming(with_metaclass(ABCMeta)):
 
 def run(streamer, sleep=1):
     global _LANTERN_LIVE_RANK
-    q = Queue()
 
-    def qput(message):
-        q.put(message)
+    q, qput = _q_me()
 
     # TODO add secret
-    p = os.path.abspath(get_ipython().kernel.session.config['IPKernelApp']['connection_file'])
-    sessionid = p.split(os.sep)[-1].replace('kernel-', '').replace('.json', '')
+    sessionid = _get_session()
 
     # start comm sender thread
-    t1 = threading.Thread(target=runComm, args=(q, str(_LANTERN_LIVE_RANK), sleep))
-    _LANTERN_LIVE_RANK += 1
-    t1.start()
+    _LANTERN_LIVE_RANK += _start_sender_thread(runComm, q, _LANTERN_LIVE_RANK, sleep)
 
     # start streamer thread
     streamer._qput = qput
@@ -69,26 +69,45 @@ def run(streamer, sleep=1):
     return ll
 
 
-def pipeline(foos, foo_callbacks, foo_args=None, foo_kwargs=None, sleep=1):
-    foo_args = foo_args or []
+def makeFunc(f, *args, **kwargs):
+    return lambda: f(*args, **kwargs)
+
+
+def pipeline(foos, foo_callbacks, foo_kwargs=None, sleep=1):
+    global _LANTERN_LIVE_RANK
+
     foo_kwargs = foo_kwargs or []
 
-    global _LANTERN_LIVE_RANK
-    q = Queue()
-
-    def qput(message):
-        q.put(message)
+    q, qput = _q_me()
 
     # TODO add secret
-    p = os.path.abspath(get_ipython().kernel.session.config['IPKernelApp']['connection_file'])
-    sessionid = p.split(os.sep)[-1].replace('kernel-', '').replace('.json', '')
+    sessionid = _get_session()
 
     # start comm sender thread
-    t1 = threading.Thread(target=runComm, args=(q, str(_LANTERN_LIVE_RANK), sleep))
-    _LANTERN_LIVE_RANK += 1
-    t1.start()
-
-    # start streamer thread
+    _LANTERN_LIVE_RANK += _start_sender_thread(runComm, q, _LANTERN_LIVE_RANK, sleep)
 
     ll = LanternLive(q, 'comm://' + sessionid + '/' + 'lantern.live/' + str(_LANTERN_LIVE_RANK-1), None, qput)
+
+    # organize args for functional pipeline
+    assembled = []
+    for i, foo in enumerate(foos):
+        cb = foo_callbacks[i] if i < len(foo_callbacks) else 'on_data'
+        kwargs = foo_kwargs[i] if i < len(foo_kwargs) else {}
+        assembled.append((foo, cb, kwargs))
+
+    # assemble pipeline
+    assembled.reverse()
+    lambdas = [ll.on_data]
+    for i, a in enumerate(assembled):
+        foo, cb, kwargs = a
+        kwargs[cb] = lambdas[i]
+
+        if i != len(assembled)-1:
+            lambdas.append(lambda d, kw=kwargs, f=foo: f(d, **kw))
+            lambdas[-1].__name__ = 'lambda-%d' % i
+        else:
+            lambdas.append(lambda kw=kwargs, f=foo: f(**kw))
+            lambdas[-1].__name__ = 'lambda-%d' % i
+
+    ll._setBaseFoo(lambdas[-1])
     return ll

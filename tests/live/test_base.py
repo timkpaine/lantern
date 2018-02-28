@@ -26,7 +26,7 @@ class TestConfig:
         assert live.path() == 'test'
 
     def test_ll2(self):
-        with patch('lantern.live.base.get_ipython') as m:
+        with patch('lantern.live.utils.get_ipython') as m:
             m.return_value = MagicMock()
             m.return_value.kernel = MagicMock()
             m.return_value.kernel.session = MagicMock()
@@ -36,7 +36,7 @@ class TestConfig:
             run(MagicMock())
 
     def test_ll3(self):
-        with patch('lantern.live.base.get_ipython') as m:
+        with patch('lantern.live.utils.get_ipython') as m:
             m.return_value = MagicMock()
             m.return_value.kernel = MagicMock()
             m.return_value.kernel.session = MagicMock()

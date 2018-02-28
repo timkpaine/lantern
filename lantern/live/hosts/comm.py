@@ -30,7 +30,6 @@ class CommHandler(object):
         while self.opened:
             messages = queue_get_all(self.q)
             if messages:
-                print(messages_to_json(messages))
                 self.comm.send(data=messages_to_json(messages))
             time.sleep(self.sleep)
 
