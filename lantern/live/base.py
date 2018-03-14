@@ -69,10 +69,6 @@ def run(streamer, sleep=1):
     return ll
 
 
-def makeFunc(f, *args, **kwargs):
-    return lambda: f(*args, **kwargs)
-
-
 def pipeline(foos, foo_callbacks, foo_kwargs=None, sleep=1):
     global _LANTERN_LIVE_RANK
 
@@ -109,5 +105,10 @@ def pipeline(foos, foo_callbacks, foo_kwargs=None, sleep=1):
             lambdas.append(lambda kw=kwargs, f=foo: f(**kw))
             lambdas[-1].__name__ = 'lambda-%d' % i
 
+    # TODO run on thread?
     ll._setBaseFoo(lambdas[-1])
+
+    t = threading.Thread(target=ll.pipeline)
+    t.start()
+
     return ll
