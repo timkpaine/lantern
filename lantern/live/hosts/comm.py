@@ -17,9 +17,11 @@ class CommHandler(object):
         self.replay_log = []
 
         def on_close(msg):
-            self.opensed = False
+            self.opened = False
+            print('comm closed')
 
         def handle_open(comm, msg):
+            print('comm open')
             self.opened = True
             comm.on_close = on_close
             self.comm = comm
