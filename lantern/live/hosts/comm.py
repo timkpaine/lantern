@@ -4,13 +4,17 @@ from ..utils import queue_get_all, messages_to_json
 
 
 class CommHandler(object):
-    def __init__(self, q, channel, sleep=1):
+    def __init__(self, q, channel, sleep=1, replay=True, replay_count=1000):
         self.closed = False
         self.q = q
         self.channel = channel
         self.target_name = 'lantern.live'
         self.opened = False
         self.sleep = sleep
+
+        self.replay = replay
+        self.replay_count = replay_count
+        self.replay_log = []
 
         def on_close(msg):
             self.opensed = False
@@ -30,6 +34,10 @@ class CommHandler(object):
         while self.opened:
             messages = queue_get_all(self.q)
             if messages:
+                # if self.replay:
+                #     # TODO only the first `self.replay_count`
+                #     self.replay_log.extend(messages)
+
                 self.comm.send(data=messages_to_json(messages))
             time.sleep(self.sleep)
 
