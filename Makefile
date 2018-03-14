@@ -38,6 +38,7 @@ preinstall:  ## install dependencies
 postinstall:  ## install other requisite labextensions
 	jupyter labextension install @jupyter-widgets/jupyterlab-manager
 	jupyter labextension install @jupyterlab/plotly-extension
+	jupyter labextension install @jpmorganchase/perspective-jupyterlab
 	jupyter labextension install jupyterlab_bokeh
 	jupyter labextension install bqplot
 	jupyter labextension install qgrid@1.0.0-beta.10
