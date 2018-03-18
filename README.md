@@ -13,6 +13,10 @@ An orchestration layer for plots and tables, dummy datasets, research, reports, 
 
 <!-- [![Beerpay](https://beerpay.io/timkpaine/lantern/badge.svg?style=flat)](https://beerpay.io/timkpaine/lantern) -->
 
+
+![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/img/demo.gif)
+
+
 ## Install
 To install the base package from pip:
 
