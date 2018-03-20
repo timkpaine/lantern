@@ -172,19 +172,21 @@ function activate(app: JupyterLab,  mainMenu: IMainMenu, palette: ICommandPalett
   });
 
   let menu = new Menu({ commands });
+  menu.title.label = 'Export Notebook As (no code)...';
+
   let menu2 = new Menu({ commands });
-  let menu3 = new Menu({ commands });
+  menu2.title.label = 'Publish Notebook';
 
-  menu.title.label = 'Lantern';
-  menu2.title.label = 'Export to ...';
-  menu3.title.label = 'Publish';
 
-  menu2.addItem({command: export_pdf});
-  menu2.addItem({command: export_html});
-  menu3.addItem({command: publish});
-  menu.addItem({type: 'submenu', submenu:menu2});
-  menu.addItem({type: 'submenu', submenu:menu3});
-  mainMenu.addMenu(menu);
+  menu.addItem({command: export_pdf});
+  menu.addItem({command: export_html});
+  menu2.addItem({command: publish});
+
+  if (mainMenu) {
+    mainMenu.fileMenu.addGroup([{ type:'submenu', submenu: menu }, { type:'submenu', submenu: menu2 }], 10);
+  }
+
+
   // Add the command to the palette.
   palette.addItem({command: export_pdf, category: 'Lantern'});
   palette.addItem({command: export_html, category: 'Lantern'});
