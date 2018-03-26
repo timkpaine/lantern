@@ -7,8 +7,8 @@ An orchestration layer for plots and tables, dummy datasets, research, reports, 
 [![codecov](https://codecov.io/gh/timkpaine/lantern/branch/master/graph/badge.svg)](https://codecov.io/gh/timkpaine/lantern)
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/pylantern/Lobby)
 [![BCH compliance](https://bettercodehub.com/edge/badge/timkpaine/lantern?branch=master)](https://bettercodehub.com/)
-[![PyPI](https://img.shields.io/pypi/v/pylantern.svg)](https://pypi.python.org/pypi/pylantern)
 [![PyPI](https://img.shields.io/pypi/l/pylantern.svg)](https://pypi.python.org/pypi/pylantern)
+[![PyPI](https://img.shields.io/pypi/v/pylantern.svg)](https://pypi.python.org/pypi/pylantern)
 [![npm](https://img.shields.io/npm/v/npm.svg)](https://www.npmjs.com/package/pylantern)
 [![Docs](https://img.shields.io/readthedocs/pylantern.svg)](https://pylantern.readthedocs.io)
 
