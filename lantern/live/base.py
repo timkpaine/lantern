@@ -58,7 +58,7 @@ def run(streamer, sleep=1):
     sessionid = _get_session()
 
     # start comm sender thread
-    _LANTERN_LIVE_RANK += _start_sender_thread(runComm, q, _LANTERN_LIVE_RANK, sleep)
+    _LANTERN_LIVE_RANK = _start_sender_thread(runComm, q, _LANTERN_LIVE_RANK, sleep)
 
     # start streamer thread
     streamer._qput = qput
@@ -80,7 +80,7 @@ def pipeline(foos, foo_callbacks, foo_kwargs=None, sleep=1):
     sessionid = _get_session()
 
     # start comm sender thread
-    _LANTERN_LIVE_RANK += _start_sender_thread(runComm, q, _LANTERN_LIVE_RANK, sleep)
+    _LANTERN_LIVE_RANK = _start_sender_thread(runComm, q, _LANTERN_LIVE_RANK, sleep)
 
     ll = LanternLive(q, 'comm://' + sessionid + '/' + 'lantern.live/' + str(_LANTERN_LIVE_RANK-1), None, qput)
 
