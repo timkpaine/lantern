@@ -41,7 +41,7 @@ postinstall:  ## install other requisite labextensions
 	jupyter labextension install @jpmorganchase/perspective-jupyterlab
 	jupyter labextension install jupyterlab_bokeh
 	jupyter labextension install bqplot
-	jupyter labextension install qgrid@1.0.0-beta.10
+	jupyter labextension install qgrid
 
 docs:  ## make documentation
 	make -C ./docs html
