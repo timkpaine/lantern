@@ -10,6 +10,7 @@ plotly
 qgrid==1.0.1b0
 seaborn
 scipy
+six
 sklearn
 websocket-client
 ujson

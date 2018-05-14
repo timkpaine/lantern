@@ -1,3 +1,4 @@
+from six import iteritems
 from .plot_matplotlib import MatplotlibPlot
 from .plot_cufflinks import CufflinksPlot
 from .plot_bokeh import BokehPlot
@@ -52,7 +53,7 @@ def plot(data, kind='line', backend='matplotlib', theme=None, **kwargs):
         # TODO handle color, scatter, etc
         if len(kind) != len(data.columns):
             raise LanternException('Must specify type for each column')
-        for k, v in kind.items():
+        for k, v in iteritems(kind):
             if k not in data.columns:
                 raise LanternException('Unrecognized column: %s' % str(k))
             getattr(f, v)(data[[k]], **kwargs)
