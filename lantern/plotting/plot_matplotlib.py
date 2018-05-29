@@ -27,6 +27,9 @@ class MatplotlibPlot(BasePlot):
         self._ax.get_xaxis().set_label_position("bottom")
         self._ax.autoscale(True)
 
+        # store data for legend
+        self._legend = []
+
         # require all data to be present before plotting
         self._bars = []
         self._hists = []
@@ -81,6 +84,7 @@ class MatplotlibPlot(BasePlot):
         # autoscale
         ax.autoscale(True)
         self._axes.append(ax)
+        return ax
 
     def show(self, title='', xlabel='', ylabel='', xaxis=True, yaxis=True, xticks=True, yticks=True, legend=True, grid=True, **kwargs):
         # require all data to be present before plotting
@@ -109,7 +113,6 @@ class MatplotlibPlot(BasePlot):
                 ax.autoscale_view()
 
             else:
-                print(ax)
                 self._figure.delaxes(ax)
                 to_delete.append(ax)
         for ax in to_delete:
@@ -155,7 +158,10 @@ class MatplotlibPlot(BasePlot):
     def area(self, data, color=None, y_axis='left', stacked=False, **kwargs):
         ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
         for i, col in enumerate(data):
-            data[col].plot(kind='area', ax=ax, color=get_color(i, col, color), stacked=stacked, **kwargs)
+            color = get_color(i, col, color)
+            x = ax.plot(data.index, data[col], color=color, **kwargs)
+            ax.fill_between(data.index, data[col], alpha=.7, color=color)
+            self._legend.append((col, x[0]))
 
     def bar(self, data, color=None, y_axis='left', stacked=False, **kwargs):
         for i, col in enumerate(data):
@@ -169,18 +175,35 @@ class MatplotlibPlot(BasePlot):
         y_axises = []
         stackedes = []
         kwargses = []
+
+        left_count = 1
+        right_count = 2
+
+        # ax = self._newAx(x=False, y=False, y_side='left', color=color)
+        ax = self._newAx(x=False, y=False, y_side='left')
+
+        # ax2 = self._newAx(x=False, y=True, y_side='right', color=color)
+
         for d in self._bars:
             data.append(d[0])
             colors.append(d[1])
             y_axises.append(d[2])
             stackedes.append(d[3])
             kwargses.append(d[4])
-        df = data[0]
-        df = df.join(data[1:])
-        y_axis = 'left'
-        color = colors
-        ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
-        df.plot(kind='bar', ax=ax, color=colors, stacked=stackedes[-1], **kwargses[-1])
+            for col in d[0].columns:
+                if (d[2] is None or d[2] == 'left') and not d[3]:
+                    left_count += 1
+                elif d[2] == 'right' and not d[3]:
+                    right_count += 1
+
+        left_width = 1/left_count
+        left_count2 = 0
+
+        for d in self._bars:
+            for col in d[0].columns:
+                x = ax.bar(d[0].index+left_count2*((d[0].index[1]-d[0].index[0])/left_count), d[0][col], width=left_width, color=d[1], **d[4])
+                self._legend.append((col, x))
+                left_count2 += 1
 
     def _hist(self):
         if not self._hists:
@@ -210,7 +233,8 @@ class MatplotlibPlot(BasePlot):
     def line(self, data, color=None, y_axis='left', **kwargs):
         ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
         for i, col in enumerate(data):
-            data[col].plot(ax=ax, color=get_color(i, col, color), **kwargs)
+            x = ax.plot(data.index, data[col], color=get_color(i, col, color), **kwargs)
+            self._legend.append((col, x[0]))
 
     def scatter(self, data, color=None, x=None, y=None,  y_axis='left', **kwargs):
         for i, col in enumerate(data):
@@ -224,4 +248,5 @@ class MatplotlibPlot(BasePlot):
     def step(self, data, color=None, y_axis='left', **kwargs):
         ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
         for i, col in enumerate(data):
-            data[col].plot(ax=ax, drawstyle='steps', color=get_color(i, col, color), **kwargs)
+            x = ax.plot(data.index, data[col], drawstyle='steps', color=get_color(i, col, color), **kwargs)
+            self._legend.append((col, x[0]))
