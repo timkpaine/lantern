@@ -1,13 +1,12 @@
 import cufflinks as cf
 import plotly.graph_objs as go
-from plotly.offline import init_notebook_mode, iplot
+from plotly.offline import iplot
 from .plotobj import BasePlot
 from .plotutils import get_color
 from ..utils import in_ipynb
 
 
 if in_ipynb():
-    # cf.go_offline()
     print('Cufflinks loaded')  # plotly grid message prints cufflinks
 
 # _HSPAN_NONE = {'x0': 0, 'x1': 0, 'color': 'rgba(30,30,30,0.0)', 'fill': False, 'opacity': 1.0}
@@ -31,11 +30,13 @@ class CufflinksPlot(BasePlot):
                 # if y.get(trace.name, 'left') == 'right':
                 #     trace.yaxis = 'y2'
                 tdata.append(trace)
+
             if 'barmode' in figure.layout:
                 other_args['barmode'] = figure.layout['barmode']
 
         if title:
             other_args['title'] = title
+
         if ylabel:
             other_args['yaxis'] = dict(
                 title=ylabel,

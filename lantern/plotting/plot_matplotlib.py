@@ -71,6 +71,9 @@ class MatplotlibPlot(BasePlot):
         if isinstance(color, list):
             # Take just the first color
             color = color[0]
+        elif color is None:
+            # reset to black if no color
+            color = 'black'
 
         ax.yaxis.label.set_color(color)
         ax.tick_params(axis='y', colors=color)
@@ -135,6 +138,7 @@ class MatplotlibPlot(BasePlot):
         if not yticks:
             for ax in self._axes:
                 ax.yaxis.set_ticks([])
+
         if not xticks:
             # FIXME this doesnt work
             for ax in self._axes:
@@ -150,7 +154,8 @@ class MatplotlibPlot(BasePlot):
 
     def area(self, data, color=None, y_axis='left', stacked=False, **kwargs):
         ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
-        data.plot(kind='area', ax=ax, stacked=stacked, **kwargs)
+        for i, col in enumerate(data):
+            data[col].plot(kind='area', ax=ax, color=get_color(i, col, color), stacked=stacked, **kwargs)
 
     def bar(self, data, color=None, y_axis='left', stacked=False, **kwargs):
         for i, col in enumerate(data):
@@ -175,7 +180,7 @@ class MatplotlibPlot(BasePlot):
         y_axis = 'left'
         color = colors
         ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
-        df.plot(kind='bar', ax=ax, stacked=stackedes[-1], **kwargses[-1])
+        df.plot(kind='bar', ax=ax, color=colors, stacked=stackedes[-1], **kwargses[-1])
 
     def _hist(self):
         if not self._hists:
@@ -196,7 +201,7 @@ class MatplotlibPlot(BasePlot):
         y_axis = 'left'
         color = colors
         ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
-        df.plot(kind='hist', alpha=.5, ax=ax, stacked=stackedes[-1], **kwargses[-1])
+        df.plot(kind='hist', alpha=.5, ax=ax, color=colors, stacked=stackedes[-1], **kwargses[-1])
 
     def hist(self, data, color=None, y_axis='left', stacked=False, **kwargs):
         for i, col in enumerate(data):
@@ -204,7 +209,8 @@ class MatplotlibPlot(BasePlot):
 
     def line(self, data, color=None, y_axis='left', **kwargs):
         ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
-        data.plot(ax=ax, **kwargs)
+        for i, col in enumerate(data):
+            data[col].plot(ax=ax, color=get_color(i, col, color), **kwargs)
 
     def scatter(self, data, color=None, x=None, y=None,  y_axis='left', **kwargs):
         for i, col in enumerate(data):
@@ -217,4 +223,5 @@ class MatplotlibPlot(BasePlot):
 
     def step(self, data, color=None, y_axis='left', **kwargs):
         ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
-        data.plot(ax=ax, drawstyle='steps', **kwargs)
+        for i, col in enumerate(data):
+            data[col].plot(ax=ax, drawstyle='steps', color=get_color(i, col, color), **kwargs)
