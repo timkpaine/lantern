@@ -1,9 +1,10 @@
 from .grid_plotly import plotly_grid
 from .grid_qgrid import qgrid_grid
 from .grid_psp import psp_grid
+from .grid_phosphor import phosphor_grid
 
 
-_BACKENDS = ['plotly', 'qgrid', 'psp']
+_BACKENDS = ['plotly', 'qgrid', 'psp', 'phosphor']
 
 
 def _backend_to_grid_foo(backend, theme=None):
@@ -13,6 +14,8 @@ def _backend_to_grid_foo(backend, theme=None):
         return qgrid_grid
     if backend == 'psp':
         return psp_grid
+    if backend == 'phosphor':
+        return phosphor_grid
 
 
 def grid(data, backend='psp', **kwargs):

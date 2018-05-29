@@ -13,3 +13,11 @@ def in_ipynb():
             return True
         return False
     return False
+
+
+def download(df):
+    from IPython.display import HTML
+    import base64
+    csv = base64.b64encode(df.reset_index().to_csv().encode()).decode()
+    html = '<a download="download.csv" href="data:text/csv;base64,{payload}" target="_blank">Download</a>'.format(payload=csv)
+    return HTML(html)

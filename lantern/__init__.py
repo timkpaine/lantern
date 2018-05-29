@@ -2,6 +2,7 @@ from .plotting import plot, figure
 from .data import *
 from .grids import grid
 from .live import run, pipeline, LanternLive, Streaming, WebSocketSource, RandomSource, RandomSource2
+from .utils import download
 
 
 __all__ = ['plot', 'figure', 'grids', 'data', 'extensions']

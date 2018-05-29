@@ -126,7 +126,7 @@ class MatplotlibPlot(BasePlot):
             labels += label
 
         if legend:
-            self._axes[-1].legend(lines, labels, loc='center left', bbox_to_anchor=(1 + .05*min(len(self._axes_by_side['right']), 1), 0.5), fancybox=True)
+            self._axes[-1].legend(lines, labels, loc='center left', bbox_to_anchor=(1 + .05*(min(len(self._axes_by_side['right']), 1)+1), 0.5), fancybox=True)
 
         if xlabel:
             self._axes[-1].set_xlabel(xlabel)
@@ -161,7 +161,7 @@ class MatplotlibPlot(BasePlot):
             color = get_color(i, col, color)
             x = ax.plot(data.index, data[col], color=color, **kwargs)
             ax.fill_between(data.index, data[col], alpha=.7, color=color)
-            self._legend.append((col, x[0]))
+            self._legend.append((col, x[0], y_axis))
 
     def bar(self, data, color=None, y_axis='left', stacked=False, **kwargs):
         for i, col in enumerate(data):
@@ -177,12 +177,11 @@ class MatplotlibPlot(BasePlot):
         kwargses = []
 
         left_count = 1
-        right_count = 2
+        right_count = 1
 
         # ax = self._newAx(x=False, y=False, y_side='left', color=color)
         ax = self._newAx(x=False, y=False, y_side='left')
-
-        # ax2 = self._newAx(x=False, y=True, y_side='right', color=color)
+        ax2 = self._newAx(x=False, y=True, y_side='right')
 
         for d in self._bars:
             data.append(d[0])
@@ -196,14 +195,19 @@ class MatplotlibPlot(BasePlot):
                 elif d[2] == 'right' and not d[3]:
                     right_count += 1
 
-        left_width = 1/left_count
-        left_count2 = 0
+        width = 1/(left_count+right_count)
+        count = 0
 
         for d in self._bars:
             for col in d[0].columns:
-                x = ax.bar(d[0].index+left_count2*((d[0].index[1]-d[0].index[0])/left_count), d[0][col], width=left_width, color=d[1], **d[4])
-                self._legend.append((col, x))
-                left_count2 += 1
+                if d[2] == 'right':
+                    x = ax2.bar(d[0].index+count*((d[0].index[1]-d[0].index[0])/(left_count+right_count)), d[0][col], width=width, color=d[1], **d[4])
+                    self._legend.append((col, x, d[2]))
+                    count += 1
+                else:
+                    x = ax.bar(d[0].index+count*((d[0].index[1]-d[0].index[0])/(left_count+right_count)), d[0][col], width=width, color=d[1], **d[4])
+                    self._legend.append((col, x, d[2]))
+                    count += 1
 
     def _hist(self):
         if not self._hists:
@@ -234,7 +238,7 @@ class MatplotlibPlot(BasePlot):
         ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
         for i, col in enumerate(data):
             x = ax.plot(data.index, data[col], color=get_color(i, col, color), **kwargs)
-            self._legend.append((col, x[0]))
+            self._legend.append((col, x[0], y_axis))
 
     def scatter(self, data, color=None, x=None, y=None,  y_axis='left', **kwargs):
         for i, col in enumerate(data):
@@ -249,4 +253,4 @@ class MatplotlibPlot(BasePlot):
         ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
         for i, col in enumerate(data):
             x = ax.plot(data.index, data[col], drawstyle='steps', color=get_color(i, col, color), **kwargs)
-            self._legend.append((col, x[0]))
+            self._legend.append((col, x[0], y_axis))
