@@ -23,6 +23,14 @@ class BasePlot(with_metaclass(ABCMeta)):
         pass
 
     @abstractmethod
+    def hline(self, y, color=None, **kwargs):
+        pass
+
+    @abstractmethod
+    def hspan(self, yhigh, ylow=0, color=None, **kwargs):
+        pass
+
+    @abstractmethod
     def line(self, data, color=None, y_axis='left', **kwargs):
         pass
 
@@ -32,4 +40,12 @@ class BasePlot(with_metaclass(ABCMeta)):
 
     @abstractmethod
     def step(self, data, color=None, y_axis='left', **kwargs):
+        pass
+
+    @abstractmethod
+    def vline(self, x, color=None, **kwargs):
+        pass
+
+    @abstractmethod
+    def vspan(self, xhigh, xlow=0, color=None, **kwargs):
         pass

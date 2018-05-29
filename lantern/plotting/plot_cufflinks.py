@@ -18,81 +18,101 @@ class CufflinksPlot(BasePlot):
     def __init__(self, theme=None):
         self.figures = []
         self.bars = []
+        self.hlines = []
+        self.vlines = []
+        self.hspans = []
+        self.vspans = []
 
     def show(self, title='', xlabel='', ylabel='', xaxis=True, yaxis=True, xticks=True, yticks=True, legend=True, grid=True, **kwargs):
         # get before wrapper strips
-        other_args = {}
-
         tdata = []
+        ldata = {}
 
-        for figure in self.figures:
+        for col, figure, axis in self.figures:
             for trace in figure.data:
-                # if y.get(trace.name, 'left') == 'right':
-                #     trace.yaxis = 'y2'
+                if axis == 'right':
+                    trace['yaxis'] = 'y2'
+                    trace['xaxis'] = 'x1'
+                else:
+                    trace['yaxis'] = 'y1'
+                    trace['xaxis'] = 'x1'
                 tdata.append(trace)
 
-            if 'barmode' in figure.layout:
-                other_args['barmode'] = figure.layout['barmode']
+            if axis == 'right':
+                ldata['yaxis2'] = dict(
+                        side='right',
+                        anchor='x1',
+                        overlaying='y1'
+                    )
+            else:
+                ldata['yaxis1'] = dict(
+                        side='left',
+                        anchor='x1',
+                        overlaying='y1'
+                    )
+
+            # if 'barmode' in figure.layout:
+            #     other_args['barmode'] = figure.layout['barmode']
 
         if title:
-            other_args['title'] = title
+            ldata['title'] = title
 
         if ylabel:
-            other_args['yaxis'] = dict(
-                title=ylabel,
-                titlefont=dict(
-                    family='Courier New, monospace',
-                    size=18,
-                    color='#7f7f7f',
-                ),
-                showgrid=grid,
-                showline=yaxis,
-                showticklabels=yticks,
-            )
+            for k in ldata:
+                if 'yaxis' in k:
+                    ldata[k] = dict(
+                        title=ylabel,
+                        titlefont=dict(
+                            family='Courier New, monospace',
+                            size=18,
+                            color='#7f7f7f',
+                        ),
+                        showgrid=grid,
+                        showline=yaxis,
+                        showticklabels=yticks,
+                    )
 
         if xlabel:
-            other_args['xaxis'] = dict(
-                title=xlabel,
-                titlefont=dict(
-                    family='Courier New, monospace',
-                    size=18,
-                    color='#7f7f7f',
-                ),
-                showgrid=grid,
-                showline=xaxis,
-                showticklabels=xticks,
-            )
+            for k in ldata:
+                if 'xaxis' in k:
+                    ldata['xaxis'] = dict(
+                        title=xlabel,
+                        titlefont=dict(
+                            family='Courier New, monospace',
+                            size=18,
+                            color='#7f7f7f',
+                        ),
+                        showgrid=grid,
+                        showline=xaxis,
+                        showticklabels=xticks,
+                    )
 
-        other_args['showlegend'] = legend
-
-        # if 'right' in y.values():
-        #     other_args['yaxis2'] = dict(
-        #                            anchor='x',
-        #                            overlaying='y',
-        #                            side='right'
-        #                            )
-
-        fig = go.Figure(data=tdata, layout=other_args)
+        ldata['showlegend'] = legend
+        fig = go.Figure(data=tdata, layout=ldata)
+        print(ldata)
+        # fig = go.Figure(data=tdata, layout=other_args)
         return iplot(fig)
 
     def area(self, data, color=None, y_axis='left', stacked=False, **kwargs):
         for i, col in enumerate(data):
             c = get_color(i, col, color)
-            self.figures.append(data[[col]].iplot(fill=True,
-                                asFigure=True,
-                                filename='cufflinks/filled-area',
-                                color=c,
-                                **kwargs))
+            fig = data[[col]].iplot(fill=True,
+                                    asFigure=True,
+                                    filename='cufflinks/filled-area',
+                                    color=c,
+                                    **kwargs)
+            self.figures.append((col, fig, y_axis))
 
     def bar(self, data, color=None, y_axis='left', stacked=False, **kwargs):
         for i, col in enumerate(data):
             c = get_color(i, col, color)
-            self.figures.append(data[[col]].iplot(kind='bar',
-                                asFigure=True,
-                                bargap=.1,
-                                color=c,
-                                filename='cufflinks/categorical-bar-chart',
-                                **kwargs))
+            fig = data[[col]].iplot(kind='bar',
+                                    asFigure=True,
+                                    bargap=.1,
+                                    color=c,
+                                    filename='cufflinks/categorical-bar-chart',
+                                    **kwargs)
+            self.figures.append((col, fig, y_axis))
 
     def hist(self, data, color=None, y_axis='left', stacked=False, **kwargs):
         for i, col in enumerate(data):
@@ -103,22 +123,30 @@ class CufflinksPlot(BasePlot):
                 histfunc ('count' | 'sum' | 'avg' | 'min' | 'max')
             '''
 
-            self.figures.append(data[[col]].iplot(kind='histogram',
-                                asFigure=True,
-                                bargap=.1,
-                                color=c,
-                                barmode='stack' if stacked else 'overlay',
-                                filename='cufflinks/multiple-histograms',
-                                **kwargs))
+            fig = data[[col]].iplot(kind='histogram',
+                                    asFigure=True,
+                                    bargap=.1,
+                                    color=c,
+                                    barmode='stack' if stacked else 'overlay',
+                                    filename='cufflinks/multiple-histograms',
+                                    **kwargs)
+            self.figures.append((col, fig, y_axis))
+
+    def hline(self, y, color=None, **kwargs):
+        self.hlines.append((y, color))
+
+    def hspan(self, yhigh, ylow=0, color=None, **kwargs):
+        self.hspans.append((yhigh, ylow, color))
 
     def line(self, data, color=None, y_axis='left', **kwargs):
         for i, col in enumerate(data):
             c = get_color(i, col, color)
-            self.figures.append(data[[col]].iplot(kind='scatter',
-                                asFigure=True,
-                                filename='cufflinks/cf-simple-line',
-                                color=c,
-                                **kwargs))
+            fig = data[[col]].iplot(kind='scatter',
+                                    asFigure=True,
+                                    filename='cufflinks/cf-simple-line',
+                                    color=c,
+                                    **kwargs)
+            self.figures.append((col, fig, y_axis))
 
     def scatter(self, data, color=None, x=None, y=None,  y_axis='left', **kwargs):
         # Scatter all
@@ -128,20 +156,29 @@ class CufflinksPlot(BasePlot):
             x = data.columns[0]
             y = data.columns[i]
             c = get_color(i, col, color)
-            self.figures.append(go.Figure(data=[go.Scatter(
-                x=data[x],
-                y=data[y],
-                mode='markers',
-                marker={'color': c},
-                name='%s vs %s' % (x, y),
-                **kwargs)]))
+            fig = go.Figure(data=[go.Scatter(
+                            x=data[x],
+                            y=data[y],
+                            mode='markers',
+                            marker={'color': c},
+                            name='%s vs %s' % (x, y),
+                            secondary_y=[col] if y_axis == 'right' else None,
+                            **kwargs)])
+            self.figures.append((col, fig, y_axis))
 
     def step(self, data, color=None, y_axis='left', **kwargs):
         for i, col in enumerate(data):
             c = get_color(i, col, color)
-            self.figures.append(data[[col]].iplot(kind='scatter',
-                                asFigure=True,
-                                interpolation='hv',
-                                filename='cufflinks/cf-simple-line',
-                                color=c,
-                                **kwargs))
+            fig = data[[col]].iplot(kind='scatter',
+                                    asFigure=True,
+                                    interpolation='hv',
+                                    filename='cufflinks/cf-simple-line',
+                                    color=c,
+                                    **kwargs)
+            self.figures.append((col, fig, y_axis))
+
+    def vline(self, x, color=None, **kwargs):
+        self.vlines.append((x, color))
+
+    def vspan(self, xhigh, xlow=0, color=None, **kwargs):
+        self.hspans.append((xhigh, xlow, color))

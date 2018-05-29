@@ -234,6 +234,16 @@ class MatplotlibPlot(BasePlot):
         for i, col in enumerate(data):
             self._hists.append((data[[col]], get_color(i, col, color), y_axis, stacked, kwargs))
 
+    def hline(self, y, color=None, **kwargs):
+        ax = self._newAx(x=False, y=False)
+        color = color or get_color(None, None, None)
+        ax.axhline(y, color=color, **kwargs)
+
+    def hspan(self, yhigh, ylow=0, color=None, **kwargs):
+        ax = self._newAx(x=False, y=False)
+        color = color or get_color(None, None, None)
+        ax.axhspan(ymin=ylow, ymax=yhigh, color=color, **kwargs)
+
     def line(self, data, color=None, y_axis='left', **kwargs):
         ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
         for i, col in enumerate(data):
@@ -254,3 +264,13 @@ class MatplotlibPlot(BasePlot):
         for i, col in enumerate(data):
             x = ax.plot(data.index, data[col], drawstyle='steps', color=get_color(i, col, color), **kwargs)
             self._legend.append((col, x[0], y_axis))
+
+    def vline(self, x, color=None, **kwargs):
+        ax = self._newAx(x=False, y=False)
+        color = color or get_color(None, None, None)
+        ax.axvline(x, color=color, **kwargs)
+
+    def vspan(self, xhigh, xlow=0, color=None, **kwargs):
+        ax = self._newAx(x=False, y=False)
+        color = color or get_color(None, None, None)
+        ax.axvspan(xmin=xlow, xmax=xhigh, color=color, **kwargs)

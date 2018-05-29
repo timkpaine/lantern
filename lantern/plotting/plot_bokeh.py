@@ -96,6 +96,12 @@ class BokehPlot(BasePlot):
     def hist(self, data, color=None, y_axis='left', stacked=False, **kwargs):
         raise NotImplementedError()
 
+    def hline(self, y, color=None, **kwargs):
+        raise NotImplementedError()
+
+    def hspan(self, yhigh, ylow=0, color=None, **kwargs):
+        raise NotImplementedError()
+
     # def candlestick(self, data):
     #    # https://bokeh.pydata.org/en/latest/docs/gallery/candlestick.html
 
@@ -122,4 +128,10 @@ class BokehPlot(BasePlot):
             self.legend.append(('%s vs %s' % (x, y), [l]))
 
     def step(self, data, color=None, y_axis='left', **kwargs):
+        raise NotImplementedError()
+
+    def vline(self, x, color=None, **kwargs):
+        raise NotImplementedError()
+
+    def vspan(self, xhigh, xlow=0, color=None, **kwargs):
         raise NotImplementedError()
