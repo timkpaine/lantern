@@ -27,7 +27,7 @@ class BasePlot(with_metaclass(ABCMeta)):
         pass
 
     @abstractmethod
-    def hspan(self, yhigh, ylow=0, color=None, **kwargs):
+    def hspan(self, yhigh, ylow, color=None, **kwargs):
         pass
 
     @abstractmethod
@@ -47,5 +47,5 @@ class BasePlot(with_metaclass(ABCMeta)):
         pass
 
     @abstractmethod
-    def vspan(self, xhigh, xlow=0, color=None, **kwargs):
+    def vspan(self, xhigh, xlow, color=None, **kwargs):
         pass

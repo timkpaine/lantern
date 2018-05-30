@@ -1,5 +1,6 @@
 import cufflinks as cf
 import plotly.graph_objs as go
+from matplotlib.colors import to_rgb
 from plotly.offline import iplot
 from .plotobj import BasePlot
 from .plotutils import get_color
@@ -54,6 +55,58 @@ class CufflinksPlot(BasePlot):
             # if 'barmode' in figure.layout:
             #     other_args['barmode'] = figure.layout['barmode']
 
+        ldata['shapes'] = []
+        for line in self.hlines:
+            ldata['shapes'].append({'x0': 0,
+                                    'x1': 1,
+                                    'y0': line[0],
+                                    'y1': line[0],
+                                    'line': {'color': line[1], 'width': 1, 'dash': 'solid'},
+                                    'xref': 'paper',
+                                    'yref': 'y',
+                                    'type': 'line'})
+        for line in self.vlines:
+            ldata['shapes'].append({'y0': 0,
+                                    'y1': 1,
+                                    'x0': line[0],
+                                    'x1': line[0],
+                                    'line': {'color': line[1], 'width': 1, 'dash': 'solid'},
+                                    'xref': 'x',
+                                    'yref': 'paper',
+                                    'type': 'line'})
+
+        for line in self.hspans:
+            col = to_rgb(line[2])
+            r = str(round(col[0]*255))
+            g = str(round(col[1]*255))
+            b = str(round(col[2]*255))
+
+            ldata['shapes'].append({'x0': 0,
+                                    'x1': 1,
+                                    'y0': line[1],
+                                    'y1': line[0],
+                                    'line': {'color': line[2], 'width': 1, 'dash': 'solid'},
+                                    'xref': 'paper',
+                                    'yref': 'y',
+                                    'type': 'rect',
+                                    'fillcolor': 'rgba(' + r + ',' + g + ',' + b + ',.5)'})
+
+        for line in self.vspans:
+            col = to_rgb(line[2])
+            r = str(round(col[0]*255))
+            g = str(round(col[1]*255))
+            b = str(round(col[2]*255))
+
+            ldata['shapes'].append({'y0': 0,
+                                    'y1': 1,
+                                    'x0': line[1],
+                                    'x1': line[0],
+                                    'line': {'color': line[2], 'width': 1, 'dash': 'solid'},
+                                    'xref': 'x',
+                                    'yref': 'paper',
+                                    'type': 'rect',
+                                    'fillcolor': 'rgba(' + r + ',' + g + ',' + b + ',.5)'})
+
         if title:
             ldata['title'] = title
 
@@ -89,7 +142,6 @@ class CufflinksPlot(BasePlot):
 
         ldata['showlegend'] = legend
         fig = go.Figure(data=tdata, layout=ldata)
-        print(ldata)
         # fig = go.Figure(data=tdata, layout=other_args)
         return iplot(fig)
 
@@ -135,7 +187,7 @@ class CufflinksPlot(BasePlot):
     def hline(self, y, color=None, **kwargs):
         self.hlines.append((y, color))
 
-    def hspan(self, yhigh, ylow=0, color=None, **kwargs):
+    def hspan(self, yhigh, ylow, color=None, **kwargs):
         self.hspans.append((yhigh, ylow, color))
 
     def line(self, data, color=None, y_axis='left', **kwargs):
@@ -180,5 +232,5 @@ class CufflinksPlot(BasePlot):
     def vline(self, x, color=None, **kwargs):
         self.vlines.append((x, color))
 
-    def vspan(self, xhigh, xlow=0, color=None, **kwargs):
-        self.hspans.append((xhigh, xlow, color))
+    def vspan(self, xhigh, xlow, color=None, **kwargs):
+        self.vspans.append((xhigh, xlow, color))

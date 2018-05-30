@@ -239,7 +239,7 @@ class MatplotlibPlot(BasePlot):
         color = color or get_color(None, None, None)
         ax.axhline(y, color=color, **kwargs)
 
-    def hspan(self, yhigh, ylow=0, color=None, **kwargs):
+    def hspan(self, yhigh, ylow, color=None, **kwargs):
         ax = self._newAx(x=False, y=False)
         color = color or get_color(None, None, None)
         ax.axhspan(ymin=ylow, ymax=yhigh, color=color, **kwargs)
@@ -270,7 +270,7 @@ class MatplotlibPlot(BasePlot):
         color = color or get_color(None, None, None)
         ax.axvline(x, color=color, **kwargs)
 
-    def vspan(self, xhigh, xlow=0, color=None, **kwargs):
+    def vspan(self, xhigh, xlow, color=None, **kwargs):
         ax = self._newAx(x=False, y=False)
         color = color or get_color(None, None, None)
         ax.axvspan(xmin=xlow, xmax=xhigh, color=color, **kwargs)
