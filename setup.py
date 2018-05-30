@@ -16,7 +16,7 @@ setup(
     download_url='https://github.com/timkpaine/lantern/archive/v0.0.18.tar.gz',
     author='Tim Paine',
     author_email='timothy.k.paine@gmail.com',
-    license='LGPL',
+    license='GPLv3',
 
     classifiers=[
         'Development Status :: 3 - Alpha',
