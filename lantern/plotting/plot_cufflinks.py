@@ -214,7 +214,6 @@ class CufflinksPlot(BasePlot):
                             mode='markers',
                             marker={'color': c},
                             name='%s vs %s' % (x, y),
-                            secondary_y=[col] if y_axis == 'right' else None,
                             **kwargs)])
             self.figures.append((col, fig, y_axis))
 
