@@ -45,6 +45,7 @@ postinstall:  ## install other requisite labextensions
 
 docs:  ## make documentation
 	make -C ./docs html
+	open ./docs/_build/html/index.html
 
 dist:  ## dist to pypi
 	python3 setup.py sdist upload -r pypi
