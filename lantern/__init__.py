@@ -3,6 +3,7 @@ from .data import *
 from .grids import grid
 from .live import run, pipeline, LanternLive, Streaming, WebSocketSource, RandomSource, RandomSource2
 from .utils import download
+from .extensions import *
 
 
 __all__ = ['plot', 'figure', 'grids', 'data', 'extensions']

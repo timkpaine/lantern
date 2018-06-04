@@ -8,6 +8,7 @@ from ..utils import ENV_VARS
 
 _html_no_code_template = os.environ.get(ENV_VARS['export_html'], '') or os.path.join(os.path.dirname(__file__), 'templates', 'hide_code_cells_html.tpl')
 _pdf_no_code_template = os.environ.get(ENV_VARS['export_pdf'], '') or os.path.join(os.path.dirname(__file__), 'templates', 'hide_code_cells_pdf.tplx')
+_html_no_code_email_template = os.environ.get(ENV_VARS['export_html_email'], '') or os.path.join(os.path.dirname(__file__), 'templates', 'hide_code_cells_html_email.tpl')
 
 
 def export_pdf(nbpath, template=_pdf_no_code_template):
