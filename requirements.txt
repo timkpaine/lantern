@@ -1,4 +1,5 @@
 bokeh
+bs4
 -e git+git://github.com/timkpaine/cufflinks.git#egg=cufflinks
 future
 jupyterlab
