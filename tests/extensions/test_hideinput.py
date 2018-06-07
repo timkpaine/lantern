@@ -37,7 +37,7 @@ class TestConfig:
         load_jupyter_server_extension(MagicMock())
 
     def test_export(self):
-        with patch('nbconvert.nbconvertapp.NbConvertApp'):
+        with patch('lantern.extensions.hideinput.exporters.NbConvertApp'):
             from lantern.extensions.hideinput.exporters import export_pdf, export_html
             export_html(MagicMock())
             export_pdf(MagicMock())
