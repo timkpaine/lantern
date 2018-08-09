@@ -105,17 +105,18 @@ def email_notebook(notebook,
         foot.append(BeautifulSoup(footer or '', 'html.parser'))
 
     # attach main part
-    for img in imgs:
+    for i, img in enumerate(imgs):
         if not img.get('localdata'):
             continue
         # part = MIMEBase('application', 'octet-stream')
         # part.set_payload(base64.b64decode(img.get('localdata')))
-        part = MIMEImage(base64.b64decode(img.get('localdata')), 'png', name=img.get('cell_id'))
+        part = MIMEImage(base64.b64decode(img.get('localdata')), 'png', name='Cell_%s_Img_%d.png' % (img.get('cell_id'), i))
         del img['localdata']
+        img['src'] = 'cid:Cell_%s_Img_%d.png' % (img.get('cell_id'), i)
         encoders.encode_base64(part)
         # part.add_header('Content-Disposition', 'attachment', filename=img.get('cell_id'))
-        part.add_header('Content-Disposition', 'inline', filename=img.get('cell_id'))
-        part.add_header('Content-ID', '<%s>' % img.get('cell_id'))
+        part.add_header('Content-Disposition', 'inline', filename='Cell_%s_Img_%d.png' % (img.get('cell_id'), i))
+        part.add_header('Content-ID', '<%s>' % 'Cell_%s_Img_%d.png' % (img.get('cell_id'), i))
         msg.attach(part)
 
     if postprocessor:
