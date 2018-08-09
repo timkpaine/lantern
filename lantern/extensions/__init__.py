@@ -1,4 +1,3 @@
-from .email import send_mail, email_notebook, pivot_pandas_to_excel
 from .nbconvert import run as run_nbconvert
 from .hideinput.exporters import *
 
