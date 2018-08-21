@@ -1,6 +1,6 @@
 from six import iteritems
 from .plot_matplotlib import MatplotlibPlot
-from .plot_cufflinks import PlotlyPlot
+from .plot_plotly import PlotlyPlot
 from .plot_bokeh import BokehPlot
 from ..utils import LanternException
 

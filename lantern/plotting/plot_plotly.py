@@ -1,7 +1,6 @@
-import cufflinks as cf
 import plotly.graph_objs as go
 from matplotlib.colors import to_rgb
-from plotly.offline import iplot
+from plotly.graph_objs import FigureWidget
 from .plotobj import BasePlot
 from .plotutils import get_color
 from ..utils import in_ipynb
@@ -30,7 +29,7 @@ class PlotlyPlot(BasePlot):
         ldata = {}
 
         for col, figure, axis in self.figures:
-            for trace in figure.data:
+            for trace in figure['data']:
                 if axis == 'right':
                     trace['yaxis'] = 'y2'
                     trace['xaxis'] = 'x1'
@@ -141,9 +140,7 @@ class PlotlyPlot(BasePlot):
                     )
 
         ldata['showlegend'] = legend
-        fig = go.Figure(data=tdata, layout=ldata)
-        # fig = go.Figure(data=tdata, layout=other_args)
-        return iplot(fig)
+        return FigureWidget(data=tdata, layout=ldata)
 
     def area(self, data, color=None, y_axis='left', stacked=False, **kwargs):
         for i, col in enumerate(data):

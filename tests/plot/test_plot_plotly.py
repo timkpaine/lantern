@@ -21,7 +21,7 @@ class TestConfig:
         # teardown_class() after any methods in this class
 
     def test_area(self):
-        with patch('lantern.plotting.plot_cufflinks.in_ipynb', create=True) as mock1:
+        with patch('lantern.plotting.plot_plotly.in_ipynb', create=True) as mock1:
             import cufflinks
             cufflinks.go_offline()
             import lantern as l
@@ -32,7 +32,7 @@ class TestConfig:
             p.show()
 
     def test_bar(self):
-        with patch('lantern.plotting.plot_cufflinks.in_ipynb', create=True) as mock1:
+        with patch('lantern.plotting.plot_plotly.in_ipynb', create=True) as mock1:
             import cufflinks
             cufflinks.go_offline()
             import lantern as l
@@ -43,7 +43,7 @@ class TestConfig:
             p.show()
 
     def test_line(self):
-        with patch('lantern.plotting.plot_cufflinks.in_ipynb', create=True) as mock1:
+        with patch('lantern.plotting.plot_plotly.in_ipynb', create=True) as mock1:
             import cufflinks
             cufflinks.go_offline()
             import lantern as l
@@ -54,7 +54,7 @@ class TestConfig:
             p.show()
 
     def test_scatter(self):
-        with patch('lantern.plotting.plot_cufflinks.in_ipynb', create=True) as mock1:
+        with patch('lantern.plotting.plot_plotly.in_ipynb', create=True) as mock1:
             import cufflinks
             cufflinks.go_offline()
             import lantern as l
@@ -65,7 +65,7 @@ class TestConfig:
             p.show()
 
     def test_step(self):
-        with patch('lantern.plotting.plot_cufflinks.in_ipynb', create=True) as mock1:
+        with patch('lantern.plotting.plot_plotly.in_ipynb', create=True) as mock1:
             import cufflinks
             cufflinks.go_offline()
             import lantern as l
