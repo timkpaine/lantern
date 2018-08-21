@@ -1,6 +1,6 @@
 from six import iteritems
 from .plot_matplotlib import MatplotlibPlot
-from .plot_cufflinks import CufflinksPlot
+from .plot_cufflinks import PlotlyPlot
 from .plot_bokeh import BokehPlot
 from ..utils import LanternException
 
@@ -12,7 +12,7 @@ def _backend_to_plot_obj(backend, theme=None):
     if backend == 'matplotlib' or backend == 'seaborn':
         return MatplotlibPlot(theme)
     if backend == 'cufflinks' or backend == 'plotly':
-        return CufflinksPlot(theme)
+        return PlotlyPlot(theme)
     if backend == 'bokeh':
         return BokehPlot(theme)
 
