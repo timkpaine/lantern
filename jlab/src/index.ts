@@ -131,7 +131,7 @@ function activate(app: JupyterLab,  mainMenu: IMainMenu, palette: ICommandPalett
   menu.addItem({command: export_html});
 
   if (mainMenu) {
-    mainMenu.fileMenu.addGroup([{ type:'submenu', submenu: menu }, { type:'submenu', submenu: menu2 }], 10);
+    mainMenu.fileMenu.addGroup([{ type:'submenu', submenu: menu }], 10);
   }
 
 
