@@ -60,7 +60,6 @@ function activate(app: JupyterLab,  mainMenu: IMainMenu, palette: ICommandPalett
   // Add an application command
   const export_pdf = 'lantern:export-pdf';
   const export_html = 'lantern:export-html';
-  const publish = 'lantern:publish';
 
   // const export_html = 'lantern:export-html';
   commands.addCommand(export_pdf, {
@@ -125,62 +124,11 @@ function activate(app: JupyterLab,  mainMenu: IMainMenu, palette: ICommandPalett
     isEnabled: hasWidget
   });
 
-  commands.addCommand(publish, {
-    label: 'Publish - no code',
-    execute: args => {
-      const current = getCurrent(args);
-
-      if (!current) {
-        return;
-      }
-
-      const notebookPath = URLExt.encodeParts(current.context.path);
-      const url = URLExt.join(
-        services.serverSettings.baseUrl,
-        'publish',
-        notebookPath
-      );
-      const { context } = current;
-
-
-      let request = new XMLHttpRequest();
-      request.onreadystatechange = () => {
-          if (request.readyState === 4){
-            const child = window.open('', '_blank');
-
-            if (context.model.dirty && !context.model.readOnly) {
-              return context.save().then(() => { child.location.assign(url); });
-            }
-
-            child.location.assign(url);
-          }
-      };
-      request.open('POST', url, true);
-      request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-      let outputs = current.content.node.querySelectorAll('.jp-OutputArea-output, .jp-RenderedMarkdown');
-      let to_send = '';
-      for(let i = 0; i<outputs.length; i++){
-        to_send += outputs[i].outerHTML;
-      }
-      request.send(to_send);
-      return new Promise<void>((resolve, reject) => {
-        resolve(undefined);
-      });
-    },
-    isEnabled: hasWidget
-  });
-
   let menu = new Menu({ commands });
   menu.title.label = 'Export Notebook As (no code)...';
 
-  let menu2 = new Menu({ commands });
-  menu2.title.label = 'Publish Notebook';
-
-
   menu.addItem({command: export_pdf});
   menu.addItem({command: export_html});
-  menu2.addItem({command: publish});
 
   if (mainMenu) {
     mainMenu.fileMenu.addGroup([{ type:'submenu', submenu: menu }, { type:'submenu', submenu: menu2 }], 10);
@@ -190,7 +138,6 @@ function activate(app: JupyterLab,  mainMenu: IMainMenu, palette: ICommandPalett
   // Add the command to the palette.
   palette.addItem({command: export_pdf, category: 'Lantern'});
   palette.addItem({command: export_html, category: 'Lantern'});
-  palette.addItem({command: publish, category: 'Lantern'});
 };
 
 
