@@ -9,11 +9,11 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='pylantern',
-    version='0.0.18',
+    version='0.0.19',
     description='Analytics library',
     long_description=long_description,
     url='https://github.com/timkpaine/lantern',
-    download_url='https://github.com/timkpaine/lantern/archive/v0.0.18.tar.gz',
+    download_url='https://github.com/timkpaine/lantern/archive/v0.0.19.tar.gz',
     author='Tim Paine',
     author_email='timothy.k.paine@gmail.com',
     license='Apache 2.0',

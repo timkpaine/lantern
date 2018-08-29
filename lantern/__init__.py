@@ -7,6 +7,7 @@ from .extensions import *
 
 
 __all__ = ['plot', 'figure', 'grids', 'data', 'extensions']
+__version__ = '0.0.19'
 
 
 def _jupyter_server_extension_paths():
