@@ -58,4 +58,4 @@ help:
 print-%:
 	@echo '$*=$($*)'
 
-.PHONY: clean build run test tests help annotate annotate_l docs
+.PHONY: clean build run test tests help annotate annotate_l docs dist
