@@ -30,4 +30,4 @@ def script_post_save(model, os_path, contents_manager, **kwargs):
     with io.open(script_fname, 'w', encoding='utf-8') as f:
         f.write(script)
 
-c.FileContentsManager.post_save_hook = script_post_save
+# c.FileContentsManager.post_save_hook = script_post_save
