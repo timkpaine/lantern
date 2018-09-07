@@ -13,4 +13,4 @@ def scrub_output_pre_save(model, **kwargs):
         cell['outputs'] = []
         cell['execution_count'] = None
 
-c.FileContentsManager.pre_save_hook = scrub_output_pre_save
+# c.FileContentsManager.pre_save_hook = scrub_output_pre_save
