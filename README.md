@@ -18,6 +18,8 @@ An orchestration layer for plots and tables, dummy datasets, research, reports, 
 ![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/img/demo.gif)
 
 
+## Note: LanternLive is moving to a new home
+
 ## Install
 To install the base package from pip:
 
