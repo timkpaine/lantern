@@ -24,7 +24,6 @@ An orchestration layer for plots and tables, dummy datasets, research, reports, 
    table
    export
    publish
-   live
 
 
 .. |build-status| image:: https://travis-ci.org/timkpaine/lantern.svg?branch=master
