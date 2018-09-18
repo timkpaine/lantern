@@ -1,5 +1,4 @@
 import plotly.graph_objs as go
-from pprint import pprint
 from matplotlib.colors import to_rgb
 from plotly.graph_objs import FigureWidget
 from .plotobj import BasePlot
@@ -29,26 +28,36 @@ class PlotlyPlot(BasePlot):
         tdata = []
         ldata = {}
 
-        for col, figure, axis in self.figures:
+        y2_count = sum([1 for (_, _, a, _) in self.figures if a == 'right'])
+
+        y2s = 2
+        y2p = .05/y2_count
+        y2_base = .95
+
+        for col, figure, axis, color in self.figures:
             for trace in figure['data']:
                 if axis == 'right':
-                    trace['yaxis'] = 'y2'
+                    trace['yaxis'] = 'y%d' % y2s
+                    trace['xaxis'] = 'x'
                 else:
                     trace['yaxis'] = 'y1'
+                    trace['xaxis'] = 'x'
                 tdata.append(trace)
 
             if axis == 'right':
-                ldata['yaxis2'] = dict(
+                ldata['yaxis%d' % y2s] = dict(
                         side='right',
-                        overlaying='y'
+                        overlaying='y',
+                        color=color,
+                        position=y2_base
                     )
+                y2s += 1
+                y2_base += y2p
             else:
                 ldata['yaxis1'] = dict(
                         side='left',
                     )
-
-            # if 'barmode' in figure.layout:
-            #     other_args['barmode'] = figure.layout['barmode']
+        ldata['xaxis'] = dict(domain=[0, 0.95])
 
         ldata['shapes'] = []
         for line in self.hlines:
@@ -136,8 +145,6 @@ class PlotlyPlot(BasePlot):
                     )
 
         ldata['showlegend'] = legend
-        pprint(tdata)
-        pprint(ldata)
         return FigureWidget(data=tdata, layout=ldata)
 
     def area(self, data, color=None, y_axis='left', stacked=False, **kwargs):
@@ -148,7 +155,7 @@ class PlotlyPlot(BasePlot):
                                     filename='cufflinks/filled-area',
                                     color=c,
                                     **kwargs)
-            self.figures.append((col, fig, y_axis))
+            self.figures.append((col, fig, y_axis, c))
 
     def bar(self, data, color=None, y_axis='left', stacked=False, **kwargs):
         for i, col in enumerate(data):
@@ -159,7 +166,7 @@ class PlotlyPlot(BasePlot):
                                     color=c,
                                     filename='cufflinks/categorical-bar-chart',
                                     **kwargs)
-            self.figures.append((col, fig, y_axis))
+            self.figures.append((col, fig, y_axis, c))
 
     def hist(self, data, color=None, y_axis='left', stacked=False, **kwargs):
         for i, col in enumerate(data):
@@ -177,7 +184,7 @@ class PlotlyPlot(BasePlot):
                                     barmode='stack' if stacked else 'overlay',
                                     filename='cufflinks/multiple-histograms',
                                     **kwargs)
-            self.figures.append((col, fig, y_axis))
+            self.figures.append((col, fig, y_axis, c))
 
     def hline(self, y, color=None, **kwargs):
         self.hlines.append((y, color))
@@ -193,7 +200,7 @@ class PlotlyPlot(BasePlot):
                                     filename='cufflinks/cf-simple-line',
                                     color=c,
                                     **kwargs)
-            self.figures.append((col, fig, y_axis))
+            self.figures.append((col, fig, y_axis, c))
 
     def scatter(self, data, color=None, x=None, y=None,  y_axis='left', **kwargs):
         # Scatter all
@@ -210,7 +217,7 @@ class PlotlyPlot(BasePlot):
                             marker={'color': c},
                             name='%s vs %s' % (x, y),
                             **kwargs)])
-            self.figures.append((col, fig, y_axis))
+            self.figures.append((col, fig, y_axis, c))
 
     def step(self, data, color=None, y_axis='left', **kwargs):
         for i, col in enumerate(data):
@@ -221,7 +228,7 @@ class PlotlyPlot(BasePlot):
                                     filename='cufflinks/cf-simple-line',
                                     color=c,
                                     **kwargs)
-            self.figures.append((col, fig, y_axis))
+            self.figures.append((col, fig, y_axis, c))
 
     def vline(self, x, color=None, **kwargs):
         self.vlines.append((x, color))
