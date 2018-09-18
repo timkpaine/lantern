@@ -15,13 +15,14 @@ if in_ipynb():
 
 
 class PlotlyPlot(BasePlot):
-    def __init__(self, theme=None):
+    def __init__(self, size=None, theme=None):
         self.figures = []
         self.bars = []
         self.hlines = []
         self.vlines = []
         self.hspans = []
         self.vspans = []
+        self.size = size or (800, 500)
 
     def show(self, title='', xlabel='', ylabel='', xaxis=True, yaxis=True, xticks=True, yticks=True, legend=True, grid=True, **kwargs):
         # get before wrapper strips
@@ -145,9 +146,12 @@ class PlotlyPlot(BasePlot):
                     )
 
         ldata['showlegend'] = legend
+        x_size = self.size[0] if self.size[0] > 100 else self.size[0]*100
+        y_size = self.size[1] if self.size[1] > 100 else self.size[1]*100
+        ldata['width'], ldata['height'] = x_size, y_size
         return FigureWidget(data=tdata, layout=ldata)
 
-    def area(self, data, color=None, y_axis='left', stacked=False, **kwargs):
+    def area(self, data, color=None, y_axis='left', stacked=False, subplot=False, **kwargs):
         for i, col in enumerate(data):
             c = get_color(i, col, color)
             fig = data[[col]].iplot(fill=True,
@@ -157,7 +161,7 @@ class PlotlyPlot(BasePlot):
                                     **kwargs)
             self.figures.append((col, fig, y_axis, c))
 
-    def bar(self, data, color=None, y_axis='left', stacked=False, **kwargs):
+    def bar(self, data, color=None, y_axis='left', stacked=False, subplot=False, **kwargs):
         for i, col in enumerate(data):
             c = get_color(i, col, color)
             fig = data[[col]].iplot(kind='bar',
@@ -168,7 +172,7 @@ class PlotlyPlot(BasePlot):
                                     **kwargs)
             self.figures.append((col, fig, y_axis, c))
 
-    def hist(self, data, color=None, y_axis='left', stacked=False, **kwargs):
+    def hist(self, data, color=None, y_axis='left', stacked=False, subplot=False, **kwargs):
         for i, col in enumerate(data):
             c = get_color(i, col, color)
             '''barmode (overlay | group | stack)
@@ -202,7 +206,7 @@ class PlotlyPlot(BasePlot):
                                     **kwargs)
             self.figures.append((col, fig, y_axis, c))
 
-    def scatter(self, data, color=None, x=None, y=None,  y_axis='left', **kwargs):
+    def scatter(self, data, color=None, x=None, y=None,  y_axis='left', subplot=False, **kwargs):
         # Scatter all
         for i, col in enumerate(data):
             if i == 0:
@@ -219,7 +223,7 @@ class PlotlyPlot(BasePlot):
                             **kwargs)])
             self.figures.append((col, fig, y_axis, c))
 
-    def step(self, data, color=None, y_axis='left', **kwargs):
+    def step(self, data, color=None, y_axis='left', subplot=False, **kwargs):
         for i, col in enumerate(data):
             c = get_color(i, col, color)
             fig = data[[col]].iplot(kind='scatter',

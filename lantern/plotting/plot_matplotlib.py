@@ -14,8 +14,9 @@ if in_ipynb():
 
 
 class MatplotlibPlot(BasePlot):
-    def __init__(self, theme=None):
-        self._figure, self._ax = plt.subplots(figsize=(12, 5))
+    def __init__(self, size=None, theme=None):
+        size = size or (12, 5)
+        self._figure, self._ax = plt.subplots(figsize=size)
         self._axes = [self._ax]
         self._axes_by_side = {'left': [],
                               'right': [],

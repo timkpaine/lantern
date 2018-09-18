@@ -13,10 +13,15 @@ if in_ipynb():
 
 
 class BokehPlot(BasePlot):
-    def __init__(self, theme):
+    def __init__(self, size=None, theme=None):
+        size = size or (800, 500)
+        self.width = size[0]
+        self.height = size[1]
         self.figure = figure(toolbar_location="below",
                              toolbar_sticky=False,
-                             x_axis_type='datetime')  # TODO remove
+                             x_axis_type='datetime',
+                             plot_width=self.width,
+                             plot_height=self.height)  # TODO remove
         self.legend = []
 
     def show(self, title='', xlabel='', ylabel='', xaxis=True, yaxis=True, xticks=True, yticks=True, legend=True, grid=True, **kwargs):
@@ -38,11 +43,14 @@ class BokehPlot(BasePlot):
         if title:
             self.figure.title.text = kwargs.get('title')
 
-        self.figure.legend.location = None
         if legend:
+            self.figure.legend.location = (self.width+10, self.height+10)
             legend = Legend(items=self.legend, location=(10, 100))
+            legend.items = self.legend
             legend.click_policy = "mute"
             self.figure.add_layout(legend, 'right')
+        else:
+            self.figure.legend.location = None
 
         if not grid:
             self.figure.xgrid.grid_line_color = None
