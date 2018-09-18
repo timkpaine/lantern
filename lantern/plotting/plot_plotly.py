@@ -1,4 +1,5 @@
 import plotly.graph_objs as go
+from pprint import pprint
 from matplotlib.colors import to_rgb
 from plotly.graph_objs import FigureWidget
 from .plotobj import BasePlot
@@ -32,23 +33,18 @@ class PlotlyPlot(BasePlot):
             for trace in figure['data']:
                 if axis == 'right':
                     trace['yaxis'] = 'y2'
-                    trace['xaxis'] = 'x1'
                 else:
                     trace['yaxis'] = 'y1'
-                    trace['xaxis'] = 'x1'
                 tdata.append(trace)
 
             if axis == 'right':
                 ldata['yaxis2'] = dict(
                         side='right',
-                        anchor='x1',
-                        overlaying='y1'
+                        overlaying='y'
                     )
             else:
                 ldata['yaxis1'] = dict(
                         side='left',
-                        anchor='x1',
-                        overlaying='y1'
                     )
 
             # if 'barmode' in figure.layout:
@@ -140,6 +136,8 @@ class PlotlyPlot(BasePlot):
                     )
 
         ldata['showlegend'] = legend
+        pprint(tdata)
+        pprint(ldata)
         return FigureWidget(data=tdata, layout=ldata)
 
     def area(self, data, color=None, y_axis='left', stacked=False, **kwargs):
