@@ -61,6 +61,7 @@ class MatplotlibPlot(BasePlot):
                        right=(y_side == 'right') and y,
                        labelbottom=False,
                        labeltop=False,
+                       colors=color,
                        labelleft=(y_side == 'left') and y,
                        labelright=(y_side == 'right') and y)
 
@@ -156,11 +157,11 @@ class MatplotlibPlot(BasePlot):
         plt.draw()
 
     def area(self, data, color=None, y_axis='left', stacked=False, **kwargs):
-        ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
         for i, col in enumerate(data):
-            color = get_color(i, col, color)
-            x = ax.plot(data.index, data[col], color=color, **kwargs)
-            ax.fill_between(data.index, data[col], alpha=.7, color=color)
+            _color = get_color(i, col, color)
+            ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=_color)
+            x = ax.plot(data.index, data[col], color=_color, **kwargs)
+            ax.fill_between(data.index, data[col], alpha=.7, color=_color)
             self._legend.append((col, x[0], y_axis))
 
     def bar(self, data, color=None, y_axis='left', stacked=False, **kwargs):
@@ -179,10 +180,6 @@ class MatplotlibPlot(BasePlot):
         left_count = 1
         right_count = 1
 
-        # ax = self._newAx(x=False, y=False, y_side='left', color=color)
-        ax = self._newAx(x=False, y=False, y_side='left')
-        ax2 = self._newAx(x=False, y=True, y_side='right')
-
         for d in self._bars:
             data.append(d[0])
             colors.append(d[1])
@@ -197,6 +194,9 @@ class MatplotlibPlot(BasePlot):
 
         width = 1/(left_count+right_count)
         count = 0
+
+        ax = self._newAx(x=False, y=False, y_side='left', color=colors)
+        ax2 = self._newAx(x=False, y=True, y_side='right', color=colors)
 
         for d in self._bars:
             for col in d[0].columns:
@@ -245,9 +245,10 @@ class MatplotlibPlot(BasePlot):
         ax.axhspan(ymin=ylow, ymax=yhigh, color=color, **kwargs)
 
     def line(self, data, color=None, y_axis='left', **kwargs):
-        ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
         for i, col in enumerate(data):
-            x = ax.plot(data.index, data[col], color=get_color(i, col, color), **kwargs)
+            _color = get_color(i, col, color)
+            ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=_color)
+            x = ax.plot(data.index, data[col], color=_color, **kwargs)
             self._legend.append((col, x[0], y_axis))
 
     def scatter(self, data, color=None, x=None, y=None,  y_axis='left', **kwargs):
@@ -260,17 +261,18 @@ class MatplotlibPlot(BasePlot):
             plt.plot(data[x], data[y], marker='.', linewidth=0, color=c, label='%s vs %s' % (x, y))
 
     def step(self, data, color=None, y_axis='left', **kwargs):
-        ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=color)
         for i, col in enumerate(data):
-            x = ax.plot(data.index, data[col], drawstyle='steps', color=get_color(i, col, color), **kwargs)
+            _color = get_color(i, col, color)
+            ax = self._newAx(x=False, y=(y_axis == 'right'), y_side=y_axis, color=_color)
+            x = ax.plot(data.index, data[col], drawstyle='steps', color=_color, **kwargs)
             self._legend.append((col, x[0], y_axis))
 
     def vline(self, x, color=None, **kwargs):
         ax = self._newAx(x=False, y=False)
-        color = color or get_color(None, None, None)
-        ax.axvline(x, color=color, **kwargs)
+        _color = color or get_color(None, None, None)
+        ax.axvline(x, color=_color, **kwargs)
 
     def vspan(self, xhigh, xlow, color=None, **kwargs):
         ax = self._newAx(x=False, y=False)
-        color = color or get_color(None, None, None)
-        ax.axvspan(xmin=xlow, xmax=xhigh, color=color, **kwargs)
+        _color = color or get_color(None, None, None)
+        ax.axvspan(xmin=xlow, xmax=xhigh, color=_color, **kwargs)
