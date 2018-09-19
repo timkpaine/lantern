@@ -18,7 +18,9 @@ An orchestration layer for plots and tables, dummy datasets, research, reports, 
 ![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/img/demo.gif)
 
 
-## Note: LanternLive is moving to a new home
+# Note: Lantern Live has moved to [tributary](https://github.com/timkpaine/tributary)
+# Note: Email reports have moved to [jupyterlab_email](https://github.com/timkpaine/https://github.com/timkpaine/jupyterlab_email)
+# Note: `Publish` is removed in favor of [Voila](https://github.com/QuantStack/voila)
 
 ## Install
 To install the base package from pip:
@@ -50,6 +52,7 @@ Lantern relies on JupyterLab extensions:
 
 ```
 jupyter labextension install @jupyter-widgets/jupyterlab-manager
+jupyter labextension install plotlywidget
 jupyter labextension install @jupyterlab/plotly-extension
 jupyter labextension install jupyterlab_bokeh
 jupyter labextension install qgrid

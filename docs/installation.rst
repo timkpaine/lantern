@@ -45,6 +45,7 @@ Lantern relies on a handful of JupyterLab extensions to operate:
 .. code:: bash
 
     jupyter labextension install @jupyter-widgets/jupyterlab-manager
+    jupyter labextension install plotlywidget
     jupyter labextension install @jupyterlab/plotly-extension
     jupyter labextension install jupyterlab_bokeh
     jupyter labextension install qgrid

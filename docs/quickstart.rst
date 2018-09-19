@@ -34,8 +34,7 @@ Lantern utilizes the following table libraries:
 
 Live Data
 ==========
-.. NOTE:: Lantern-live development is not yet public
-Lantern can help you consume, disect, produce, and publish live data and views. 
+.. WARNING:: This functionality is deprecated in favor of TimKPaine/tributary
 
 
 Export
@@ -45,10 +44,12 @@ JupyterLab uses `NBconvert <https://nbconvert.readthedocs.io/en/latest/>`_ provi
 - PDF with no code
 - HTML with no code
 
+.. WARNING:: Some functionality is deprecated in favor of TimKPaine/jupyterlab_email
 
 Publish
 ========
 Lantern provides a read-only view on your notebook, for quick-and-dirty web based reports. 
+.. WARNING:: This functionality is deprecated in favor of QuantStack/Voila
 
 
 Sample Datasets
