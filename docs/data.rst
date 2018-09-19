@@ -9,9 +9,13 @@ Lantern relies on Faker and Mimesis to generate fake data
 People
 -------
 Generate an individual (dict) or a dataframe of people
-.. code::python
+
+.. code:: python3
+
     lantern.person()
-.. code::bash
+
+.. code:: bash
+
     {'first_name': 'Francoise',
      'last_name': 'Houston',
      'name': 'Francoise Houston',
@@ -23,18 +27,21 @@ Generate an individual (dict) or a dataframe of people
      'title': 'PhD',
      'username': 'simoniac.2029',
      'university': 'Eastern Connecticut State University (ECSU)'}
-.. code::python
+
+.. code:: python3
+
     lantern.people()
 
 
 Companies
 ----------
 Generate an individual (dict) or a dataframe of companies
-.. code::python
+
+.. code:: python3
 
     lantern.company()
 
-.. code::bash
+.. code:: bash
 
     {'name': 'Gordon, Rodriguez and Salazar',
      'address': '351 Ralph Stream Apt. 203\nMargaretview, NE 00811-8677',
@@ -46,7 +53,7 @@ Generate an individual (dict) or a dataframe of companies
      'sector': 'Real Estate',
      'industry': 'Real Estate Management & Development'}
 
-.. code::python
+.. code:: python3
 
     lantern.companies()
 
@@ -54,7 +61,7 @@ Financial
 ----------
 Generate tickers and exchange codes, currencies, and trades (dataframe)
 
-.. code::python
+.. code:: python3
 
     lantern.ticker(country='us')
     lantern.currency()
@@ -65,7 +72,7 @@ Cufflinks Data
 ===========
 We wrap `cufflinks.datagen` and expose a variety of data types as dataframes
 
-.. code::python
+.. code:: python3
 
     lantern.area()
     lantern.bar()
@@ -87,7 +94,7 @@ Scikit-learn Data
 ===========
 We wrap `sklearn.datasets` and expose a variety of data types as either numpy arrays or dataframes
 
-.. code::python
+.. code:: python3
 
     lantern.regression()
     lantern.blobs()
