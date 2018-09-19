@@ -199,3 +199,34 @@ def trades(count=1000, interval='daily'):
         row['price'] = (random()-.5)*10 + row['last_price']
         acc.append(row)
     return pd.DataFrame(acc)
+
+
+def superstore(count=10000):
+    data = []
+    for id in range(count):
+        dat = {}
+        dat['Row ID'] = id
+        dat['Order ID'] = fake.ein()
+        dat['Order Date'] = fake.date_this_year()
+        dat['Ship Date'] = fake.date_between_dates(dat['Order Date']).strftime('%Y-%m-%d')
+        dat['Order Date'] = dat['Order Date'].strftime('%Y-%m-%d')
+        dat['Ship Mode'] = choice(['First Class', 'Standard Class', 'Second Class'])
+        dat['Ship Mode'] = choice(['First Class', 'Standard Class', 'Second Class'])
+        dat['Customer ID'] = fake.license_plate()
+        dat['Segment'] = choice(['A', 'B', 'C', 'D'])
+        dat['Country'] = fake.country_code()
+        dat['City'] = fake.city()
+        dat['State'] = fake.state()
+        dat['Postal Code'] = fake.zipcode()
+        dat['Region'] = choice(['Region %d' % i for i in range(5)])
+        dat['Product ID'] = fake.bban()
+        sector = choice(list(finance_enums.US_SECTORS))
+        industry = choice(list(finance_enums.US_SECTORS_MAP[sector]))
+        dat['Category'] = sector
+        dat['Sub-Category'] = industry
+        dat['Sales'] = randint(1, 100) * 100
+        dat['Quantity'] = randint(1, 100) * 10
+        dat['Discount'] = round(random() * 100, 2)
+        dat['Profit'] = round(random() * 1000, 2)
+        data.append(dat)
+    return pd.DataFrame(data)

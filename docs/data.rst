@@ -67,6 +67,15 @@ Generate tickers and exchange codes, currencies, and trades (dataframe)
     lantern.currency()
     lantern.trades()
 
+General Purpose
+----------
+Generate some good general purpose data, can use for a variety of charts, clustergrammable, etc
+
+.. code:: python3
+
+    lantern.superstore()
+
+
 
 Cufflinks Data
 ===========
