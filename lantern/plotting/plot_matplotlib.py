@@ -95,12 +95,6 @@ class MatplotlibPlot(BasePlot):
 
         lines = []
         labels = []
-        # plt.legend([])
-        # leg = set(ax.legend for ax in self._axes)
-
-        # FIXME these rescale the axis
-        # plt.axhline(0, color='black')
-        # plt.axvline(0, color='black')
 
         to_delete = []
         for ax in self._axes:
@@ -204,10 +198,12 @@ class MatplotlibPlot(BasePlot):
                 if d[2] == 'right':
                     x = ax2.bar(d[0].index+count*((d[0].index[1]-d[0].index[0])/(left_count+right_count)), d[0][col], width=width, color=d[1], **d[4])
                     self._legend.append((col, x, d[2]))
+                    x.set_label(col)
                     count += 1
                 else:
                     x = ax.bar(d[0].index+count*((d[0].index[1]-d[0].index[0])/(left_count+right_count)), d[0][col], width=width, color=d[1], **d[4])
                     self._legend.append((col, x, d[2]))
+                    x.set_label(col)
                     count += 1
 
     def _hist(self):

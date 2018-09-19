@@ -32,8 +32,8 @@ class PlotlyPlot(BasePlot):
         y2_count = sum([1 for (_, _, a, _) in self.figures if a == 'right'])
 
         y2s = 2
-        y2p = .05/y2_count
-        y2_base = .95
+        y2p = .05/y2_count if y2_count > 0 else 0
+        y2_base = .95 if y2_count > 0 else 1.0
 
         for col, figure, axis, color in self.figures:
             for trace in figure['data']:
