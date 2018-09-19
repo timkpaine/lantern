@@ -7,13 +7,16 @@ from ..utils import in_ipynb
 from .plotobj import BasePlot
 from .plotutils import get_color
 
-
-if in_ipynb():
-    output_notebook()
+_INITED = False
 
 
 class BokehPlot(BasePlot):
     def __init__(self, size=None, theme=None):
+        global _INITED
+        if not _INITED:
+            if in_ipynb():
+                output_notebook(hide_banner=True)
+
         size = size or (800, 500)
         self.width = size[0]
         self.height = size[1]

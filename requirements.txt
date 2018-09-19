@@ -1,9 +1,12 @@
 bokeh
 bs4
 cufflinks
+faker
+finance_enums
 future
 jupyterlab
 matplotlib
+mimesis
 numpy
 pandas
 perspective-python

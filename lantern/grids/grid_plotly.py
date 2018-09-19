@@ -1,4 +1,4 @@
-from plotly.offline import init_notebook_mode, iplot
+from plotly.offline import iplot
 import plotly.figure_factory as ff
 
 

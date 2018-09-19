@@ -14,8 +14,4 @@ def _jupyter_server_extension_paths():
         "name": "Lantern - HideInput",
         "module": "lantern.extensions.hideinput.extension",
 
-    }, {
-        "name": "Lantern - Publish",
-        "module": "lantern.extensions.publish.extension"
-    }
-    ]
+    }]

@@ -1,3 +1,4 @@
+import pandas as pd
 from sklearn.datasets import make_regression, \
                              make_blobs, \
                              make_classification, \
@@ -151,10 +152,8 @@ class Friedman3Args:
     random_state = None
 
 
-def getSKData(style='timeseries', n_samples=1, **kwargs):
-    if isinstance(style, str):
-        style = Style(style.lower())
-    if style == Style.REGRESSION:
+def getSKData(style='timeseries', as_dataframe=False, n_samples=10, **kwargs):
+    if style == 'regression':
         return make_regression(n_samples,
                                kwargs.get('n_features', RegressionArgs.n_features),
                                kwargs.get('n_informative', RegressionArgs.n_informative),
@@ -166,7 +165,7 @@ def getSKData(style='timeseries', n_samples=1, **kwargs):
                                kwargs.get('shuffle', RegressionArgs.shuffle),
                                kwargs.get('coef', RegressionArgs.coef),
                                kwargs.get('random_state', RegressionArgs.random_state))
-    elif style == Style.BLOBS:
+    elif style == 'blobs':
         return make_blobs(n_samples,
                           kwargs.get('n_features', BlobsArgs.n_features),
                           kwargs.get('centers', BlobsArgs.centers),
@@ -174,7 +173,7 @@ def getSKData(style='timeseries', n_samples=1, **kwargs):
                           kwargs.get('center_box', BlobsArgs.center_box),
                           kwargs.get('shuffle', BlobsArgs.shuffle),
                           kwargs.get('random_state', BlobsArgs.random_state))
-    elif style == Style.CLASSIFICATION:
+    elif style == 'classification':
         return make_classification(n_samples,
                                    kwargs.get('n_features', ClassificationArgs.n_features),
                                    kwargs.get('n_informative', ClassificationArgs.n_informative),
@@ -190,7 +189,7 @@ def getSKData(style='timeseries', n_samples=1, **kwargs):
                                    kwargs.get('scale', ClassificationArgs.scale),
                                    kwargs.get('shuffle', ClassificationArgs.shuffle),
                                    kwargs.get('random_state', ClassificationArgs.random_state))
-    elif style == Style.MULTILABEL:
+    elif style == 'multilabel':
         return make_multilabel_classification(n_samples,
                                               kwargs.get('n_features', MultilabelClassificationArgs.n_features),
                                               kwargs.get('n_classes', MultilabelClassificationArgs.n_classes),
@@ -201,7 +200,7 @@ def getSKData(style='timeseries', n_samples=1, **kwargs):
                                               kwargs.get('return_indicator', MultilabelClassificationArgs.return_indicator),
                                               kwargs.get('return_distributions', MultilabelClassificationArgs.return_distributions),
                                               kwargs.get('random_state', MultilabelClassificationArgs.random_state))
-    elif style == Style.GAUSSIAN:
+    elif style == 'gaussian':
         return make_gaussian_quantiles(n_samples=n_samples,
                                        n_features=kwargs.get('n_features', GaussianArgs.n_features),
                                        mean=kwargs.get('mean', GaussianArgs.mean),
@@ -209,33 +208,38 @@ def getSKData(style='timeseries', n_samples=1, **kwargs):
                                        n_classes=kwargs.get('n_classes', GaussianArgs.n_classes),
                                        shuffle=kwargs.get('shuffle', GaussianArgs.shuffle),
                                        random_state=kwargs.get('random_state', GaussianArgs.random_state))
-    elif style == Style.HASTIE:
+    elif style == 'hastie':
         return make_hastie_10_2(n_samples,
                                 random_state=kwargs.get('random_state', HastieArgs.random_state))
-    elif style == Style.CIRCLES:
+    elif style == 'circles':
         return make_circles(n_samples,
                             kwargs.get('shuffle', CirclesArgs.shuffle),
                             kwargs.get('noise', CirclesArgs.noise),
                             kwargs.get('random_state', CirclesArgs.random_state),
                             kwargs.get('factor', CirclesArgs.factor))
-    elif style == Style.MOONS:
+    elif style == 'moons':
         return make_moons(n_samples,
                           kwargs.get('shuffle', MoonsArgs.shuffle),
                           kwargs.get('noise', MoonsArgs.noise),
                           kwargs.get('random_state', MoonsArgs.random_state))
-    elif style == Style.BICLUSTERS:
-        return make_biclusters(kwargs.get('shape', BiclusterArgs.shape),
-                               kwargs.get('n_clusters', BiclusterArgs.n_clusters),
-                               kwargs.get('noise', BiclusterArgs.noise),
-                               kwargs.get('minval', BiclusterArgs.minval),
-                               kwargs.get('maxval', BiclusterArgs.maxval),
-                               kwargs.get('shuffle', BiclusterArgs.shuffle),
-                               kwargs.get('random_state', BiclusterArgs.random_state))
-    elif style == Style.SCURVE:
+    elif style == 'biclusters':
+        x = make_biclusters(kwargs.get('shape', BiclusterArgs.shape),
+                            kwargs.get('n_clusters', BiclusterArgs.n_clusters),
+                            kwargs.get('noise', BiclusterArgs.noise),
+                            kwargs.get('minval', BiclusterArgs.minval),
+                            kwargs.get('maxval', BiclusterArgs.maxval),
+                            kwargs.get('shuffle', BiclusterArgs.shuffle),
+                            kwargs.get('random_state', BiclusterArgs.random_state))
+        if as_dataframe:
+            return pd.concat([pd.DataFrame(x[0]), pd.DataFrame(x[1].T)], axis=1)
+        else:
+            return x
+
+    elif style == 'scurve':
         return make_s_curve(n_samples,
                             kwargs.get('noise', SCurveArgs.noise),
                             kwargs.get('random_state', SCurveArgs.random_state))
-    elif style == Style.CHECKER:
+    elif style == 'checker':
         return make_checkerboard(kwargs.get('shape', CheckerArgs.shape),
                                  kwargs.get('n_clusters', CheckerArgs.n_clusters),
                                  kwargs.get('noise', CheckerArgs.noise),
@@ -243,20 +247,16 @@ def getSKData(style='timeseries', n_samples=1, **kwargs):
                                  kwargs.get('maxval', CheckerArgs.maxval),
                                  kwargs.get('shuffle', CheckerArgs.shuffle),
                                  kwargs.get('random_state', CheckerArgs.random_state))
-    elif style == Style.FRIEDMAN:
+    elif style == 'friedman':
         return make_friedman1(n_samples,
                               kwargs.get('n_features', FriedmanArgs.n_features),
                               kwargs.get('noise', FriedmanArgs.noise),
                               kwargs.get('random_state', FriedmanArgs.random_state))
-    elif style == Style.FRIEDMAN2:
+    elif style == 'friedman2':
         return make_friedman2(n_samples,
                               kwargs.get('noise', Friedman2Args.noise),
                               kwargs.get('random_state', Friedman2Args.random_state))
-    elif style == Style.FRIEDMAN3:
+    elif style == 'friedman3':
         return make_friedman3(n_samples,
                               kwargs.get('noise', Friedman3Args.noise),
                               kwargs.get('random_state', Friedman3Args.random_state))
-
-
-def _as_dataframe(test_data):
-    return None

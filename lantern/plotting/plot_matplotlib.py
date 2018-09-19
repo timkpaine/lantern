@@ -3,18 +3,21 @@ from .plotobj import BasePlot
 from .plotutils import align_yaxis_np, get_color
 from ..utils import in_ipynb
 
-if in_ipynb():
-    print('Matplotlib loaded')
-    # auto-run the matplotlib inline magic
-    from IPython import get_ipython
-    ipython = get_ipython()
-    if ipython:
-        ipython.magic("matplotlib inline")
-        ipython.magic("config InlineBackend.figure_format = 'retina'")
+_INITED = False
 
 
 class MatplotlibPlot(BasePlot):
     def __init__(self, size=None, theme=None):
+        global _INITED
+        if not _INITED:
+            if in_ipynb():
+                from IPython import get_ipython
+                ipython = get_ipython()
+                if ipython:
+                    ipython.magic("matplotlib inline")
+                    ipython.magic("config InlineBackend.figure_format = 'retina'")
+            _INITED = True
+
         size = size or (12, 5)
         self._figure, self._ax = plt.subplots(figsize=size)
         self._axes = [self._ax]

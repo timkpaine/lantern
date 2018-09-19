@@ -20,6 +20,7 @@ An orchestration layer for plots and tables, dummy datasets, research, reports, 
 
    installation
    quickstart
+   data
    plot
    table
    export

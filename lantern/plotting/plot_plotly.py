@@ -3,15 +3,6 @@ from matplotlib.colors import to_rgb
 from plotly.graph_objs import FigureWidget
 from .plotobj import BasePlot
 from .plotutils import get_color
-from ..utils import in_ipynb
-
-
-if in_ipynb():
-    print('Plot.ly loaded')
-
-# _HSPAN_NONE = {'x0': 0, 'x1': 0, 'color': 'rgba(30,30,30,0.0)', 'fill': False, 'opacity': 1.0}
-# _VSPAN_NONE = {'y0': 0, 'y1': 0, 'color': 'rgba(30,30,30,0.0)', 'fill': False, 'opacity': 1.0}
-# vspan={'x0':'2015-02-15','x1':'2015-03-15','color':'rgba(30,30,30,0.3)','fill':True,'opacity':.4},
 
 
 class PlotlyPlot(BasePlot):
