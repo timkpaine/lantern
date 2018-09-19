@@ -1,6 +1,6 @@
 bokeh
 bs4
-cufflinks
+cufflinks>=3.0.0
 faker
 finance_enums
 future
