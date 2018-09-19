@@ -37,12 +37,4 @@ PDF No code
 
 HTML Email
 =============
-
-.. code:: python3
-
-    import lantern as l
-    l.email_notebook('sample.ipynb', 'theocean154@gmail.com', 'theocean154@gmail.com', 'test', postprocessor=l.pivot_pandas_to_excel)
-
-.. image:: ./img/export/email.png
-    :scale: 100%
-    :alt: email.png
+.. WARNING:: This functionality is deprecated in favor of TimKPaine/jupyterlab_email
