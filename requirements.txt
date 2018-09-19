@@ -1,6 +1,6 @@
 bokeh
 bs4
-cufflinks>=3.0.0
+cufflinks>=0.14.4
 faker
 finance_enums
 future
@@ -10,7 +10,7 @@ mimesis
 numpy
 pandas
 perspective-python
-plotly
+plotly>=3.0.0
 qgrid
 seaborn
 scipy
