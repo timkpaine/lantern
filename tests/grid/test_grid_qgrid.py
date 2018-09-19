@@ -20,5 +20,5 @@ class TestConfig:
 
     def test_grid(self):
         import lantern as l
-        df = l.bar.sample()
+        df = l.bar()
         l.grid(df, 'qgrid')

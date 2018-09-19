@@ -27,7 +27,7 @@ class TestConfig:
             import lantern as l
             mock1.return_value = True
             p = l.figure('cufflinks')
-            df = l.bar.sample()
+            df = l.bar()
             p.area(df)
             p.show()
 
@@ -38,7 +38,7 @@ class TestConfig:
             import lantern as l
             mock1.return_value = True
             p = l.figure('cufflinks')
-            df = l.bar.sample()
+            df = l.bar()
             p.bar(df)
             p.show()
 
@@ -49,7 +49,7 @@ class TestConfig:
             import lantern as l
             mock1.return_value = True
             p = l.figure('cufflinks')
-            df = l.bar.sample()
+            df = l.bar()
             p.line(df)
             p.show()
 
@@ -60,7 +60,7 @@ class TestConfig:
             import lantern as l
             mock1.return_value = True
             p = l.figure('cufflinks')
-            df = l.bar.sample()
+            df = l.bar()
             p.scatter(df)
             p.show()
 
@@ -71,6 +71,6 @@ class TestConfig:
             import lantern as l
             mock1.return_value = True
             p = l.figure('cufflinks')
-            df = l.bar.sample()
+            df = l.bar()
             p.step(df)
             p.show()

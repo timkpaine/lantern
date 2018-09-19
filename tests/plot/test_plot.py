@@ -27,19 +27,19 @@ class TestConfig:
         with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
             import lantern as l
             mock1.return_value = True
-            df = l.bar.sample()
+            df = l.bar()
             l.plot(df, 'line', 'matplotlib')
 
     def test_list(self):
         with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
             import lantern as l
             mock1.return_value = True
-            df = l.bar.sample()
+            df = l.bar()
             l.plot(df, ['line' for _ in df], 'matplotlib')
 
     def test_dict(self):
         with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
             import lantern as l
             mock1.return_value = True
-            df = l.bar.sample()
+            df = l.bar()
             l.plot(df, {c: 'line' for c in df.columns}, 'matplotlib')

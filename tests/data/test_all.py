@@ -20,80 +20,48 @@ class TestConfig:
 
     def test_area(self):
         import lantern as l
-        l.area.sample()
+        l.area()
 
     def test_bar(self):
         import lantern as l
-        l.bar.sample()
+        l.bar()
 
     def test_box(self):
         import lantern as l
-        l.box.sample()
+        l.box()
 
     def test_bubble(self):
         import lantern as l
-        l.bubble.sample()
-
-    def test_groupedbar(self):
-        import lantern as l
-        l.groupedbar.sample()
-
-    def test_groupedhist(self):
-        import lantern as l
-        l.groupedhist.sample()
-
-    def test_groupedscatter(self):
-        import lantern as l
-        l.groupedscatter.sample()
+        l.bubble()
 
     def test_heatmap(self):
         import lantern as l
-        l.heatmap.sample()
+        l.heatmap()
 
     def test_histogram(self):
         import lantern as l
-        l.histogram.sample()
-
-    def test_horizontalbar(self):
-        import lantern as l
-        l.horizontalbar.sample()
-
-    def test_horizontalstackedbar(self):
-        import lantern as l
-        l.horizontalstackedbar.sample()
+        l.histogram()
 
     def test_line(self):
         import lantern as l
-        l.line.sample()
+        l.line()
 
     def test_ohlc(self):
         import lantern as l
-        l.ohlc.sample()
+        l.ohlc()
 
     def test_ohlcv(self):
         import lantern as l
-        l.ohlcv.sample()
+        l.ohlcv()
 
     def test_pie(self):
         import lantern as l
-        l.pie.sample()
+        l.pie()
 
     def test_scatter(self):
         import lantern as l
-        l.scatter.sample()
-
-    def test_stackedarea(self):
-        import lantern as l
-        l.stackedarea.sample()
-
-    def test_stackedbar(self):
-        import lantern as l
-        l.stackedbar.sample()
-
-    def test_stackedhist(self):
-        import lantern as l
-        l.stackedhist.sample()
+        l.scatter()
 
     def test_timeseries(self):
         import lantern as l
-        l.timeseries.sample()
+        l.timeseries()
