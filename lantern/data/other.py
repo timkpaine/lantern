@@ -4,7 +4,7 @@ import string
 import mimesis
 import finance_enums
 from faker import Faker
-from datetime import date, timedelta
+from datetime import datetime, date, timedelta
 from random import seed, random, sample, randint, choice
 
 try:
@@ -45,7 +45,7 @@ def _genEquityTicker(country='any'):
         return choice(western)
 
 
-def getTicker(type='equity', country='any'):
+def ticker(type='equity', country='any'):
     return _genEquityTicker()
 
 
@@ -181,13 +181,21 @@ def companies(count=1000):
     return pd.DataFrame(acc)
 
 
-def ticker():
-    return _genAsciiTicker()
-
-
 def currency():
     return _currencycode()
 
 
-def trades():
-    pass
+def trades(count=1000, interval='daily'):
+    if interval not in ('daily', 'intraday'):
+        raise Exception('interval must be in ("daily", "intraday")')
+    comps = companies(100)
+
+    acc = []
+    for _ in range(count):
+        row = comps.sample().to_dict(orient='records')[-1]
+        row.pop('address')
+        row.pop('ceo')
+        row['volume'] = randint(1, 100) * 10
+        row['price'] = (random()-.5)*10 + row['last_price']
+        acc.append(row)
+    return pd.DataFrame(acc)

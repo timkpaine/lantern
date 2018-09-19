@@ -1,6 +1,6 @@
 from .data_cufflinks import getCFData
 from .data_sklearn import getSKData
-from .other import person, people, company, companies, ticker, currency
+from .other import person, people, company, companies, ticker, currency, trades
 
 # scikit learn
 regression = lambda **kwargs: getSKData('regression', **kwargs)
