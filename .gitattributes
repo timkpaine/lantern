@@ -1,3 +1,6 @@
 examples/* linguist-documentation
+experimental/* linguist-documentation
+experimental/beaker/* linguist-documentation
 docs/* linguist-documentation
 tests/notebooks/* linguist-documentation
+tests/notebooks/*/* linguist-documentation
