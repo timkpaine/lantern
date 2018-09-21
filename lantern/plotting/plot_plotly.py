@@ -1,5 +1,5 @@
 import plotly.graph_objs as go
-from matplotlib.colors import to_rgb
+from colorlover import to_rgb
 from plotly.graph_objs import FigureWidget
 from .plotobj import BasePlot
 from .plotutils import get_color
