@@ -4,6 +4,7 @@ cufflinks>=0.14.4
 faker
 finance_enums
 future
+ipywidgets
 jupyterlab
 matplotlib
 mimesis
@@ -14,6 +15,7 @@ plotly>=3.0.0
 qgrid
 seaborn
 scipy
+sidecar
 six
 sklearn
 websocket-client

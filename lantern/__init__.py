@@ -3,6 +3,7 @@ from .data import *
 from .grids import grid
 from .utils import download
 from .extensions import *
+from .widget_tools import *
 
 
 __all__ = ['plot', 'figure', 'grids', 'data', 'extensions']

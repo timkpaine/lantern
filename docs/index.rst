@@ -24,6 +24,7 @@ An orchestration layer for plots and tables, dummy datasets, research, reports, 
    plot
    table
    export
+   widgets
    publish
 
 

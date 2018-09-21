@@ -1,5 +1,5 @@
 # Lantern
-An orchestration layer for plots and tables, dummy datasets, research, reports, and anything else a data scientist might need.
+An orchestration layer for plots and tables, dummy datasets, widgets, research, reports, and anything else a data scientist might need.
 
 [![Build Status](https://travis-ci.org/timkpaine/lantern.svg?branch=master)](https://travis-ci.org/timkpaine/lantern)
 [![GitHub issues](https://img.shields.io/github/issues/timkpaine/lantern.svg)]()
