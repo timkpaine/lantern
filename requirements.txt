@@ -4,6 +4,7 @@ cufflinks>=0.14.4
 faker
 finance_enums
 future
+ipysheet
 ipywidgets
 jupyterlab
 matplotlib
