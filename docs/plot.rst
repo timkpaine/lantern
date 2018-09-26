@@ -1,12 +1,26 @@
 ==============
 Plotting
 ==============
+Supported Backends:
+
+- Matplotlib
+- Plotly
+- Bokeh
+
+In progress:
+
+- Altair
+- bqplot
+
+.. image:: ./img/plot/plots.gif
+    :scale: 100%
+    :alt: plot.png
+
 
 Plot command
 =============
 .. method:: lantern.plot(data, kind='line', backend='matplotlib', theme=None, **kwargs)
 
-TODO 
 
 Object Oriented
 ================
@@ -17,7 +31,6 @@ Object Oriented
     import lantern as l
     f = l.figure('matplotlib')
 
-TODO 
 
 
 Plot Types

@@ -15,7 +15,7 @@ An orchestration layer for plots and tables, dummy datasets, widgets, research, 
 <!-- [![Beerpay](https://beerpay.io/timkpaine/lantern/badge.svg?style=flat)](https://beerpay.io/timkpaine/lantern) -->
 
 
-![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/img/demo.gif)
+<!-- ![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/img/demo.gif) -->
 
 
 # Note: Lantern Live has moved to [tributary](https://github.com/timkpaine/tributary)
@@ -68,3 +68,21 @@ jupyter labextension install bqplot
 
 ## Getting Started
 [Read the docs!](http://pylantern.readthedocs.io/en/latest/index.html)
+
+
+## Data
+![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/img/data.gif)
+
+## Plots
+![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/img/plot/plots.gif)
+
+## Grids
+![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/img/grids.gif)
+
+
+## Export Without Code:
+[Read the docs!](http://pylantern.readthedocs.io/en/latest/index.html)
+
+## Widget Tools
+![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/img/widgets/widgets.gif)
+
