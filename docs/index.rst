@@ -18,7 +18,7 @@ Data
 
 Plots
 -----
-.. image:: ./img/plots/plots.gif
+.. image:: ./img/plot/plots.gif
     :scale: 100%
     :alt: plots.gif
 
