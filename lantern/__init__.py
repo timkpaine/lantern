@@ -3,11 +3,11 @@ from .data import *
 from .grids import grid
 from .utils import download
 from .extensions import *
-from .widget_tools import *
+from .widgets import *
 
 
-__all__ = ['plot', 'figure', 'grids', 'data', 'extensions']
-__version__ = '0.1.0'
+__all__ = ['plot', 'figure', 'grids', 'data', 'extensions', 'widgets']
+__version__ = '0.1.1'
 
 
 def _jupyter_server_extension_paths():
