@@ -7,6 +7,7 @@ Supported Backends:
 - Plotly
 - QGrid
 - ipysheet
+- lineup_widget
 
 
 Table command
