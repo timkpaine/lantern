@@ -7,6 +7,7 @@ future
 ipysheet
 ipywidgets
 jupyterlab
+lineup_widget
 matplotlib
 mimesis
 numpy

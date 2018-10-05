@@ -50,7 +50,8 @@ Lantern relies on a handful of JupyterLab extensions to operate:
     jupyter labextension install jupyterlab_bokeh
     jupyter labextension install qgrid
     jupyter labextension install @jpmorganchase/perspective-jupyterlab
-
+    jupyter labextension install ipysheet
+    jupyter labextension install lineup_widget
 
 The following are for work in-progress on master:
 

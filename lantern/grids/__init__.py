@@ -3,9 +3,10 @@ from .grid_qgrid import qgrid_grid
 from .grid_psp import psp_grid
 from .grid_phosphor import phosphor_grid
 from .grid_ipysheet import ipysheet_grid
+from .grid_lineup import lineup_grid
 
 
-_BACKENDS = ['plotly', 'qgrid', 'psp', 'phosphor', 'ipysheet']
+_BACKENDS = ['plotly', 'qgrid', 'psp', 'phosphor', 'ipysheet', 'lineup']
 
 
 def _backend_to_grid_foo(backend, theme=None):
@@ -19,6 +20,8 @@ def _backend_to_grid_foo(backend, theme=None):
         return phosphor_grid
     if backend == 'ipysheet':
         return ipysheet_grid
+    if backend == 'lineup':
+        return lineup_grid
     raise NotImplemented
 
 
