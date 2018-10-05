@@ -7,7 +7,7 @@ from .widgets import *
 
 
 __all__ = ['plot', 'figure', 'grids', 'data', 'extensions', 'widgets']
-__version__ = '0.1.1'
+__version__ = '0.1.2'
 
 
 def _jupyter_server_extension_paths():
