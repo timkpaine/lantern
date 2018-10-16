@@ -1,6 +1,6 @@
 {
   "name": "pylantern",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A JupyterLab extension.",
   "author": "Tim Paine",
   "main": "lib/index.js",
@@ -21,15 +21,15 @@
     "extension": true
   },
   "dependencies": {
-    "@jupyter-widgets/base": "^1.1.10",
-    "@jupyterlab/csvviewer": "^0.18.0",
-    "@jupyterlab/application": "^0.18.0",
-    "@jupyterlab/apputils": "^0.18.0",
-    "@jupyterlab/coreutils": "^2.1.0",
-    "@jupyterlab/docregistry": "^0.18.0",
-    "@jupyterlab/mainmenu": "^0.7.0",
-    "@jupyterlab/notebook": "^0.18.0",
-    "@jupyterlab/rendermime": "^0.18.0",
+    "@jupyter-widgets/base": "^1.2.0",
+    "@jupyterlab/csvviewer": "^0.19.0",
+    "@jupyterlab/application": "^0.19.0",
+    "@jupyterlab/apputils": "^0.19.0",
+    "@jupyterlab/coreutils": "^2.2.0",
+    "@jupyterlab/docregistry": "^0.19.0",
+    "@jupyterlab/mainmenu": "^0.8.0",
+    "@jupyterlab/notebook": "^0.19.0",
+    "@jupyterlab/rendermime": "^0.19.0",
     "@phosphor/disposable": "^1.1.2"
   },
   "devDependencies": {
