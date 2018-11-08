@@ -2,10 +2,11 @@ from six import iteritems
 from .plot_matplotlib import MatplotlibPlot
 from .plot_plotly import PlotlyPlot
 from .plot_bokeh import BokehPlot
+from .plot_bqplot import BQPlotPlot
 from ..utils import LanternException
 
 
-_BACKENDS = ['cufflinks', 'plotly', 'bokeh', 'highcharts', 'matplotlib', 'seaborn']
+_BACKENDS = ['cufflinks', 'plotly', 'bokeh', 'highcharts', 'matplotlib', 'seaborn', 'bqplot']
 
 
 def _backend_to_plot_obj(backend, size=None, theme=None):
@@ -15,6 +16,9 @@ def _backend_to_plot_obj(backend, size=None, theme=None):
         return PlotlyPlot(size, theme)
     if backend == 'bokeh':
         return BokehPlot(size, theme)
+    if backend == 'bqplot':
+        return BQPlotPlot(size, theme)
+    raise NotImplementedError()
 
 
 def figure(backend='matplotlib', size=None, theme=None):
