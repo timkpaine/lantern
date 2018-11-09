@@ -39,8 +39,10 @@ class NVD3Plot(BasePlot):
     def line(self, data, color=None, y_axis='left', **kwargs):
         for i, col in enumerate(data):
             _color = get_color(i, col, color)
-            self._lines.add_serie(y=data[col].astype(float).tolist(),
-                                  x=data.index.astype(str).tolist(),
+            y = data[col].astype(float).tolist()
+            x = data.index.astype(str).tolist()
+            self._lines.add_serie(y=y,
+                                  x=x,
                                   color=_color,
                                   name=col,
                                   extra={"tooltip": {"y_start": "Test ", "y_end": " test"}})

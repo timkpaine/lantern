@@ -2,8 +2,8 @@ from six import iteritems
 from .plot_matplotlib import MatplotlibPlot
 from .plot_plotly import PlotlyPlot
 from .plot_bokeh import BokehPlot
-from .plot_bqplot import BQPlotPlot
-from .plot_nvd3 import NVD3Plot
+# from .plot_bqplot import BQPlotPlot
+# from .plot_nvd3 import NVD3Plot
 from ..utils import LanternException
 
 
@@ -17,10 +17,10 @@ def _backend_to_plot_obj(backend, size=None, theme=None):
         return PlotlyPlot(size, theme)
     if backend == 'bokeh':
         return BokehPlot(size, theme)
-    if backend == 'bqplot':
-        return BQPlotPlot(size, theme)
-    if backend == 'd3':
-        return NVD3Plot(size, theme)
+    # if backend == 'bqplot':
+    #     return BQPlotPlot(size, theme)
+    # if backend == 'd3':
+    #     return NVD3Plot(size, theme)
     raise NotImplementedError()
 
 
