@@ -1,36 +1,25 @@
-import bqplot.pyplot as plt
+from nvd3 import lineChart
+from nvd3.ipynb import initialize_javascript
 from IPython.display import display
-from ipywidgets import VBox
-from bqplot.axes import Axis
-from bqplot.scales import LinearScale
-from bqplot.marks import Lines
-from bqplot.figure import Figure
-from bqplot.interacts import BrushIntervalSelector
-from bqplot.toolbar import Toolbar
 from .plotobj import BasePlot
 from .plotutils import get_color
 
+_INITED = False
 
-class BQPlotPlot(BasePlot):
+
+class NVD3Plot(BasePlot):
     def __init__(self, size=None, theme=None):
-        self.size = size or (12, 5)
-        self._x_sc = LinearScale()
-        self._y_sc = LinearScale()
+        global _INITED
+        if not _INITED:
+            initialize_javascript()
+            _INITED = True
 
-        self._axes = []
-        self._marks = []
-
-    def _newAx(self, y_side='left', color='black'):
-        # axis managemens
-        raise NotImplementedError()
+        self.size = size or (700, 400)
+        self._lines = lineChart(name='lineChart', x_is_date=True, x_axis_format='%Y-%m-%d', height=self.size[1], width=self.size[0])
 
     def show(self, title='', xlabel='', ylabel='', xaxis=True, yaxis=True, xticks=True, yticks=True, legend=True, grid=True, **kwargs):
         # require all data to be present before plotting
-        x = Axis(title=xlabel, scale=self._x_sc)
-        y = Axis(title=ylabel, scale=self._y_sc, orientation='vertical')
-        fig = Figure(axes=[x, y], marks=self._marks, title=title, legend_location='right', interactions=BrushIntervalSelector())
-
-        display(VBox([fig, Toolbar(figure=fig)]))
+        display(self._lines)
 
     def area(self, data, color=None, y_axis='left', stacked=False, **kwargs):
         raise NotImplementedError()
@@ -50,10 +39,11 @@ class BQPlotPlot(BasePlot):
     def line(self, data, color=None, y_axis='left', **kwargs):
         for i, col in enumerate(data):
             _color = get_color(i, col, color)
-            self._marks.append(Lines(x=data.index,
-                                     y=data[col],
-                                     scales={'x': self._x_sc, 'y': self._y_sc},
-                                     colors=[_color]))
+            self._lines.add_serie(y=data[col].astype(float).tolist(),
+                                  x=data.index.astype(str).tolist(),
+                                  color=_color,
+                                  name=col,
+                                  extra={"tooltip": {"y_start": "Test ", "y_end": " test"}})
 
     def scatter(self, data, color=None, x=None, y=None,  y_axis='left', **kwargs):
         raise NotImplementedError()

@@ -3,10 +3,11 @@ from .plot_matplotlib import MatplotlibPlot
 from .plot_plotly import PlotlyPlot
 from .plot_bokeh import BokehPlot
 from .plot_bqplot import BQPlotPlot
+from .plot_nvd3 import NVD3Plot
 from ..utils import LanternException
 
 
-_BACKENDS = ['cufflinks', 'plotly', 'bokeh', 'highcharts', 'matplotlib', 'seaborn', 'bqplot']
+_BACKENDS = ['cufflinks', 'plotly', 'bokeh', 'highcharts', 'matplotlib', 'seaborn', 'bqplot', 'd3']
 
 
 def _backend_to_plot_obj(backend, size=None, theme=None):
@@ -18,6 +19,8 @@ def _backend_to_plot_obj(backend, size=None, theme=None):
         return BokehPlot(size, theme)
     if backend == 'bqplot':
         return BQPlotPlot(size, theme)
+    if backend == 'd3':
+        return NVD3Plot(size, theme)
     raise NotImplementedError()
 
 
