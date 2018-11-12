@@ -201,7 +201,7 @@ def trades(count=1000, interval='daily'):
     return pd.DataFrame(acc)
 
 
-def superstore(count=10000):
+def superstore(count=1000):
     data = []
     for id in range(count):
         dat = {}
