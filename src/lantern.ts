@@ -140,3 +140,5 @@ function activate(app: JupyterLab,  mainMenu: IMainMenu, palette: ICommandPalett
   palette.addItem({command: export_pdf, category: 'Lantern'});
   palette.addItem({command: export_html, category: 'Lantern'});
 };
+
+export {activate as _activate};
