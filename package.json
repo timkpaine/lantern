@@ -11,7 +11,8 @@
   "scripts": {
     "build": "tsc",
     "clean": "rimraf lib",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "test": "jest"
   },
   "files": [
     "lib/**/*.{d.ts,eot,gif,html,jpg,js,js.map,json,png,svg,woff2,ttf}",
@@ -34,7 +35,10 @@
   },
   "devDependencies": {
     "@types/core-js": "^0.9.44",
+    "@types/jest": "^23.3.9",
+    "jest": "^23.6.0",
     "rimraf": "^2.6.1",
-    "typescript": "~2.9.2"
+    "ts-jest": "^23.10.4",
+    "typescript": "^3.1.6"
   }
 }
