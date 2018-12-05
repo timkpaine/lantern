@@ -12,7 +12,7 @@ matplotlib
 mimesis
 numpy
 pandas
-perspective-python
+perspective-python>=0.1.1
 plotly>=3.0.0
 qgrid
 seaborn
