@@ -4,13 +4,13 @@ import string
 import mimesis
 import finance_enums
 from faker import Faker
-from datetime import datetime, date, timedelta
+from datetime import date, timedelta
 from random import seed, random, sample, randint, choice
 
 try:
-    xrange
-    range = xrange
-except:
+    xrange  # noqa: F821
+    range = xrange  # noqa: F821
+except NameError:
     pass
 
 seed(1)

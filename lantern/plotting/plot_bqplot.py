@@ -1,4 +1,4 @@
-import bqplot.pyplot as plt
+# import bqplot.pyplot as plt
 from IPython.display import display
 from ipywidgets import VBox
 from bqplot.axes import Axis

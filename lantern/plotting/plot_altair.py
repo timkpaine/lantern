@@ -1,6 +1,6 @@
-import altair as alt
+# import altair as alt
 from .plotobj import BasePlot
-from .plotutils import get_color
+# from .plotutils import get_color
 
 
 class AltairPlot(BasePlot):

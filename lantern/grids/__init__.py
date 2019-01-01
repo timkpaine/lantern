@@ -22,7 +22,7 @@ def _backend_to_grid_foo(backend, theme=None):
         return ipysheet_grid
     if backend == 'lineup':
         return lineup_grid
-    raise NotImplemented
+    raise NotImplementedError()
 
 
 def grid(data, backend='psp', **kwargs):

@@ -8,10 +8,10 @@ testjs: ## Clean and Make js tests
 	npm run test
 
 testpy: ## Clean and Make unit tests
-	python3 -m nose -v tests --with-coverage --cover-erase --cover-package=`find lantern -name "*.py" | sed "s=\./==g" | sed "s=/=.=g" | sed "s/\.py//g" | tr '\n' ',' | rev | cut -c2- | rev`
-	
+	python3 -m nose2 -v tests --with-coverage --coverage=lantern
+
 test: lint ## run the tests for travis CI
-	@ python3 -m nose -v tests --with-coverage --cover-erase --cover-package=`find lantern -name "*.py" | sed "s=\./==g" | sed "s=/=.=g" | sed "s/\.py//g" | tr '\n' ',' | rev | cut -c2- | rev`
+	@ python3 -m nose2 -v tests --with-coverage --coverage=lantern
 	npm install && npm run test
 
 lint: ## run linter

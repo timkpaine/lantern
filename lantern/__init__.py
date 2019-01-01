@@ -1,9 +1,9 @@
 from .plotting import plot, figure
-from .data import *
-from .grids import grid
-from .utils import download
-from .extensions import *
-from .widgets import *
+from .data import *  # noqa: F401, F403
+from .grids import grid  # noqa: F401
+from .utils import download  # noqa: F401
+from .extensions import *  # noqa: F401, F403
+from .widgets import *  # noqa: F401, F403
 
 
 __all__ = ['plot', 'figure', 'grids', 'data', 'extensions', 'widgets']

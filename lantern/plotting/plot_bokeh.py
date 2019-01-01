@@ -83,8 +83,8 @@ class BokehPlot(BasePlot):
 
         for i, col in enumerate(data):
             c = get_color(i, col, color)
-            l = self.figure.patch(x=data2.index, y=data2[col].values, legend=col, fill_alpha=.2, color=c, **kwargs)
-            self.legend.append((col, [l]))
+            fig = self.figure.patch(x=data2.index, y=data2[col].values, legend=col, fill_alpha=.2, color=c, **kwargs)
+            self.legend.append((col, [fig]))
 
             # for stacked: https://bokeh.pydata.org/en/latest/docs/gallery/brewer.html
             # p.patches([x2] * areas.shape[1], [areas[c].values for c in areas], color=colors, alpha=0.8, line_color=None)
@@ -101,8 +101,8 @@ class BokehPlot(BasePlot):
         c = []
         for i, col in enumerate(data):
             c.append(get_color(i, col, color))
-            l = self.figure.vbar(x=data.index, top=data[col].values, width=.9, color=c, **kwargs)
-            self.legend.append((col, [l]))
+            fig = self.figure.vbar(x=data.index, top=data[col].values, width=.9, color=c, **kwargs)
+            self.legend.append((col, [fig]))
 
     def hist(self, data, color=None, y_axis='left', stacked=False, **kwargs):
         raise NotImplementedError()
@@ -119,8 +119,8 @@ class BokehPlot(BasePlot):
     def line(self, data, color=None, y_axis='left', **kwargs):
         for i, col in enumerate(data):
             c = get_color(i, col, color)
-            l = self.figure.line(x=data.index, y=data[col].values, legend=col, color=c, **kwargs)
-            self.legend.append((col, [l]))
+            fig = self.figure.line(x=data.index, y=data[col].values, legend=col, color=c, **kwargs)
+            self.legend.append((col, [fig]))
 
     def scatter(self, data, color=None, y_axis='left', **kwargs):
         for i, col in enumerate(data):
@@ -129,14 +129,14 @@ class BokehPlot(BasePlot):
             x = data.columns[0]
             y = data.columns[i]
             c = get_color(i, col, color)
-            l = self.figure.scatter(x=data[x],
-                                    y=data[y],
-                                    legend='%s vs %s' % (x, y),
-                                    fill_color=c,
-                                    fill_alpha=0.6,
-                                    line_color=None,
-                                    **kwargs)
-            self.legend.append(('%s vs %s' % (x, y), [l]))
+            fig = self.figure.scatter(x=data[x],
+                                      y=data[y],
+                                      legend='%s vs %s' % (x, y),
+                                      fill_color=c,
+                                      fill_alpha=0.6,
+                                      line_color=None,
+                                      **kwargs)
+            self.legend.append(('%s vs %s' % (x, y), [fig]))
 
     def step(self, data, color=None, y_axis='left', **kwargs):
         raise NotImplementedError()

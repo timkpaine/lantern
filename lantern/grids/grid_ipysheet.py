@@ -24,7 +24,7 @@ def ipysheet_grid(data, indexed=True):
             if 'date' in str(x[1]):
                 data[x[0]] = data[x[0]].astype(str)
     else:
-        raise NotImplemented
+        raise NotImplementedError()
 
     sheet = ipysheet.sheet(rows=len(data), columns=len(data.columns), column_headers=data.columns.astype(str).tolist())
     for i, col in enumerate(data.columns):
