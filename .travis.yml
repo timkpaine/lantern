@@ -15,7 +15,7 @@ before_install:
 
 install:
     - pip install -r requirements.txt
-    - pip install nose2 flake8 pylint codecov
+    - pip install pytest pytest-cov flake8 pylint codecov
 
 
 before_script: # configure a headless display to test plot generation
