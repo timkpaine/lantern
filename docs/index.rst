@@ -48,6 +48,7 @@ Widgets
    export
    widgets
    publish
+   api
 
 
 .. |build-status| image:: https://travis-ci.org/timkpaine/lantern.svg?branch=master
