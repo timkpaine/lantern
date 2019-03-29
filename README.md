@@ -1,4 +1,4 @@
-# Lantern
+# <a href="https://pylantern.readthedocs.io"><img src="docs/img/icon.png" width="300"></a>
 An orchestration layer for plots and tables, dummy datasets, widgets, research, reports, and anything else a data scientist might need.
 
 [![Build Status](https://travis-ci.org/timkpaine/lantern.svg?branch=master)](https://travis-ci.org/timkpaine/lantern)
