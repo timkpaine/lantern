@@ -40,7 +40,6 @@ Plot Types
 - step
 - bar
 - scatter
-.. NOTE:: Development of additional plot types is logged on the project's `Waffle.io pages <https://waffle.io/timkpaine/lantern>`_.
 
 For the following code, we will assume the following commands were executed:
 

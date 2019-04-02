@@ -7,7 +7,7 @@ lantern
 ===================================
 An orchestration layer for plots and tables, dummy datasets, research, reports, and anything else a data scientist might need.
 
-|build-status| |issues| |waffle| |codecov| |gitter| |bch| |pypiv| |pypil| |docs|
+|build-status| |issues| |codecov| |gitter| |bch| |pypiv| |pypil| |docs|
 
 Data
 ----
@@ -60,11 +60,6 @@ Widgets
     :alt: Issues
     :scale: 100%
     :target: https://img.shields.io/github/issues/timkpaine/lantern.svg
-
-.. |waffle| image:: https://badge.waffle.io/timkpaine/lantern.svg?label=ready&title=Ready
-    :alt: Waffle
-    :scale: 100%
-    :target: http://waffle.io/timkpaine/lantern
 
 .. |codecov| image:: https://codecov.io/gh/timkpaine/lantern/branch/master/graph/badge.svg
     :alt: Codecov
