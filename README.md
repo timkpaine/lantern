@@ -17,9 +17,9 @@ An orchestration layer for plots and tables, dummy datasets, widgets, research, 
 <!-- ![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/img/demo.gif) -->
 
 
-# Note: Lantern Live has moved to [tributary](https://github.com/timkpaine/tributary)
-# Note: Email reports have moved to [jupyterlab_email](https://github.com/timkpaine/https://github.com/timkpaine/jupyterlab_email)
-# Note: `Publish` is removed in favor of [Voila](https://github.com/QuantStack/voila)
+## Note: Lantern Live has moved to [tributary](https://github.com/timkpaine/tributary)
+## Note: Email reports have moved to [jupyterlab_email](https://github.com/timkpaine/https://github.com/timkpaine/jupyterlab_email)
+## Note: `Publish` is removed in favor of [Voila](https://github.com/QuantStack/voila)
 
 ## Install
 To install the base package from pip:
