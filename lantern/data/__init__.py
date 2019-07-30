@@ -1,5 +1,13 @@
-from .data_cufflinks import getCFData
-from .data_sklearn import getSKData
+try:
+    from .data_cufflinks import getCFData
+except ImportError:
+    getCFData = lambda **kwargs: None
+
+try:
+    from .data_sklearn import getSKData
+except ImportError:
+    getSKData = lambda **kwargs: None
+
 from .other import person, people, company, companies, ticker, currency, trades, superstore  # noqa: F401
 
 # scikit learn
