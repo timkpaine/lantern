@@ -1,12 +1,12 @@
 try:
     from .data_cufflinks import getCFData
 except ImportError:
-    getCFData = lambda **kwargs: None  # noqa: E731
+    getCFData = lambda *args, **kwargs: None  # noqa: E731
 
 try:
     from .data_sklearn import getSKData
 except ImportError:
-    getSKData = lambda **kwargs: None  # noqa: E731
+    getSKData = lambda *args, **kwargs: None  # noqa: E731
 
 from .other import person, people, company, companies, ticker, currency, trades, superstore  # noqa: F401
 
