@@ -15,7 +15,6 @@ test: lint ## run the tests for travis CI
 	npm install && npm run test
 
 lint: ## run linter
-	# pylint lantern || echo
 	flake8 lantern 
 
 annotate: ## MyPy type annotation check
