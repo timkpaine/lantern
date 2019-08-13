@@ -4,9 +4,6 @@ run:  ## clean and make target, run target
 build:  ## Build the repository
 	python3 setup.py build 
 
-testjs: ## Clean and Make js tests
-	npm run test
-
 testpy: ## Clean and Make unit tests
 	python3 -m pytest -v tests --cov=lantern
 
@@ -30,12 +27,6 @@ clean: ## clean the repository
 	rm -rf .coverage cover htmlcov logs build dist *.egg-info
 	make -C ./docs clean
 
-serverextension: install ## enable serverextension
-	jupyter serverextension enable --py lantern
-
-labextension: install ## enable labextension
-	jupyter labextension install jlab
-
 install:  ## install to site-packages
 	pip3 install .
 
@@ -45,7 +36,7 @@ preinstall:  ## install dependencies
 postinstall:  ## install other requisite labextensions
 	jupyter labextension install @jupyter-widgets/jupyterlab-manager
 	jupyter labextension install @jupyterlab/plotly-extension
-	jupyter labextension install @jpmorganchase/perspective-jupyterlab
+	jupyter labextension install @finos/perspective-jupyterlab
 	jupyter labextension install jupyterlab_bokeh
 	jupyter labextension install bqplot
 	jupyter labextension install qgrid
