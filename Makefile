@@ -9,7 +9,6 @@ testpy: ## Clean and Make unit tests
 
 test: lint ## run the tests for travis CI
 	@ python3 -m pytest -v tests --cov=lantern
-	npm install && npm run test
 
 lint: ## run linter
 	flake8 lantern 
