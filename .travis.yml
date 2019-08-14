@@ -3,6 +3,8 @@ cache:
   - pip
   - npm
 
+dist: trusty
+
 python:
   - "3.6"
 
