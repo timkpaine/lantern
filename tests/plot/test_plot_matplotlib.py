@@ -27,7 +27,7 @@ class TestConfig:
         with patch('lantern.plotting.plot_matplotlib.in_ipynb', create=True) as mock1:
             import lantern as l
             mock1.return_value = True
-            p = l.figure('cufflinks')
+            p = l.figure('matplotlib')
             df = l.bar()
             p.area(df)
             p.show()
