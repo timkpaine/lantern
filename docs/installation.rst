@@ -23,21 +23,6 @@ or
     make install
 
 
-Jupyter Extensions
-==================
-To install the server extensions:
-
-.. code:: bash
-
-    jupyter serverextension enable --py lantern
-
-To install the JupyterLab extensions:
-
-.. code:: bash
-
-    jupyter labextension install pylantern
-
-
 Other Requirements
 ==================
 Lantern relies on a handful of JupyterLab extensions to operate:

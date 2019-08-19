@@ -30,22 +30,6 @@ To Install from source:
 `make install`
 
 
-To install the JupyterLab extension:
-
-`jupyter labextension install pylantern`
-
-or from source:
-
-`make labextension`
-
-To enable the Jupyter server extension:
-
-`jupyter serverextension enable --py lantern`
-
-
-
-Or run the corresponding commands directly
-
 Lantern relies on JupyterLab extensions:
 
 ```
