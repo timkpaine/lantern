@@ -8,7 +8,6 @@ An orchestration layer for plots and tables, dummy datasets, widgets, research, 
 [![BCH compliance](https://bettercodehub.com/edge/badge/timkpaine/lantern?branch=master)](https://bettercodehub.com/)
 [![PyPI](https://img.shields.io/pypi/l/pylantern.svg)](https://pypi.python.org/pypi/pylantern)
 [![PyPI](https://img.shields.io/pypi/v/pylantern.svg)](https://pypi.python.org/pypi/pylantern)
-[![npm](https://img.shields.io/npm/v/pylantern.svg)](https://www.npmjs.com/package/pylantern)
 [![Docs](https://img.shields.io/readthedocs/pylantern.svg)](https://pylantern.readthedocs.io)
 
 <!-- [![Beerpay](https://beerpay.io/timkpaine/lantern/badge.svg?style=flat)](https://beerpay.io/timkpaine/lantern) -->
