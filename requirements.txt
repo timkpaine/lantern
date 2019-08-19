@@ -19,6 +19,6 @@ scipy>=1.2.0
 seaborn>=0.9.0
 sidecar>=0.2.0
 six>=1.12.0
-sklearn>=0.0
+scikit-learn>=0.21.3
 ujson>=1.35
 websocket-client>=0.54.0
