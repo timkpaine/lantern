@@ -78,6 +78,7 @@ jupyter labextension install bqplot
 
 ## Export Without Code:
 Note: this has moved to [jupyterlab_commands](https://github.com/timkpaine/jupyterlab_commands/)
+
 [Read the docs!](http://pylantern.readthedocs.io/en/latest/index.html)
 
 ## Widget Tools
