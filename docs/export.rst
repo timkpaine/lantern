@@ -1,7 +1,7 @@
 ==============
 Export
 ==============
-
+This code has moved to [jupyterlab_commands](https://github.com/timkpaine/jupyterlab_commands)
 
 Lantern provides several export targets, in addition to the ones provided by NBConvert and built in to JupyterLab
 
