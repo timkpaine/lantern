@@ -19,6 +19,7 @@ An orchestration layer for plots and tables, dummy datasets, widgets, research, 
 ## Note: Lantern Live has moved to [tributary](https://github.com/timkpaine/tributary)
 ## Note: Email reports have moved to [jupyterlab_email](https://github.com/timkpaine/https://github.com/timkpaine/jupyterlab_email)
 ## Note: `Publish` is removed in favor of [Voila](https://github.com/QuantStack/voila)
+## Note: `Export` code has has moved to [jupyterlab_commands](https://github.com/timkpaine/jupyterlab_commands/)
 
 ## Install
 To install the base package from pip:
@@ -65,6 +66,7 @@ jupyter labextension install bqplot
 
 
 ## Export Without Code:
+Note: this has moved to [jupyterlab_commands](https://github.com/timkpaine/jupyterlab_commands/)
 [Read the docs!](http://pylantern.readthedocs.io/en/latest/index.html)
 
 ## Widget Tools
