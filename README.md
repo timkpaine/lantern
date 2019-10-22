@@ -18,8 +18,19 @@ An orchestration layer for plots and tables, dummy datasets, widgets, research, 
 
 ## Note: Lantern Live has moved to [tributary](https://github.com/timkpaine/tributary)
 ## Note: Email reports have moved to [jupyterlab_email](https://github.com/timkpaine/https://github.com/timkpaine/jupyterlab_email)
-## Note: `Publish` is removed in favor of [Voila](https://github.com/QuantStack/voila)
+## Note: `Publish` is removed in favor of [Voila](https://github.com/voila-dashboards/voila)
 ## Note: `Export` code has has moved to [jupyterlab_commands](https://github.com/timkpaine/jupyterlab_commands/)
+
+## About
+This library is designed to fill gaps between other libraries with the JupyterLab ecosystem. The motivation was initially to allow for plots generated with a javascript library (like `plotly` or `bokeh`) to trivially swap out for `matplotlib` in non-browser contexts such as NBConvert generation of PDFs. 
+
+It has expanded to include a variety of functions, including grids, emailing notebooks, publishing notebooks, custom nbconvert exporters for JupyterLab, variable inpection, custom streaming operations, and other helpful functions and widgets. As these functionalities mature, or as competeting libraries emerge, they are cut out into their own standalone libraries or removed from `Lantern`, respectively. 
+
+This library has produced or ceded functionality to:
+- [jupyterlab_email](https://github.com/timkpaine/https://github.com/timkpaine/jupyterlab_email)
+- [tributary](https://github.com/timkpaine/tributary)
+- [jupyterlab_commands](https://github.com/timkpaine/jupyterlab_commands/)
+- [Voila](https://github.com/voila-dashboards/voila)
 
 ## Install
 To install the base package from pip:
