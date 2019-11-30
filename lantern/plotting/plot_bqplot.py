@@ -55,7 +55,7 @@ class BQPlotPlot(BasePlot):
                                      scales={'x': self._x_sc, 'y': self._y_sc},
                                      colors=[_color]))
 
-    def scatter(self, data, color=None, x=None, y=None,  y_axis='left', **kwargs):
+    def scatter(self, data, color=None, x=None, y=None, y_axis='left', **kwargs):
         raise NotImplementedError()
 
     def step(self, data, color=None, y_axis='left', **kwargs):

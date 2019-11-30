@@ -23,7 +23,7 @@ class PlotlyPlot(BasePlot):
         y2_count = sum([1 for (_, _, a, _) in self.figures if a == 'right'])
 
         y2s = 2
-        y2p = .05/y2_count if y2_count > 0 else 0
+        y2p = .05 / y2_count if y2_count > 0 else 0
         y2_base = .95 if y2_count > 0 else 1.0
 
         for col, figure, axis, color in self.figures:
@@ -38,17 +38,17 @@ class PlotlyPlot(BasePlot):
 
             if axis == 'right':
                 ldata['yaxis%d' % y2s] = dict(
-                        side='right',
-                        overlaying='y',
-                        color=color,
-                        position=y2_base
-                    )
+                    side='right',
+                    overlaying='y',
+                    color=color,
+                    position=y2_base
+                )
                 y2s += 1
                 y2_base += y2p
             else:
                 ldata['yaxis1'] = dict(
-                        side='left',
-                    )
+                    side='left',
+                )
         ldata['xaxis'] = dict(domain=[0, 0.95])
 
         ldata['shapes'] = []
@@ -73,9 +73,9 @@ class PlotlyPlot(BasePlot):
 
         for line in self.hspans:
             col = to_rgb(line[2])
-            r = str(round(col[0]*255))
-            g = str(round(col[1]*255))
-            b = str(round(col[2]*255))
+            r = str(round(col[0] * 255))
+            g = str(round(col[1] * 255))
+            b = str(round(col[2] * 255))
 
             ldata['shapes'].append({'x0': 0,
                                     'x1': 1,
@@ -89,9 +89,9 @@ class PlotlyPlot(BasePlot):
 
         for line in self.vspans:
             col = to_rgb(line[2])
-            r = str(round(col[0]*255))
-            g = str(round(col[1]*255))
-            b = str(round(col[2]*255))
+            r = str(round(col[0] * 255))
+            g = str(round(col[1] * 255))
+            b = str(round(col[2] * 255))
 
             ldata['shapes'].append({'y0': 0,
                                     'y1': 1,
@@ -137,8 +137,8 @@ class PlotlyPlot(BasePlot):
                     )
 
         ldata['showlegend'] = legend
-        x_size = self.size[0] if self.size[0] > 100 else self.size[0]*100
-        y_size = self.size[1] if self.size[1] > 100 else self.size[1]*100
+        x_size = self.size[0] if self.size[0] > 100 else self.size[0] * 100
+        y_size = self.size[1] if self.size[1] > 100 else self.size[1] * 100
         ldata['width'], ldata['height'] = x_size, y_size
         return FigureWidget(data=tdata, layout=ldata)
 
@@ -197,7 +197,7 @@ class PlotlyPlot(BasePlot):
                                     **kwargs)
             self.figures.append((col, fig, y_axis, c))
 
-    def scatter(self, data, color=None, x=None, y=None,  y_axis='left', subplot=False, **kwargs):
+    def scatter(self, data, color=None, x=None, y=None, y_axis='left', subplot=False, **kwargs):
         # Scatter all
         for i, col in enumerate(data):
             if i == 0:

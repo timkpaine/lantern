@@ -47,7 +47,7 @@ class NVD3Plot(BasePlot):
                                   name=col,
                                   extra={"tooltip": {"y_start": "Test ", "y_end": " test"}})
 
-    def scatter(self, data, color=None, x=None, y=None,  y_axis='left', **kwargs):
+    def scatter(self, data, color=None, x=None, y=None, y_axis='left', **kwargs):
         raise NotImplementedError()
 
     def step(self, data, color=None, y_axis='left', **kwargs):

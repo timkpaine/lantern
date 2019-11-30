@@ -9,7 +9,7 @@ def _r():
 
 def get_color(i, col, color):
     if isinstance(color, list):
-        c = (color[i:i+1] or [_r()])[0]
+        c = (color[i:i + 1] or [_r()])[0]
     elif isinstance(color, dict):
         c = color.get(col, _r())
     elif isinstance(color, str) and color:
@@ -120,18 +120,18 @@ def align_yaxis_np(axes):
         return
 
     # pick "most centered" axis
-    res = abs(uppers+lowers)
+    res = abs(uppers + lowers)
     min_index = np.argmin(res)
 
     # scale positive or negative part
-    multiplier1 = abs(uppers[min_index]/lowers[min_index])
-    multiplier2 = abs(lowers[min_index]/uppers[min_index])
+    multiplier1 = abs(uppers[min_index] / lowers[min_index])
+    multiplier2 = abs(lowers[min_index] / uppers[min_index])
 
     for i in range(len(extrema)):
         # scale positive or negative part based on which induces valid
         if i != min_index:
-            lower_change = extrema[i, 1] * -1*multiplier2
-            upper_change = extrema[i, 0] * -1*multiplier1
+            lower_change = extrema[i, 1] * -1 * multiplier2
+            upper_change = extrema[i, 0] * -1 * multiplier1
             if upper_change < extrema[i, 1]:
                 extrema[i, 0] = lower_change
             else:

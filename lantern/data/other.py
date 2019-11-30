@@ -36,7 +36,7 @@ def _genEquityTicker(country='any'):
     jp_hk = [_genNumTicker() + '.' + _genExchangeCode() for _ in range(5)]
     kr = [_genNumTicker(6) + '.' + _genExchangeCode() for _ in range(6)]
     if country.lower() == 'any':
-        return choice(western+jp_hk+kr)
+        return choice(western + jp_hk + kr)
     elif country.lower() in ['jp', 'hk']:
         return choice(jp_hk)
     elif country.lower() in ['kr']:
@@ -52,15 +52,15 @@ def ticker(type='equity', country='any'):
 def getTsData(series=2, datetime_index=True, trend=.47, volatility=1):
     random_walk = np.zeros((1000, series))
     randbase = random()
-    random_walk[0] = np.array([-1*randbase*volatility if random() < trend else randbase*volatility for _ in range(series)])
+    random_walk[0] = np.array([-1 * randbase * volatility if random() < trend else randbase * volatility for _ in range(series)])
     for i in range(1, 1000):
-        movement = np.array([-1*random()*volatility if random() < trend else random()*volatility for _ in range(series)])
-        random_walk[i] = random_walk[i-1] + movement
+        movement = np.array([-1 * random() * volatility if random() < trend else random() * volatility for _ in range(series)])
+        random_walk[i] = random_walk[i - 1] + movement
 
     ret = pd.DataFrame(random_walk, columns=['Series ' + str(x) for x in range(series)])
 
     if datetime_index is True:
-        ret.index = np.array([date.today()-timedelta(days=1000)+timedelta(x) for x in range(1000)])
+        ret.index = np.array([date.today() - timedelta(days=1000) + timedelta(x) for x in range(1000)])
     return ret
 
 
@@ -142,7 +142,7 @@ def person(locale=None):
         'title': p.title(g),
         'username': p.username(),
         'university': p.university(),
-        }
+    }
 
 
 def people(count=50, locale=None):
@@ -164,7 +164,7 @@ def company(exchanges=None):
         'name': fake.company(),
         'address': _address(),
         'ticker': _genAsciiTicker(),
-        'last_price': random()*100,
+        'last_price': random() * 100,
         'market_cap': randint(10**8, 10**11),
         'exchange': exchange,
         'ceo': _name(),
@@ -196,7 +196,7 @@ def trades(count=1000, interval='daily'):
         row.pop('address')
         row.pop('ceo')
         row['volume'] = randint(1, 100) * 10
-        row['price'] = (random()-.5)*10 + row['last_price']
+        row['price'] = (random() - .5) * 10 + row['last_price']
         acc.append(row)
     return pd.DataFrame(acc)
 

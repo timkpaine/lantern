@@ -30,7 +30,7 @@ class AltairPlot(BasePlot):
     def line(self, data, color=None, y_axis='left', **kwargs):
         raise NotImplementedError()
 
-    def scatter(self, data, color=None, x=None, y=None,  y_axis='left', **kwargs):
+    def scatter(self, data, color=None, x=None, y=None, y_axis='left', **kwargs):
         raise NotImplementedError()
 
     def step(self, data, color=None, y_axis='left', **kwargs):

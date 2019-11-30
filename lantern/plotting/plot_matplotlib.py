@@ -64,10 +64,10 @@ class MatplotlibPlot(BasePlot):
                        labelright=(y_side == 'right'))
 
         # pad axes
-        xpad = 30*(len(self._axes_by_side['bottom'])-1)
-        ypad = 30*(len(self._axes_by_side[y_side])-1)
-        ax.tick_params(axis='x', pad=xpad+2)
-        ax.tick_params(axis='y', pad=ypad+2)
+        xpad = 30 * (len(self._axes_by_side['bottom']) - 1)
+        ypad = 30 * (len(self._axes_by_side[y_side]) - 1)
+        ax.tick_params(axis='x', pad=xpad + 2)
+        ax.tick_params(axis='y', pad=ypad + 2)
 
         # colorize
         if isinstance(color, list):
@@ -119,7 +119,7 @@ class MatplotlibPlot(BasePlot):
             labels += label
 
         if legend:
-            self._axes[-1].legend(lines, labels, loc='center left', bbox_to_anchor=(1 + .05*(min(len(self._axes_by_side['right']), 1)+1), 0.5), fancybox=True)
+            self._axes[-1].legend(lines, labels, loc='center left', bbox_to_anchor=(1 + .05 * (min(len(self._axes_by_side['right']), 1) + 1), 0.5), fancybox=True)
 
         if xlabel:
             self._axes[-1].set_xlabel(xlabel)
@@ -184,7 +184,7 @@ class MatplotlibPlot(BasePlot):
                 elif d[2] == 'right' and not d[3]:
                     right_count += 1
 
-        width = 1/(left_count+right_count)
+        width = 1 / (left_count + right_count)
         count = 0
 
         ax = self._newAx(y_side='left', color=colors)
@@ -193,12 +193,12 @@ class MatplotlibPlot(BasePlot):
         for d in self._bars:
             for col in d[0].columns:
                 if d[2] == 'right':
-                    x = ax2.bar(d[0].index+count*((d[0].index[1]-d[0].index[0])/(left_count+right_count)), d[0][col], width=width, color=d[1], **d[4])
+                    x = ax2.bar(d[0].index + count * ((d[0].index[1] - d[0].index[0]) / (left_count + right_count)), d[0][col], width=width, color=d[1], **d[4])
                     self._legend.append((col, x, d[2]))
                     x.set_label(col)
                     count += 1
                 else:
-                    x = ax.bar(d[0].index+count*((d[0].index[1]-d[0].index[0])/(left_count+right_count)), d[0][col], width=width, color=d[1], **d[4])
+                    x = ax.bar(d[0].index + count * ((d[0].index[1] - d[0].index[0]) / (left_count + right_count)), d[0][col], width=width, color=d[1], **d[4])
                     self._legend.append((col, x, d[2]))
                     x.set_label(col)
                     count += 1
@@ -245,7 +245,7 @@ class MatplotlibPlot(BasePlot):
             x = ax.plot(data.index, data[col], color=_color, **kwargs)
             self._legend.append((col, x[0], y_axis))
 
-    def scatter(self, data, color=None, x=None, y=None,  y_axis='left', **kwargs):
+    def scatter(self, data, color=None, x=None, y=None, y_axis='left', **kwargs):
         for i, col in enumerate(data):
             if i == 0:
                 continue  # don't scatter against self

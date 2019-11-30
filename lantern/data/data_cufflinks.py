@@ -1,20 +1,20 @@
 from .cfgen import scattergeo, \
-                   choropleth, \
-                   scatter, \
-                   scatter3d, \
-                   bubble, \
-                   bubble3d, \
-                   pie, \
-                   heatmap, \
-                   bars, \
-                   ohlc, \
-                   ohlcv, \
-                   box, \
-                   histogram, \
-                   surface, \
-                   sinwave, \
-                   getName, \
-                   lines
+    choropleth, \
+    scatter, \
+    scatter3d, \
+    bubble, \
+    bubble3d, \
+    pie, \
+    heatmap, \
+    bars, \
+    ohlc, \
+    ohlcv, \
+    box, \
+    histogram, \
+    surface, \
+    sinwave, \
+    getName, \
+    lines
 
 
 def getCFData(type, n_categories=5, n=100, **kwargs):

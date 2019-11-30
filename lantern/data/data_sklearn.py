@@ -1,18 +1,18 @@
 import pandas as pd
 from sklearn.datasets import make_regression, \
-                             make_blobs, \
-                             make_classification, \
-                             make_multilabel_classification, \
-                             make_gaussian_quantiles, \
-                             make_hastie_10_2, \
-                             make_circles, \
-                             make_moons, \
-                             make_biclusters, \
-                             make_s_curve, \
-                             make_checkerboard, \
-                             make_friedman1, \
-                             make_friedman2, \
-                             make_friedman3
+    make_blobs, \
+    make_classification, \
+    make_multilabel_classification, \
+    make_gaussian_quantiles, \
+    make_hastie_10_2, \
+    make_circles, \
+    make_moons, \
+    make_biclusters, \
+    make_s_curve, \
+    make_checkerboard, \
+    make_friedman1, \
+    make_friedman2, \
+    make_friedman3
 
 # make_swiss_roll(n_samples=100, noise=0.0, random_state=None)
 # make_sparse_uncorrelated(n_samples=100, n_features=10, random_state=None)

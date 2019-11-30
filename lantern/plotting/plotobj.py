@@ -35,7 +35,7 @@ class BasePlot(with_metaclass(ABCMeta)):
         pass
 
     @abstractmethod
-    def scatter(self, data, color=None, x=None, y=None,  y_axis='left', **kwargs):
+    def scatter(self, data, color=None, x=None, y=None, y_axis='left', **kwargs):
         pass
 
     @abstractmethod

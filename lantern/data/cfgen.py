@@ -57,10 +57,10 @@ def scatter3d(n_categories=5, n=10, prefix='category', mode=None):
     """
     categories = []
     for i in range(n_categories):
-        categories.extend([prefix+str(i+1)]*n)
-    return pd.DataFrame({'x': np.random.randn(n*n_categories),
-                         'y': np.random.randn(n*n_categories),
-                         'z': np.random.randn(n*n_categories),
+        categories.extend([prefix + str(i + 1)] * n)
+    return pd.DataFrame({'x': np.random.randn(n * n_categories),
+                         'y': np.random.randn(n * n_categories),
+                         'z': np.random.randn(n * n_categories),
                          'text': getName(n * n_categories, mode=mode),
                          'categories': categories})
 
@@ -84,10 +84,10 @@ def bubble3d(n_categories=5, n=10, prefix='category', mode=None):
     """
     categories = []
     for i in range(n_categories):
-        categories.extend([prefix+str(i+1)]*n)
-    return pd.DataFrame({'x': np.random.randn(n*n_categories),
-                         'y': np.random.randn(n*n_categories),
-                         'z': np.random.randn(n*n_categories),
+        categories.extend([prefix + str(i + 1)] * n)
+    return pd.DataFrame({'x': np.random.randn(n * n_categories),
+                         'y': np.random.randn(n * n_categories),
+                         'z': np.random.randn(n * n_categories),
                          'size': np.random.randint(1, 100, n * n_categories),
                          'text': getName(n * n_categories, mode=mode),
                          'categories': categories})
@@ -113,7 +113,7 @@ def bubble(n_categories=5, n=10, prefix='category', mode=None):
     """
     categories = []
     for i in range(n_categories):
-        categories.extend([prefix+str(i+1)]*n)
+        categories.extend([prefix + str(i + 1)] * n)
     return pd.DataFrame({'x': np.random.randn(n * n_categories),
                          'y': np.random.randn(n * n_categories),
                          'size': np.random.randint(1, 100, n * n_categories),
@@ -159,7 +159,7 @@ def scatter(n_categories=5, n=10, prefix='category', mode=None):
     """
     categories = []
     for i in range(n_categories):
-        categories.extend([prefix+str(i+1)] * n)
+        categories.extend([prefix + str(i + 1)] * n)
     return pd.DataFrame({'x': np.random.randn(n * n_categories),
                          'y': np.random.randn(n * n_categories),
                          'text': getName(n * n_categories, mode=mode),
@@ -180,7 +180,7 @@ def heatmap(n_x=5, n_y=10):
     """
     x = ['x_' + str(_) for _ in range(n_x)]
     y = ['y_' + str(_) for _ in range(n_y)]
-    return pd.DataFrame(surface(n_x-1, n_y-1).values, index=x, columns=y)
+    return pd.DataFrame(surface(n_x - 1, n_y - 1).values, index=x, columns=y)
 
 
 def lines(n_traces=5, n=100, columns=None, dateIndex=True, mode=None):
@@ -234,7 +234,7 @@ def bars(n=3, n_categories=3, prefix='category', columns=None, mode='abc'):
     if not columns:
         columns = getName(n, mode=mode)
     for i in range(n_categories):
-        categories.extend([prefix+str(i+1)])
+        categories.extend([prefix + str(i + 1)])
     data = dict([(x, np.random.randint(1, 100, n_categories)) for x in columns])
     return pd.DataFrame(data, index=categories)
 
@@ -250,8 +250,8 @@ def ohlc(n=100):
         n : int
             Number of ohlc points
     """
-    index = pd.date_range('1/1/15', periods=n*288, freq='5min', tz='utc')
-    data = np.random.randn(n*288)
+    index = pd.date_range('1/1/15', periods=n * 288, freq='5min', tz='utc')
+    data = np.random.randn(n * 288)
     data[0] = np.array([100])
     df = pd.DataFrame(data, index=index, columns=['a'])
     df = df.cumsum()
@@ -313,7 +313,7 @@ def histogram(n_traces=1, n=500, dispersion=2, mode=None):
                 'abc' for alphabet columns
                 'stocks' for random stock names
     """
-    df = pd.DataFrame(np.transpose([np.random.randn(n)+np.random.randint(-1*dispersion, dispersion) for _ in range(n_traces)]), columns=getName(n_traces, mode=mode))
+    df = pd.DataFrame(np.transpose([np.random.randn(n) + np.random.randint(-1 * dispersion, dispersion) for _ in range(n_traces)]), columns=getName(n_traces, mode=mode))
     return df
 
 
@@ -371,10 +371,10 @@ def surface(n_x=20, n_y=20):
     """
     x = [float(np.random.randint(0, 100))]
     for i in range(n_x):
-        x.append(x[:1][0]+np.random.randn()*np.random.randint(1, 10))
+        x.append(x[:1][0] + np.random.randn() * np.random.randint(1, 10))
     df = pd.DataFrame(x)
     for i in range(n_y):
-        df[i+1] = df[i].map(lambda x: x+np.random.randn()*np.random.randint(1, 10))
+        df[i + 1] = df[i].map(lambda x: x + np.random.randn() * np.random.randint(1, 10))
     return df
 
 
@@ -394,7 +394,7 @@ def sinwave(n=4, inc=.25):
     y = np.arange(-n, n, inc)
     X, Y = np.meshgrid(x, y)
     R = np.sqrt(X**2 + Y**2)
-    Z = np.sin(R)/(.5*R)
+    Z = np.sin(R) / (.5 * R)
     return pd.DataFrame(Z, index=x, columns=y)
 
 

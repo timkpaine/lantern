@@ -47,7 +47,7 @@ class BokehPlot(BasePlot):
             self.figure.title.text = kwargs.get('title')
 
         if legend:
-            self.figure.legend.location = (self.width+10, self.height+10)
+            self.figure.legend.location = (self.width + 10, self.height + 10)
             legend = Legend(items=self.legend, location=(10, 100))
             legend.items = self.legend
             legend.click_policy = "mute"
@@ -74,8 +74,8 @@ class BokehPlot(BasePlot):
         return self.figure
 
     def area(self, data, color=None, y_axis='left', stacked=False, **kwargs):
-        data2 = data.append(data.iloc[-1]*0)
-        data2 = data2.append(data2.iloc[0]*0)
+        data2 = data.append(data.iloc[-1] * 0)
+        data2 = data2.append(data2.iloc[0] * 0)
         data2 = data2.sort_index()
         data2 = data2.sort_index()
         x, y = copy.deepcopy(data2.iloc[0]), copy.deepcopy(data2.iloc[1])
