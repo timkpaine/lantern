@@ -1,23 +1,35 @@
+dist: xenial
 language: python
-cache: 
-  - pip
-
-dist: trusty
-
-python:
-  - "3.6"
+cache: pip
 
 git:
     submodules: false
+
+matrix:
+  include:
+    - python: "3.7"
+      env: PYTHONVER=3
+
+addons:
+  apt:
+    update: true
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - graphviz
+  homebrew:
+    update: true
+    packages:
+      - python
+      - graphviz
+      - python2
 
 before_install:
     - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
     - git submodule update --init --recursive
 
-install:
-    - pip install -r requirements.txt
-    - pip install -U pytest pytest-cov flake8 pylint codecov
-
+install: 
+  - python3 -m pip install -r requirements.txt && python3 -m pip install -e .[dev]
 
 before_script: # configure a headless display to test plot generation
     - "export DISPLAY=:99.0"

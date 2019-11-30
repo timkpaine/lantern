@@ -13,6 +13,9 @@ test: lint ## run the tests for travis CI
 lint: ## run linter
 	flake8 lantern 
 
+fix:  ## run autopep8/tslint fix
+	autopep8 --in-place -r -a -a lantern/
+
 annotate: ## MyPy type annotation check
 	mypy -s lantern  
 
