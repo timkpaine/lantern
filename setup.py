@@ -12,7 +12,7 @@ with open(path.join(here, 'requirements.txt'), encoding='utf-8') as f:
 
 setup(
     name='pylantern',
-    version='0.1.5',
+    version='0.1.6',
     description='Analytics library',
     long_description=long_description,
     url='https://github.com/timkpaine/lantern',
@@ -38,10 +38,4 @@ setup(
                               'lantern/extensions/publish/templates/*']},
     include_package_data=True,
     zip_safe=False,
-    entry_points={
-        'nbconvert.exporters': [
-            'pdf_hidecode = lantern.extensions.hideinput.exporters:PDFHideCodeExporter',
-            'html_hidecode = lantern.extensions.hideinput.exporters:HTMLHideCodeExporter',
-        ],
-    }
 )

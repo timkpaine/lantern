@@ -7,4 +7,4 @@ from .widgets import *  # noqa: F401, F403
 
 
 __all__ = ['plot', 'figure', 'grids', 'data', 'extensions', 'widgets']  # noqa: F405
-__version__ = '0.1.5'
+__version__ = '0.1.6'
