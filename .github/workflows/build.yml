@@ -18,17 +18,12 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        sudo apt-get install graphviz
+        sudo apt-get install graphviz xvfb
         python -m pip install -r requirements.txt
         python -m pip install -e .[dev]
-    - name: Display
-      run: |
-        export DISPLAY=:99.0
-        sh -e /etc/init.d/xvfb start
-        sleep 3
     - name: Test
       run: |
-        make tests
+        xvfb-run --auto-servernum make tests
     - name: Coverage
       run: |
         codecov --token f8f2787b-4aa9-4161-8b13-88ddde282d57
