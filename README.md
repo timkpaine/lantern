@@ -18,7 +18,7 @@ An orchestration layer for plots and tables, dummy datasets, widgets, research, 
 
 
 ## Note: Lantern Live has moved to [tributary](https://github.com/timkpaine/tributary)
-## Note: Email reports have moved to [jupyterlab_email](https://github.com/timkpaine/https://github.com/timkpaine/jupyterlab_email)
+## Note: Email reports have moved to [jupyterlab_email](https://github.com/timkpaine/jupyterlab_email)
 ## Note: `Publish` is removed in favor of [Voila](https://github.com/voila-dashboards/voila)
 ## Note: `Export` code has has moved to [jupyterlab_commands](https://github.com/timkpaine/jupyterlab_commands/)
 
