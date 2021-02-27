@@ -18,7 +18,7 @@ setup(
     url='https://github.com/timkpaine/lantern',
     download_url='https://github.com/timkpaine/lantern/archive/v0.1.5.tar.gz',
     author='Tim Paine',
-    author_email='timothy.k.paine@gmail.com',
+    author_email='t.paine154@gmail.com',
     license='Apache 2.0',
     install_requires=requires,
     extras_require={'dev': requires + ['pytest', 'pytest-cov', 'pylint', 'flake8', 'mock', 'codecov', 'autopep8']},
