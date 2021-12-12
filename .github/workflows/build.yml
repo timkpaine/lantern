@@ -1,14 +1,23 @@
 name: Build Status
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  schedule:
+    # run on sunday nights
+    - cron:  '0 0 * * 0'
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
-        python-version: [3.6, 3.7, 3.8]
+        os: [ubuntu-latest]
+        python-version: [3.9]
+        event-name: [push]
 
     steps:
     - uses: actions/checkout@v2
@@ -16,14 +25,18 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
+
     - name: Install dependencies
       run: |
         sudo apt-get install graphviz xvfb
         python -m pip install -r requirements.txt
         python -m pip install -e .[dev]
+
     - name: Test
       run: |
         xvfb-run --auto-servernum make tests
+      if: ${{ github.event_name == matrix.event-name || matrix.os == 'ubuntu-latest' }}
+
     - name: Coverage
       run: |
         codecov --token f8f2787b-4aa9-4161-8b13-88ddde282d57
