@@ -4,11 +4,8 @@ An orchestration layer for plots and tables, dummy datasets, widgets, research, 
 [![Build Status](https://github.com/timkpaine/lantern/workflows/Build%20Status/badge.svg)](https://github.com/timkpaine/lantern/actions/)
 [![GitHub issues](https://img.shields.io/github/issues/timkpaine/lantern.svg)]()
 [![codecov](https://codecov.io/gh/timkpaine/lantern/branch/master/graph/badge.svg)](https://codecov.io/gh/timkpaine/lantern)
-[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/pylantern/Lobby)
-[![BCH compliance](https://bettercodehub.com/edge/badge/timkpaine/lantern?branch=master)](https://bettercodehub.com/)
 [![PyPI](https://img.shields.io/pypi/l/pylantern.svg)](https://pypi.python.org/pypi/pylantern)
 [![PyPI](https://img.shields.io/pypi/v/pylantern.svg)](https://pypi.python.org/pypi/pylantern)
-[![Docs](https://img.shields.io/readthedocs/pylantern.svg)](https://pylantern.readthedocs.io)
 
 <!-- [![Beerpay](https://beerpay.io/timkpaine/lantern/badge.svg?style=flat)](https://beerpay.io/timkpaine/lantern) -->
 
@@ -62,10 +59,6 @@ jupyter labextension install bqplot
 ```
 
 
-## Getting Started
-[Read the docs!](http://pylantern.readthedocs.io/en/latest/index.html)
-
-
 ## Data
 ![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/img/data.gif)
 
@@ -78,8 +71,6 @@ jupyter labextension install bqplot
 
 ## Export Without Code:
 Note: this has moved to [jupyterlab_commands](https://github.com/timkpaine/jupyterlab_commands/)
-
-[Read the docs!](http://pylantern.readthedocs.io/en/latest/index.html)
 
 ## Widget Tools
 ![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/img/widgets/widgets.gif)
