@@ -27,6 +27,7 @@ This library has produced or ceded functionality to:
 - [jupyterlab_email](https://github.com/timkpaine/https://github.com/timkpaine/jupyterlab_email)
 - [tributary](https://github.com/timkpaine/tributary)
 - [jupyterlab_commands](https://github.com/timkpaine/jupyterlab_commands/)
+- [jupyterlab_nbconvert_nocode](https://github.com/timkpaine/jupyterlab_nbconvert_nocode)
 - [Voila](https://github.com/voila-dashboards/voila)
 
 ## Install
