@@ -16,7 +16,7 @@ An orchestration layer for plots and tables, dummy datasets, widgets, research, 
 ## Note: Lantern Live has moved to [tributary](https://github.com/timkpaine/tributary)
 ## Note: Email reports have moved to [jupyterlab_email](https://github.com/timkpaine/jupyterlab_email)
 ## Note: `Publish` is removed in favor of [Voila](https://github.com/voila-dashboards/voila)
-## Note: `Export` code has has moved to [jupyterlab_commands](https://github.com/timkpaine/jupyterlab_commands/)
+## Note: `Export` code has has moved to [jupyterlab_commands](https://github.com/timkpaine/jupyterlab_commands/) and [jupyterlab_nbconvert_nocode](https://github.com/timkpaine/jupyterlab_nbconvert_nocode)
 
 ## About
 This library is designed to fill gaps between other libraries with the JupyterLab ecosystem. The motivation was initially to allow for plots generated with a javascript library (like `plotly` or `bokeh`) to trivially swap out for `matplotlib` in non-browser contexts such as NBConvert generation of PDFs. 
