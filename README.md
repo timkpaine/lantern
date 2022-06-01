@@ -3,14 +3,14 @@ An orchestration layer for plots and tables, dummy datasets, widgets, research, 
 
 [![Build Status](https://github.com/timkpaine/lantern/workflows/Build%20Status/badge.svg)](https://github.com/timkpaine/lantern/actions/)
 [![GitHub issues](https://img.shields.io/github/issues/timkpaine/lantern.svg)]()
-[![codecov](https://codecov.io/gh/timkpaine/lantern/branch/master/graph/badge.svg)](https://codecov.io/gh/timkpaine/lantern)
+[![codecov](https://codecov.io/gh/timkpaine/lantern/branch/main/graph/badge.svg)](https://codecov.io/gh/timkpaine/lantern)
 [![PyPI](https://img.shields.io/pypi/l/pylantern.svg)](https://pypi.python.org/pypi/pylantern)
 [![PyPI](https://img.shields.io/pypi/v/pylantern.svg)](https://pypi.python.org/pypi/pylantern)
 
 <!-- [![Beerpay](https://beerpay.io/timkpaine/lantern/badge.svg?style=flat)](https://beerpay.io/timkpaine/lantern) -->
 
 
-<!-- ![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/img/demo.gif) -->
+<!-- ![](https://raw.githubusercontent.com/timkpaine/lantern/main/docs/img/demo.gif) -->
 
 
 ## Note: Lantern Live has moved to [tributary](https://github.com/timkpaine/tributary)
@@ -53,7 +53,7 @@ jupyter labextension install ipysheet
 jupyter labextension install lineup_widget
 ```
 
-The following are for work in-progress on master:
+The following are for work in-progress on main:
 
 ```
 jupyter labextension install bqplot
@@ -61,18 +61,18 @@ jupyter labextension install bqplot
 
 
 ## Data
-![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/img/data.gif)
+![](https://raw.githubusercontent.com/timkpaine/lantern/main/docs/img/data.gif)
 
 ## Plots
-![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/img/plot/plots.gif)
+![](https://raw.githubusercontent.com/timkpaine/lantern/main/docs/img/plot/plots.gif)
 
 ## Grids
-![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/img/grids.gif)
+![](https://raw.githubusercontent.com/timkpaine/lantern/main/docs/img/grids.gif)
 
 
 ## Export Without Code:
 Note: this has moved to [jupyterlab_commands](https://github.com/timkpaine/jupyterlab_commands/)
 
 ## Widget Tools
-![](https://raw.githubusercontent.com/timkpaine/lantern/master/docs/img/widgets/widgets.gif)
+![](https://raw.githubusercontent.com/timkpaine/lantern/main/docs/img/widgets/widgets.gif)
 
