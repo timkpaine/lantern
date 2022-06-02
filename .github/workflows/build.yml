@@ -36,8 +36,7 @@ jobs:
     - name: Test
       run: |
         xvfb-run --auto-servernum make tests
-      if: ${{ github.event_name == matrix.event-name || matrix.os == 'ubuntu-latest' }}
+      if: ${{ matrix.os == 'ubuntu-latest' }}
 
-    - name: Coverage
-      run: |
-        codecov --token f8f2787b-4aa9-4161-8b13-88ddde282d57
+    - name: Upload coverage
+      uses: codecov/codecov-action@v1
