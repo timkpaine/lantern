@@ -19,12 +19,12 @@ An orchestration layer for plots and tables, dummy datasets, widgets, research, 
 ## Note: `Export` code has has moved to [jupyterlab_commands](https://github.com/timkpaine/jupyterlab_commands/) and [jupyterlab_nbconvert_nocode](https://github.com/timkpaine/jupyterlab_nbconvert_nocode)
 
 ## About
-This library is designed to fill gaps between other libraries with the JupyterLab ecosystem. The motivation was initially to allow for plots generated with a javascript library (like `plotly` or `bokeh`) to trivially swap out for `matplotlib` in non-browser contexts such as NBConvert generation of PDFs. 
+This library is designed to fill gaps between other libraries with the JupyterLab ecosystem. The motivation was initially to allow for plots generated with a javascript library (like `plotly` or `bokeh`) to trivially swap out for `matplotlib` in non-browser contexts such as NBConvert generation of PDFs.
 
-It has expanded to include a variety of functions, including grids, emailing notebooks, publishing notebooks, custom nbconvert exporters for JupyterLab, variable inpection, custom streaming operations, and other helpful functions and widgets. As these functionalities mature, or as competeting libraries emerge, they are cut out into their own standalone libraries or removed from `Lantern`, respectively. 
+It has expanded to include a variety of functions, including grids, emailing notebooks, publishing notebooks, custom nbconvert exporters for JupyterLab, variable inpection, custom streaming operations, and other helpful functions and widgets. As these functionalities mature, or as competeting libraries emerge, they are cut out into their own standalone libraries or removed from `Lantern`, respectively.
 
 This library has produced or ceded functionality to:
-- [jupyterlab_email](https://github.com/timkpaine/https://github.com/timkpaine/jupyterlab_email)
+- [jupyterlab_email](https://github.com/timkpaine/jupyterlab_email)
 - [tributary](https://github.com/timkpaine/tributary)
 - [jupyterlab_commands](https://github.com/timkpaine/jupyterlab_commands/)
 - [jupyterlab_nbconvert_nocode](https://github.com/timkpaine/jupyterlab_nbconvert_nocode)
