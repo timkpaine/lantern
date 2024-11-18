@@ -40,4 +40,4 @@ jobs:
       if: ${{ matrix.os == 'ubuntu-latest' }}
 
     - name: Upload coverage
-      uses: codecov/codecov-action@v4
+      uses: codecov/codecov-action@v5
